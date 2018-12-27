@@ -4,7 +4,6 @@
 	<classpathentry kind="src" path="WebContent/WEB-INF/jsp"/>
 	<classpathentry kind="src" path="dataCache"/>
 	<classpathentry kind="src" path="dataExchange"/>
-	<classpathentry kind="src" path="dataInit"/>
 	<classpathentry kind="src" path="IotCommunication"/>
 	<classpathentry kind="src" path="IotInfo"/>
 	<classpathentry kind="src" path="iotTraffic"/>

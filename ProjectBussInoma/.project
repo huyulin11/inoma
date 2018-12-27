@@ -86,11 +86,6 @@
 			<location>G:/work2018/src/git/ProjectBussModel/JavaSrc/dataExchange</location>
 		</link>
 		<link>
-			<name>dataInit</name>
-			<type>2</type>
-			<location>G:/work2018/src/git/ProjectBussModel/JavaSrc/dataInit</location>
-		</link>
-		<link>
 			<name>iotTraffic</name>
 			<type>2</type>
 			<location>G:/work2018/src/git/ProjectBussModel/JavaSrc/iotTraffic</location>
