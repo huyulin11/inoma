@@ -12,7 +12,7 @@ import com.kaifantech.bean.singletask.SingletaskBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.component.business.msg.info.agv.IAgvMsgInfoModule;
 import com.kaifantech.component.business.task.deal.ITaskexeDealModule;
-import com.kaifantech.component.comm.cmd.sender.agv.AgvCmdSender;
+import com.kaifantech.component.comm.cmd.sender.agv.IAgvCmdSender;
 import com.kaifantech.component.comm.worker.client.agv.IAgvClientWorker;
 import com.kaifantech.component.dao.taskexe.op.TaskexeOpDao;
 import com.kaifantech.component.service.iot.client.IotClientService;
@@ -31,7 +31,7 @@ import com.kaifantech.util.thread.ThreadTool;
 public class AcsTaskexeDealModule implements ITaskexeDealModule {
 
 	@Autowired
-	private AgvCmdSender agvCmdSender;
+	private IAgvCmdSender agvCmdSender;
 
 	@Autowired
 	private TaskexeInfoService taskexeInfoService;
