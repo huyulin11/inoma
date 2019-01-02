@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kaifantech.bean.iot.client.IotClientBean;
 import com.kaifantech.component.business.msg.info.agv.IAgvMsgInfoModule;
 import com.kaifantech.component.comm.manager.agv.IAgvManager;
-import com.kaifantech.component.comm.worker.client.agv.IAgvClientWorker;
+import com.kaifantech.component.comm.worker.client.IConnectWorker;
 import com.kaifantech.component.dao.agv.info.AgvInfoDao;
 import com.kaifantech.component.service.iot.client.IotClientService;
 import com.kaifantech.component.service.status.agv.AgvsCtrlInfoService;
@@ -36,7 +36,7 @@ public class InomaCtrlDealModule implements ICtrlDealModule {
 
 	@Autowired
 	@Qualifier(SystemQualifier.DEFAULT_AGV_CLIENT_WORKER)
-	private IAgvClientWorker agvClientWorker;
+	private IConnectWorker agvClientWorker;
 
 	@Autowired
 	private IAgvMsgInfoModule msgService;

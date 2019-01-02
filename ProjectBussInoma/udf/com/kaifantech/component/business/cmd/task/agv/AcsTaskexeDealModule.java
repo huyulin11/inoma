@@ -13,7 +13,7 @@ import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.component.business.msg.info.agv.IAgvMsgInfoModule;
 import com.kaifantech.component.business.task.deal.ITaskexeDealModule;
 import com.kaifantech.component.comm.cmd.sender.agv.IAgvCmdSender;
-import com.kaifantech.component.comm.worker.client.agv.IAgvClientWorker;
+import com.kaifantech.component.comm.worker.client.IConnectWorker;
 import com.kaifantech.component.dao.taskexe.op.TaskexeOpDao;
 import com.kaifantech.component.service.iot.client.IotClientService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
@@ -41,7 +41,7 @@ public class AcsTaskexeDealModule implements ITaskexeDealModule {
 
 	@Autowired
 	@Qualifier(SystemQualifier.DEFAULT_AGV_CLIENT_WORKER)
-	private IAgvClientWorker agvClientMgr;
+	private IConnectWorker agvClientMgr;
 
 	@Autowired
 	private IAgvMsgInfoModule msgService;
