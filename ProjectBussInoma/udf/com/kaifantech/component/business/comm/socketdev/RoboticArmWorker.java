@@ -21,14 +21,14 @@ import com.kaifantech.init.sys.AppBusinessInfo;
 import com.kaifantech.init.sys.BaseBusinessInfo;
 import com.kaifantech.init.sys.params.SystemParameters;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvCtrlType.IotDevType;
-import com.kaifantech.util.socket.client.AbstractSocketClient;
+import com.kaifantech.util.socket.IConnect;
 import com.kaifantech.util.socket.netty.client.NettyClientFactory;
 import com.kaifantech.util.thread.ThreadTool;
 import com.ytgrading.util.AppTool;
 
 @Service
 public class RoboticArmWorker {
-	private Map<Integer, AbstractSocketClient> clientMap = new HashMap<Integer, AbstractSocketClient>();
+	private Map<Integer, IConnect> clientMap = new HashMap<Integer, IConnect>();
 
 	@Autowired
 	private IotClientService socketdevService;
@@ -50,17 +50,17 @@ public class RoboticArmWorker {
 	@Autowired
 	private AgvStatusDBLogger kaifantechDBLogger;
 
-	public AbstractSocketClient getClient(Integer keyId) {
+	public IConnect getClient(Integer keyId) {
 		return getClientMap().get(keyId);
 	}
 
-	public Map<Integer, AbstractSocketClient> getClientMap() {
+	public Map<Integer, IConnect> getClientMap() {
 		if (clientMap == null || clientMap.size() <= 0) {
 			for (IotClientBean bean : socketdevService.getList()) {
 				if (BaseBusinessInfo.Projects.CSY_DAJ.equals(AppBusinessInfo.CURRENT_PROJECT)
 						&& bean.getDevtype().equals(IotDevType.ROBOT_GOODS_FROM)) {
 					try {
-						AbstractSocketClient client;
+						IConnect client;
 						client = NettyClientFactory.create(bean);
 						clientMap.put(bean.getId(), client);
 						client.init();
@@ -75,15 +75,16 @@ public class RoboticArmWorker {
 	}
 
 	public void startConnect() {
-		Iterator<Entry<Integer, AbstractSocketClient>> iterator = getClientMap().entrySet().iterator();
+		Iterator<Entry<Integer, IConnect>> iterator = getClientMap().entrySet().iterator();
 		while (iterator.hasNext()) {
-			Entry<Integer, AbstractSocketClient> entry = iterator.next();
+			Entry<Integer, IConnect> entry = iterator.next();
 			doReceive(entry.getKey(), entry.getValue());
 		}
 	}
 
+	@SuppressWarnings("null")
 	@Async
-	private void doReceive(Integer keyId, AbstractSocketClient client) {
+	private void doReceive(Integer keyId, IConnect client) {
 		if (!SystemParameters.isAutoTask()) {
 			if (tipsTime++ > 20) {
 				tipsTime = 0;
@@ -91,7 +92,7 @@ public class RoboticArmWorker {
 			}
 			return;
 		}
-		List<Integer> lapIds = client.getLatestMsgList();
+		List<Integer> lapIds = null;// client.getLatestMsgList();
 		for (Integer lapId : lapIds) {
 			if (!AppTool.isNull(lapInfoService.getLap(lapId))) {
 				if (!lapInfoService.getLapInUsed(lapId)) {
