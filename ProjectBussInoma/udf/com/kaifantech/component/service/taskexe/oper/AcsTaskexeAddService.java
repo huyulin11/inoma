@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.component.dao.taskexe.op.TaskexeOpDao;
-import com.kaifantech.component.service.status.agv.AgvStatusService;
+import com.kaifantech.component.service.agv.info.AgvInfoService;
 import com.kaifantech.component.service.taskexe.check.ITaskexeCheckService;
 import com.kaifantech.component.service.taskexe.status.ITaskexeStatusService;
 import com.kaifantech.init.sys.qualifier.AcsSystemQualifier;
@@ -20,7 +20,7 @@ import com.ytgrading.util.msg.AppMsg;
 public class AcsTaskexeAddService implements ITaskexeAddService {
 
 	@Autowired
-	private AgvStatusService agvInfoService;
+	private AgvInfoService agvInfoService;
 
 	@Autowired
 	private TaskexeOpDao taskexeTaskDao;
