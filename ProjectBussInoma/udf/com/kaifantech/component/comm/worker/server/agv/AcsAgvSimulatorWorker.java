@@ -18,8 +18,8 @@ import com.kaifantech.component.dao.simulator.TestPathDao;
 import com.kaifantech.component.service.iot.client.IotClientService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
-import com.kaifantech.init.sys.ProjectName;
 import com.kaifantech.init.sys.AppBusinessInfo;
+import com.kaifantech.init.sys.BaseBusinessInfo;
 import com.kaifantech.init.sys.params.SystemParameters;
 import com.kaifantech.init.sys.qualifier.AcsSystemQualifier;
 import com.kaifantech.init.sys.qualifier.SystemQualifier;
@@ -213,7 +213,7 @@ public class AcsAgvSimulatorWorker implements IAgvSimulatorWorker {
 	}
 
 	public void sendNextMsg(Integer agvId) {
-		if (ProjectName.CSY_DAJ.equals(AppBusinessInfo.CURRENT_PROJECT)) {
+		if (BaseBusinessInfo.Projects.CSY_DAJ.equals(AppBusinessInfo.CURRENT_PROJECT)) {
 			getAGVSimulator(agvId).setCmd(AgvCmdConstant.CMD_STOP);
 		} else {
 			String msgFromAGV = getMsgToSend(agvId);
