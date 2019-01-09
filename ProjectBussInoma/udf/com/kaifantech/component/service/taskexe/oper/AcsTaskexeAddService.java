@@ -29,7 +29,7 @@ public class AcsTaskexeAddService implements ITaskexeAddService {
 	private ITaskexeStatusService taskexeStatusService;
 
 	@Autowired
-	@Qualifier(SystemQualifier.DEFAULT_TASKEXECHECK_SERVICE)
+	@Qualifier(SystemQualifier.DEFAULT_TASKEXE_CHECK_SERVICE)
 	private ITaskexeCheckService taskexeCheckService;
 
 	private AppMsg addTask(TaskexeBean taskexeBean) {
