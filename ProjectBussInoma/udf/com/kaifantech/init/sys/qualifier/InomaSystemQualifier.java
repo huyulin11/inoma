@@ -4,7 +4,7 @@ import com.kaifantech.init.sys.ServicePrefix;
 
 public class InomaSystemQualifier {
 	public static final String AGV_CMD_TASK_MODULE = ServicePrefix.INOMA + "AgvCmdTask" + "Module";
-	public static final String AGV_CMD_CTRL_MODULE = ServicePrefix.INOMA + "AgvCmdCtrl" + "Module";
+	public static final String AGV_CMD_CTRL_MODULE = ServicePrefix.INOMA + "AgvCmdCtrlDealerModule";
 	public static final String AGV_MSG_RESOLUTE_MODULE = ServicePrefix.INOMA + "MsgResolute" + "Module";
 	public static final String AGV_MSG_INFO_MODULE = ServicePrefix.INOMA + "AgvMsgInfo" + "Module";
 

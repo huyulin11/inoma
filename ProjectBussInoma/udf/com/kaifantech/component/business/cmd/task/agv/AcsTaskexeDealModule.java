@@ -87,4 +87,8 @@ public class AcsTaskexeDealModule implements ITaskexeDealModule {
 		return lastTask;
 	}
 
+	@Override
+	public void cancel(TaskexeBean taskexeBean, boolean flag) throws Exception {
+	}
+
 }
