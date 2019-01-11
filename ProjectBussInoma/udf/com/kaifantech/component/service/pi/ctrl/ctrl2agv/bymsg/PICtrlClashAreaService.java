@@ -8,7 +8,7 @@ import com.kaifantech.bean.info.agv.AGVBeanWithLocation;
 import com.kaifantech.bean.msg.agv.AGVMsgBean;
 import com.kaifantech.component.dao.agv.info.AgvInfoDao;
 import com.kaifantech.component.service.pi.ctrl.PIMsgService;
-import com.kaifantech.init.sys.qualifier.SystemQualifier;
+import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.util.agv.msg.MsgCompare;
 import com.kaifantech.util.agv.msg.PreventImpactCommand;
 import com.kaifantech.util.constant.pi.detail.CLASH_AREA_INFO;
@@ -23,7 +23,7 @@ public class PICtrlClashAreaService implements IPICtrlByMsgService {
 	private PIMsgService piMsgService;
 
 	@Autowired
-	@Qualifier(SystemQualifier.DEFAULT_AGV_INFO_DAO)
+	@Qualifier(DefaultSystemQualifier.DEFAULT_AGV_INFO_DAO)
 	private AgvInfoDao agvDao;
 
 	@Autowired

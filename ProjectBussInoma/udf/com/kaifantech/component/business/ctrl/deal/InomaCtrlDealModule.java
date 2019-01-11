@@ -15,7 +15,7 @@ import com.kaifantech.component.dao.agv.info.AgvInfoDao;
 import com.kaifantech.component.service.iot.client.IotClientService;
 import com.kaifantech.component.service.status.agv.AgvCtrlInfoService;
 import com.kaifantech.init.sys.qualifier.InomaSystemQualifier;
-import com.kaifantech.init.sys.qualifier.SystemQualifier;
+import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvCtrlType.AgvMoveStatus;
 import com.kaifantech.util.constants.cmd.AgvCmdConstant;
 
@@ -35,14 +35,14 @@ public class InomaCtrlDealModule implements ICtrlDealModule {
 	private IAgvManager agvManager;
 
 	@Autowired
-	@Qualifier(SystemQualifier.DEFAULT_AGV_CLIENT_WORKER)
+	@Qualifier(DefaultSystemQualifier.DEFAULT_AGV_CLIENT_WORKER)
 	private IConnectWorker agvClientWorker;
 
 	@Autowired
 	private IAgvMsgInfoModule msgService;
 
 	@Autowired
-	@Qualifier(SystemQualifier.DEFAULT_AGV_INFO_DAO)
+	@Qualifier(DefaultSystemQualifier.DEFAULT_AGV_INFO_DAO)
 	private AgvInfoDao agvInfoDao;
 
 	private Map<Integer, String> lastCtrlCMD = new HashMap<>();

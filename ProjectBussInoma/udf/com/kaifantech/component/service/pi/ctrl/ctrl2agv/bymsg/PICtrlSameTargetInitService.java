@@ -8,7 +8,7 @@ import com.kaifantech.bean.info.agv.AGVBeanWithLocation;
 import com.kaifantech.bean.msg.agv.AGVMsgBean;
 import com.kaifantech.component.dao.agv.info.AgvInfoDao;
 import com.kaifantech.component.service.pi.path.distance.Differ;
-import com.kaifantech.init.sys.qualifier.SystemQualifier;
+import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.util.constant.pi.detail.BASIC_INFO;
 import com.kaifantech.util.constant.pi.detail.CLASH_AREA_INFO;
 
@@ -37,7 +37,7 @@ public class PICtrlSameTargetInitService {
 	private Differ differ;
 
 	@Autowired
-	@Qualifier(SystemQualifier.DEFAULT_AGV_INFO_DAO)
+	@Qualifier(DefaultSystemQualifier.DEFAULT_AGV_INFO_DAO)
 	private AgvInfoDao agvDao;
 
 	public void init(AGVMsgBean msgOne, AGVMsgBean msgAnother) {

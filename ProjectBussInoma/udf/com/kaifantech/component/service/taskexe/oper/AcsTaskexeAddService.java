@@ -10,7 +10,7 @@ import com.kaifantech.component.service.agv.info.AgvInfoService;
 import com.kaifantech.component.service.taskexe.check.ITaskexeCheckService;
 import com.kaifantech.component.service.taskexe.status.ITaskexeStatusService;
 import com.kaifantech.init.sys.qualifier.AcsSystemQualifier;
-import com.kaifantech.init.sys.qualifier.SystemQualifier;
+import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.ytgrading.util.msg.AppMsg;
 
 /***
@@ -29,7 +29,7 @@ public class AcsTaskexeAddService implements ITaskexeAddService {
 	private ITaskexeStatusService taskexeStatusService;
 
 	@Autowired
-	@Qualifier(SystemQualifier.DEFAULT_TASKEXE_CHECK_SERVICE)
+	@Qualifier(DefaultSystemQualifier.DEFAULT_TASKEXE_CHECK_SERVICE)
 	private ITaskexeCheckService taskexeCheckService;
 
 	private AppMsg addTask(TaskexeBean taskexeBean) {

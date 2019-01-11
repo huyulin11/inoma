@@ -19,7 +19,7 @@ import com.kaifantech.component.service.iot.client.IotClientService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
 import com.kaifantech.init.sys.qualifier.AcsSystemQualifier;
-import com.kaifantech.init.sys.qualifier.SystemQualifier;
+import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.util.constant.taskexe.TaskexeOpFlag;
 import com.kaifantech.util.socket.netty.client.InomaNettyClient;
 import com.kaifantech.util.thread.ThreadTool;
@@ -40,7 +40,7 @@ public class AcsTaskexeDealModule implements ITaskexeDealModule {
 	private TaskexeOpDao taskexeTaskDao;
 
 	@Autowired
-	@Qualifier(SystemQualifier.DEFAULT_AGV_CLIENT_WORKER)
+	@Qualifier(DefaultSystemQualifier.DEFAULT_AGV_CLIENT_WORKER)
 	private IConnectWorker agvClientMgr;
 
 	@Autowired

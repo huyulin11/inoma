@@ -28,7 +28,7 @@ import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
 import com.kaifantech.component.service.taskexe.oper.ITaskexeAddService;
 import com.kaifantech.component.service.taskexe.status.ITaskexeStatusService;
 import com.kaifantech.init.sys.qualifier.InomaSystemQualifier;
-import com.kaifantech.init.sys.qualifier.SystemQualifier;
+import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.util.constant.taskexe.TaskexeOpFlag;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvCtrlType.AgvMoveStatus;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
@@ -52,7 +52,7 @@ public class InomaMsgResoluteModule implements IMsgResoluteModule {
 	private IAllocStatusMgrService allocService;
 
 	@Autowired
-	@Qualifier(SystemQualifier.DEFAULT_TASKEXE_ADD_SERVICE)
+	@Qualifier(DefaultSystemQualifier.DEFAULT_TASKEXE_ADD_SERVICE)
 	private ITaskexeAddService taskexeService;
 
 	@Autowired
@@ -77,7 +77,7 @@ public class InomaMsgResoluteModule implements IMsgResoluteModule {
 	private LapInfoService lapInfoService;
 
 	@Autowired
-	@Qualifier(SystemQualifier.DEFAULT_AGV_INFO_DAO)
+	@Qualifier(DefaultSystemQualifier.DEFAULT_AGV_INFO_DAO)
 	private AgvInfoDao agvInfoDao;
 
 	@Autowired

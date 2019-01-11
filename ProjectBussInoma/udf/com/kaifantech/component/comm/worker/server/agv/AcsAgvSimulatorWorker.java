@@ -22,7 +22,7 @@ import com.kaifantech.init.sys.AppBusinessInfo;
 import com.kaifantech.init.sys.BaseBusinessInfo;
 import com.kaifantech.init.sys.params.SystemParameters;
 import com.kaifantech.init.sys.qualifier.AcsSystemQualifier;
-import com.kaifantech.init.sys.qualifier.SystemQualifier;
+import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.util.constant.taskexe.TaskexeOpFlag;
 import com.kaifantech.util.constants.cmd.AgvCmdConstant;
 import com.kaifantech.util.socket.IConnect;
@@ -50,11 +50,11 @@ public class AcsAgvSimulatorWorker implements IAgvSimulatorWorker {
 	private TaskexeInfoService taskexeInfoService;
 
 	@Autowired
-	@Qualifier(SystemQualifier.DEFAULT_TASKEXE_DEALER_MODULE)
+	@Qualifier(DefaultSystemQualifier.DEFAULT_TASKEXE_DEALER_MODULE)
 	private ITaskexeDealModule commandTaskService;
 
 	@Autowired
-	@Qualifier(SystemQualifier.DEFAULT_CTRL_DEALER_MODULE)
+	@Qualifier(DefaultSystemQualifier.DEFAULT_CTRL_DEALER_MODULE)
 	private ICtrlDealModule commandCtrlService;
 
 	private Map<Integer, XYBean> addXY = new HashMap<>();

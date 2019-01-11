@@ -19,7 +19,7 @@ import com.kaifantech.component.service.pi.ctrl.ctrl2agv.bymsg.PICtrlClashAreaSe
 import com.kaifantech.component.service.status.agv.AgvStatusService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
 import com.kaifantech.component.service.taskexe.oper.ITaskexeAddService;
-import com.kaifantech.init.sys.qualifier.SystemQualifier;
+import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.util.agv.msg.PreventImpactCommand;
 import com.kaifantech.util.constant.pi.detail.CLASH_AREA_INFO;
 import com.kaifantech.util.constant.pi.detail.ClashArea;
@@ -30,7 +30,7 @@ import com.ytgrading.util.AppTool;
 public class AcsPiWorkService implements IPiWorkService {
 
 	@Autowired
-	@Qualifier(SystemQualifier.DEFAULT_AGV_INFO_DAO)
+	@Qualifier(DefaultSystemQualifier.DEFAULT_AGV_INFO_DAO)
 	private AgvInfoDao agvInfoDao;
 
 	@Autowired
@@ -40,7 +40,7 @@ public class AcsPiWorkService implements IPiWorkService {
 	private PIAllCtrlService piCtrlService;
 
 	@Autowired
-	@Qualifier(SystemQualifier.DEFAULT_TASKEXE_ADD_SERVICE)
+	@Qualifier(DefaultSystemQualifier.DEFAULT_TASKEXE_ADD_SERVICE)
 	private ITaskexeAddService taskexeService;
 
 	@Autowired
