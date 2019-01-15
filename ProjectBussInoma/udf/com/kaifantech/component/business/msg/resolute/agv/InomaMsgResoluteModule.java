@@ -68,7 +68,7 @@ public class InomaMsgResoluteModule implements IMsgResoluteModule {
 	private SingletaskGroupService singletaskGroupService;
 
 	@Autowired
-	private AgvStatusDBLogger kaifantechDBLogger;
+	private AgvStatusDBLogger dbLogger;
 
 	@Autowired
 	private SingleTaskInfoService singleTaskInfoService;
@@ -91,7 +91,7 @@ public class InomaMsgResoluteModule implements IMsgResoluteModule {
 			if (latestTaskexe != null) {
 				if (!AppTool.isNull(msg)) {
 					if (!AppTool.isNullStr(msg.getMsg())) {
-						kaifantechDBLogger.info(msg.getMsg(), latestTaskexe.getAgvId());
+						dbLogger.info(msg.getMsg(), latestTaskexe.getAgvId());
 					}
 				}
 			}
@@ -145,7 +145,7 @@ public class InomaMsgResoluteModule implements IMsgResoluteModule {
 			} else {
 				taskexeTaskDao.overANormalTask(latestTaskexe.getUuid());
 			}
-			kaifantechDBLogger.warning(latestTaskexe.getAgvId() + "号AGV任务：" + singletaskBean.getTaskText() + "执行完毕！ ",
+			dbLogger.warning(latestTaskexe.getAgvId() + "号AGV任务：" + singletaskBean.getTaskText() + "执行完毕！ ",
 					latestTaskexe.getAgvId(), AgvStatusDBLogger.MSG_LEVEL_WARNING);
 		} else {
 			return msg;

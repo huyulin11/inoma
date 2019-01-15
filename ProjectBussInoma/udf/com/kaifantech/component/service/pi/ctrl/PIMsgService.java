@@ -24,7 +24,7 @@ public class PIMsgService {
 	private DistanceChecker distanceChecker;
 
 	@Autowired
-	private AgvStatusDBLogger kaifantechDBLogger;
+	private AgvStatusDBLogger dbLogger;
 
 	@Autowired
 	private Differ differ;
@@ -47,7 +47,7 @@ public class PIMsgService {
 			} else {
 				if (safeTimes++ > 5) {
 					safeTimes = 0;
-					kaifantechDBLogger.warning("系统中agv正常运转，无需要进行安全控制车辆", 0, AgvStatusDBLogger.MSG_LEVEL_WARNING);
+					dbLogger.warning("系统中agv正常运转，无需要进行安全控制车辆", 0, AgvStatusDBLogger.MSG_LEVEL_WARNING);
 				}
 			}
 		}
@@ -86,7 +86,7 @@ public class PIMsgService {
 
 		msg = msgOne.getAGVId() + "-" + msgAnother.getAGVId() + "冲突-" + msg + (AppTool.isNull(tips) ? "" : "-注：" + tips);
 		String msg2 = "" + msgOne + msgAnother;
-		kaifantechDBLogger.warning(msg, msg2, 0, AgvStatusDBLogger.MSG_LEVEL_WARNING);
+		dbLogger.warning(msg, msg2, 0, AgvStatusDBLogger.MSG_LEVEL_WARNING);
 	}
 
 	@Async

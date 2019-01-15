@@ -48,7 +48,7 @@ public class RoboticArmWorker {
 	private int tipsTime = 0;
 
 	@Autowired
-	private AgvStatusDBLogger kaifantechDBLogger;
+	private AgvStatusDBLogger dbLogger;
 
 	public IConnect getClient(Integer keyId) {
 		return getClientMap().get(keyId);
@@ -88,7 +88,7 @@ public class RoboticArmWorker {
 		if (!SystemAutoParameters.isAutoTask()) {
 			if (tipsTime++ > 20) {
 				tipsTime = 0;
-				kaifantechDBLogger.warning("系统自动任务功能关闭中，请注意观察机械手实际生产情况！！！", 0, AgvStatusDBLogger.MSG_LEVEL_INFO);
+				dbLogger.warning("系统自动任务功能关闭中，请注意观察机械手实际生产情况！！！", 0, AgvStatusDBLogger.MSG_LEVEL_INFO);
 			}
 			return;
 		}
