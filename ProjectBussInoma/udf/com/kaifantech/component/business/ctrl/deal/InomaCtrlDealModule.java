@@ -16,7 +16,7 @@ import com.kaifantech.component.service.iot.client.IotClientService;
 import com.kaifantech.component.service.status.agv.AgvCtrlInfoService;
 import com.kaifantech.init.sys.qualifier.InomaSystemQualifier;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
-import com.kaifantech.util.constant.taskexe.ctrl.AgvCtrlType.AgvMoveStatus;
+import com.kaifantech.util.constant.taskexe.ctrl.AgvMoveStatus;
 import com.kaifantech.util.constants.cmd.AgvCmdConstant;
 
 /***

@@ -23,7 +23,7 @@ import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.util.agv.msg.PreventImpactCommand;
 import com.kaifantech.util.constant.pi.detail.CLASH_AREA_INFO;
 import com.kaifantech.util.constant.pi.detail.ClashArea;
-import com.kaifantech.util.constant.taskexe.ctrl.AgvCtrlType.AgvMoveStatus;
+import com.kaifantech.util.constant.taskexe.ctrl.AgvMoveStatus;
 import com.ytgrading.util.AppTool;
 
 @Service

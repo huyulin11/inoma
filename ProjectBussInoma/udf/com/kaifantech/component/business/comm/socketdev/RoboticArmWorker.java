@@ -20,7 +20,7 @@ import com.kaifantech.component.service.taskexe.auto.ITaskexeAutoService;
 import com.kaifantech.init.sys.AppBusinessInfo;
 import com.kaifantech.init.sys.BaseBusinessInfo;
 import com.kaifantech.init.sys.params.SystemAutoParameters;
-import com.kaifantech.util.constant.taskexe.ctrl.AgvCtrlType.IotDevType;
+import com.kaifantech.util.constant.taskexe.ctrl.IotDevType;
 import com.kaifantech.util.socket.IConnect;
 import com.kaifantech.util.socket.netty.client.NettyClientFactory;
 import com.kaifantech.util.thread.ThreadTool;
