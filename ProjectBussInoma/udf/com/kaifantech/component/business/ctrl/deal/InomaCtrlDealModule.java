@@ -12,7 +12,7 @@ import com.kaifantech.component.business.msg.info.agv.IAgvMsgInfoModule;
 import com.kaifantech.component.comm.manager.agv.IAgvManager;
 import com.kaifantech.component.comm.worker.client.IConnectWorker;
 import com.kaifantech.component.dao.agv.info.AgvInfoDao;
-import com.kaifantech.component.service.iot.client.IotClientService;
+import com.kaifantech.component.service.iot.client.IIotClientService;
 import com.kaifantech.component.service.status.agv.AgvCtrlInfoService;
 import com.kaifantech.init.sys.qualifier.InomaSystemQualifier;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
@@ -29,7 +29,8 @@ public class InomaCtrlDealModule implements ICtrlDealModule {
 	private AgvCtrlInfoService ctrlService;
 
 	@Autowired
-	private IotClientService iotClientService;
+	@Qualifier(DefaultSystemQualifier.DEFAULT_IOT_CLIENT_SERVICE)
+	private IIotClientService iotClientService;
 
 	@Autowired
 	private IAgvManager agvManager;

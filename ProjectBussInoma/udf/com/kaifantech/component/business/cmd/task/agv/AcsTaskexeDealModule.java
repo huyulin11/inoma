@@ -15,7 +15,7 @@ import com.kaifantech.component.business.task.deal.ITaskexeDealModule;
 import com.kaifantech.component.comm.cmd.sender.agv.IAgvCmdSender;
 import com.kaifantech.component.comm.worker.client.IConnectWorker;
 import com.kaifantech.component.dao.taskexe.op.TaskexeOpDao;
-import com.kaifantech.component.service.iot.client.IotClientService;
+import com.kaifantech.component.service.iot.client.IIotClientService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
 import com.kaifantech.init.sys.qualifier.AcsSystemQualifier;
@@ -50,7 +50,8 @@ public class AcsTaskexeDealModule implements ITaskexeDealModule {
 	private SingleTaskInfoService singleTaskInfoService;
 
 	@Autowired
-	private IotClientService iotClientService;
+	@Qualifier(DefaultSystemQualifier.DEFAULT_IOT_CLIENT_SERVICE)
+	private IIotClientService iotClientService;
 
 	private Map<Integer, String> lastTask = new HashMap<>();
 

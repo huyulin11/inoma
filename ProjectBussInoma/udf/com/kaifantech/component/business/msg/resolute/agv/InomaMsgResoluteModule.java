@@ -20,7 +20,7 @@ import com.kaifantech.component.dao.taskexe.op.TaskexeOpDao;
 import com.kaifantech.component.log.AgvStatusDBLogger;
 import com.kaifantech.component.service.alloc.info.IAllocInfoService;
 import com.kaifantech.component.service.alloc.status.IAllocStatusMgrService;
-import com.kaifantech.component.service.iot.client.IotClientService;
+import com.kaifantech.component.service.iot.client.IIotClientService;
 import com.kaifantech.component.service.lap.LapInfoService;
 import com.kaifantech.component.service.singletask.group.SingletaskGroupService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
@@ -81,7 +81,8 @@ public class InomaMsgResoluteModule implements IMsgResoluteModule {
 	private AgvInfoDao agvInfoDao;
 
 	@Autowired
-	private IotClientService iotClientService;
+	@Qualifier(DefaultSystemQualifier.DEFAULT_IOT_CLIENT_SERVICE)
+	private IIotClientService iotClientService;
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void resoluteMsg() {

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import com.kaifantech.bean.iot.client.IotClientBean;
 import com.kaifantech.component.dao.IotClientConnectMsgDao;
 import com.kaifantech.component.log.AgvStatusDBLogger;
-import com.kaifantech.component.service.iot.client.IotClientService;
+import com.kaifantech.component.service.iot.client.IIotClientService;
 import com.kaifantech.component.service.iot.client.msg.IotClientMsgService;
 import com.kaifantech.component.service.lap.LapInfoService;
 import com.kaifantech.component.service.taskexe.auto.ITaskexeAutoService;
@@ -31,7 +31,7 @@ public class RoboticArmWorker {
 	private Map<Integer, IConnect> clientMap = new HashMap<Integer, IConnect>();
 
 	@Autowired
-	private IotClientService socketdevService;
+	private IIotClientService socketdevService;
 
 	@Autowired
 	private IotClientMsgService msgService;

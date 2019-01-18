@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +14,9 @@ import com.kaifantech.bean.iot.client.IotClientBean;
 import com.kaifantech.component.business.msg.info.agv.IAgvMsgInfoModule;
 import com.kaifantech.component.comm.worker.client.IConnectWorker;
 import com.kaifantech.component.dao.AgvMsgDao;
-import com.kaifantech.component.service.iot.client.IotClientService;
+import com.kaifantech.component.service.iot.client.IIotClientService;
 import com.kaifantech.init.sys.qualifier.AcsSystemQualifier;
+import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.util.socket.IConnect;
 import com.kaifantech.util.socket.netty.client.NettyClientFactory;
 import com.kaifantech.util.thread.ThreadTool;
@@ -25,7 +27,8 @@ public class AcsAgvClientWorker implements IConnectWorker {
 	private Map<Integer, IConnect> map = new HashMap<Integer, IConnect>();
 
 	@Autowired
-	private IotClientService iotClientService;
+	@Qualifier(DefaultSystemQualifier.DEFAULT_IOT_CLIENT_SERVICE)
+	private IIotClientService iotClientService;
 
 	@Autowired
 	private IAgvMsgInfoModule msgFromAGVService;

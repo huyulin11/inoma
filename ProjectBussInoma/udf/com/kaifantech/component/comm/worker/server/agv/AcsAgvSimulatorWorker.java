@@ -15,7 +15,7 @@ import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.component.business.ctrl.deal.ICtrlDealModule;
 import com.kaifantech.component.business.task.deal.ITaskexeDealModule;
 import com.kaifantech.component.dao.simulator.TestPathDao;
-import com.kaifantech.component.service.iot.client.IotClientService;
+import com.kaifantech.component.service.iot.client.IIotClientService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
 import com.kaifantech.init.sys.AppBusinessInfo;
@@ -41,7 +41,8 @@ public class AcsAgvSimulatorWorker implements IAgvSimulatorWorker {
 	private TestPathDao testPathDao;
 
 	@Autowired
-	private IotClientService iotClientService;
+	@Qualifier(DefaultSystemQualifier.DEFAULT_IOT_CLIENT_SERVICE)
+	private IIotClientService iotClientService;
 
 	@Autowired
 	private SingleTaskInfoService singleTaskInfoService;
