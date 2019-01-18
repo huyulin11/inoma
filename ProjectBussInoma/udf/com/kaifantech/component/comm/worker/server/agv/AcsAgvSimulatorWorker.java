@@ -14,6 +14,7 @@ import com.kaifantech.bean.msg.agv.XYBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.component.business.ctrl.deal.ICtrlDealModule;
 import com.kaifantech.component.business.task.deal.ITaskexeDealModule;
+import com.kaifantech.component.comm.worker.server.IServerWorker;
 import com.kaifantech.component.dao.simulator.TestPathDao;
 import com.kaifantech.component.service.iot.client.IIotClientService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
@@ -33,8 +34,8 @@ import com.kaifantech.util.socket.server.SocketServerFactory;
 import com.kaifantech.util.thread.ThreadTool;
 import com.ytgrading.util.AppTool;
 
-@Service(AcsSystemQualifier.AGV_SIMULATOR_MGR)
-public class AcsAgvSimulatorWorker implements IAgvSimulatorWorker {
+@Service(AcsSystemQualifier.AGV_SERVER_MGR)
+public class AcsAgvSimulatorWorker implements IServerWorker {
 	private Map<Integer, IConnect> map = new HashMap<>();
 
 	@Autowired
