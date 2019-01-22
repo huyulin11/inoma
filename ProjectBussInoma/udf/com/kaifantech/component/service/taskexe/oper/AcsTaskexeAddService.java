@@ -32,6 +32,12 @@ public class AcsTaskexeAddService implements ITaskexeAddService {
 	@Qualifier(DefaultSystemQualifier.DEFAULT_TASKEXE_CHECK_SERVICE)
 	private ITaskexeCheckService taskexeCheckService;
 
+	@Override
+	public AppMsg addTask(Object obj) {
+		TaskexeBean taskexeBean = (TaskexeBean) obj;
+		return addTask(taskexeBean);
+	}
+
 	private AppMsg addTask(TaskexeBean taskexeBean) {
 		Integer tmpAGVId = agvInfoService.checkAgvId(taskexeBean.getAgvId());
 		if (tmpAGVId < 0) {
@@ -45,11 +51,5 @@ public class AcsTaskexeAddService implements ITaskexeAddService {
 			msg.setMsg("任务完成下达！");
 		}
 		return msg;
-	}
-
-	@Override
-	public AppMsg addTask(Object obj) {
-		TaskexeBean taskexeBean = (TaskexeBean) obj;
-		return addTask(taskexeBean);
 	}
 }
