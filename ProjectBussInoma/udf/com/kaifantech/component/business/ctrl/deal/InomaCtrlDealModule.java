@@ -14,10 +14,9 @@ import com.kaifantech.component.comm.worker.client.IConnectWorker;
 import com.kaifantech.component.dao.agv.info.AgvInfoDao;
 import com.kaifantech.component.service.iot.client.IIotClientService;
 import com.kaifantech.component.service.status.agv.AgvCtrlInfoService;
-import com.kaifantech.init.sys.qualifier.InomaSystemQualifier;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
+import com.kaifantech.init.sys.qualifier.InomaSystemQualifier;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvMoveStatus;
-import com.kaifantech.util.constants.cmd.AgvCmdConstant;
 
 /***
  * 描述任务从用户下达到发送AGV执行前的逻辑
@@ -71,12 +70,10 @@ public class InomaCtrlDealModule implements ICtrlDealModule {
 	}
 
 	public void sendPauseCommand(Integer agvId) {
-		lastCtrlCMD.put(agvId, AgvCmdConstant.CMD_STOP);
 		agvManager.pause(agvId);
 	}
 
 	public void sendContinueCommand(Integer agvId) {
-		lastCtrlCMD.put(agvId, AgvCmdConstant.CMD_CONTINUE);
 		agvManager.startup(agvId);
 	}
 

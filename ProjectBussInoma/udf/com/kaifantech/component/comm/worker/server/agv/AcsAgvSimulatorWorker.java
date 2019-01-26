@@ -25,7 +25,6 @@ import com.kaifantech.init.sys.params.SystemParameters;
 import com.kaifantech.init.sys.qualifier.AcsSystemQualifier;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.util.constant.taskexe.TaskexeOpFlag;
-import com.kaifantech.util.constants.cmd.AgvCmdConstant;
 import com.kaifantech.util.socket.IConnect;
 import com.kaifantech.util.socket.netty.client.InomaNettyClient;
 import com.kaifantech.util.socket.netty.server.DefauNettyServer;
@@ -216,7 +215,7 @@ public class AcsAgvSimulatorWorker implements IServerWorker {
 
 	public void sendNextMsg(Integer agvId) {
 		if (BaseBusinessInfo.Projects.CSY_DAJ.equals(AppBusinessInfo.CURRENT_PROJECT)) {
-			getAGVSimulator(agvId).setCmd(AgvCmdConstant.CMD_STOP);
+			getAGVSimulator(agvId).setCmd("CMD_STOP");
 		} else {
 			String msgFromAGV = getMsgToSend(agvId);
 			if (!AppTool.isNull(msgFromAGV)) {
