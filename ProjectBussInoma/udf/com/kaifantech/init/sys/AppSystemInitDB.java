@@ -1,7 +1,7 @@
 package com.kaifantech.init.sys;
 
 public class AppSystemInitDB extends BaseSystemInitDB {
-	private static final String SYSTEM_INIT_DB_KEY = "kf_csy_daj_";
+	public static final String SYSTEM_INIT_DB_KEY = "kf_inoma_weiwei_";
 
 	public static final String OP_DB = SYSTEM_INIT_DB_KEY + "agv";
 	public static final String BUSS_DB = SYSTEM_INIT_DB_KEY + "acs";
