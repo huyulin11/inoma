@@ -9,14 +9,14 @@ import com.kaifantech.component.dao.taskexe.op.TaskexeOpDao;
 import com.kaifantech.component.service.agv.info.AgvInfoService;
 import com.kaifantech.component.service.taskexe.check.ITaskexeCheckService;
 import com.kaifantech.component.service.taskexe.status.ITaskexeStatusService;
-import com.kaifantech.init.sys.qualifier.AcsSystemQualifier;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
+import com.kaifantech.init.sys.qualifier.InomaSystemQualifier;
 import com.ytgrading.util.msg.AppMsg;
 
 /***
  * 描述任务从用户下达到发送AGV执行前的逻辑
  ***/
-@Service(AcsSystemQualifier.TASKEXE_ADD_SERVICE)
+@Service(InomaSystemQualifier.TASKEXE_ADD_SERVICE)
 public class AcsTaskexeAddService implements ITaskexeAddService {
 
 	@Autowired

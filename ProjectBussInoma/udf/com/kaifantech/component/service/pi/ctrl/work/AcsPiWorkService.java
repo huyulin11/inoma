@@ -20,13 +20,14 @@ import com.kaifantech.component.service.status.agv.AgvStatusService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
 import com.kaifantech.component.service.taskexe.oper.ITaskexeAddService;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
+import com.kaifantech.init.sys.qualifier.InomaSystemQualifier;
 import com.kaifantech.util.agv.msg.PreventImpactCommand;
 import com.kaifantech.util.constant.pi.detail.CLASH_AREA_INFO;
 import com.kaifantech.util.constant.pi.detail.ClashArea;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvMoveStatus;
 import com.ytgrading.util.AppTool;
 
-@Service
+@Service(InomaSystemQualifier.PI_WORK_SERVICE)
 public class AcsPiWorkService implements IPiWorkService {
 
 	@Autowired

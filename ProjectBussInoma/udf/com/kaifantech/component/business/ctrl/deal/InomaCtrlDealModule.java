@@ -21,7 +21,7 @@ import com.kaifantech.util.constant.taskexe.ctrl.AgvMoveStatus;
 /***
  * 描述任务从用户下达到发送AGV执行前的逻辑
  ***/
-@Service(InomaSystemQualifier.AGV_CMD_CTRL_MODULE)
+@Service(InomaSystemQualifier.CTRL_DEALER_MODULE)
 public class InomaCtrlDealModule implements ICtrlDealModule {
 
 	@Autowired
