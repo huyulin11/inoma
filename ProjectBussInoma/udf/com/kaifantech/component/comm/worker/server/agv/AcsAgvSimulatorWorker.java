@@ -256,7 +256,7 @@ public class AcsAgvSimulatorWorker implements IServerWorker {
 		if (map == null || map.size() == 0) {
 			for (IotClientBean agv : iotClientService.getAgvCacheList()) {
 				IotClientBean iotClientBean = iotClientService.getBean(agv.getId());
-				DefauNettyServer simulator = SocketServerFactory.create(iotClientBean.getPort());
+				DefauNettyServer simulator = SocketServerFactory.create(iotClientBean);
 				map.put(agv.getId(), simulator);
 				try {
 					simulator.init();
