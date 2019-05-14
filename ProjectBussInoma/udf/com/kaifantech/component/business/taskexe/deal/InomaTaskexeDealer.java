@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.kaifantech.bean.msg.fancy.agv.FancyAgvMsgBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
-import com.kaifantech.component.business.taskexe.dealer.ITaskexeDealer;
+import com.kaifantech.component.business.taskexe.ITaskexeDealer;
 import com.kaifantech.component.comm.manager.agv.IAgvManager;
 import com.kaifantech.component.dao.taskexe.op.TaskexeOpDao;
 import com.kaifantech.component.service.paper.base.WmsPaperService;

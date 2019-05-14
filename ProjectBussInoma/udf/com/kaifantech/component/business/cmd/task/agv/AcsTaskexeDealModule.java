@@ -11,7 +11,7 @@ import com.kaifantech.bean.iot.client.IotClientBean;
 import com.kaifantech.bean.singletask.SingletaskBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.component.business.msg.info.agv.IAgvMsgInfoModule;
-import com.kaifantech.component.business.task.deal.ITaskexeDealModule;
+import com.kaifantech.component.business.taskexe.ITaskexeModule;
 import com.kaifantech.component.comm.cmd.sender.agv.IAgvCmdSender;
 import com.kaifantech.component.comm.worker.client.IConnectWorker;
 import com.kaifantech.component.dao.taskexe.op.TaskexeOpDao;
@@ -28,7 +28,7 @@ import com.kaifantech.util.thread.ThreadTool;
  * 描述任务从用户下达到发送AGV执行前的逻辑
  ***/
 @Service(AcsSystemQualifier.AGV_CMD_TASK_MODULE)
-public class AcsTaskexeDealModule implements ITaskexeDealModule {
+public class AcsTaskexeDealModule implements ITaskexeModule {
 
 	@Autowired
 	private IAgvCmdSender agvCmdSender;

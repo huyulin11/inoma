@@ -12,8 +12,8 @@ import com.kaifantech.bean.iot.client.IotClientBean;
 import com.kaifantech.bean.msg.agv.TaskPathInfoPointBean;
 import com.kaifantech.bean.msg.agv.XYBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
-import com.kaifantech.component.business.ctrl.deal.ICtrlDealModule;
-import com.kaifantech.component.business.task.deal.ITaskexeDealModule;
+import com.kaifantech.component.business.ctrl.ICtrlModule;
+import com.kaifantech.component.business.taskexe.ITaskexeModule;
 import com.kaifantech.component.comm.worker.server.IServerWorker;
 import com.kaifantech.component.dao.simulator.TestPathDao;
 import com.kaifantech.component.service.iot.client.IIotClientService;
@@ -51,12 +51,12 @@ public class AcsAgvSimulatorWorker implements IServerWorker {
 	private TaskexeInfoService taskexeInfoService;
 
 	@Autowired
-	@Qualifier(DefaultSystemQualifier.DEFAULT_TASKEXE_DEALER_MODULE)
-	private ITaskexeDealModule commandTaskService;
+	@Qualifier(DefaultSystemQualifier.DEFAULT_TASKEXE_MODULE)
+	private ITaskexeModule commandTaskService;
 
 	@Autowired
-	@Qualifier(DefaultSystemQualifier.DEFAULT_CTRL_DEALER_MODULE)
-	private ICtrlDealModule commandCtrlService;
+	@Qualifier(DefaultSystemQualifier.DEFAULT_CTRL_MODULE)
+	private ICtrlModule commandCtrlService;
 
 	private Map<Integer, XYBean> addXY = new HashMap<>();
 

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.kaifantech.bean.iot.client.IotClientBean;
+import com.kaifantech.component.business.ctrl.ICtrlModule;
 import com.kaifantech.component.business.msg.info.agv.IAgvMsgInfoModule;
 import com.kaifantech.component.comm.manager.agv.IAgvManager;
 import com.kaifantech.component.comm.worker.client.IConnectWorker;
@@ -21,8 +22,8 @@ import com.kaifantech.util.constant.taskexe.ctrl.AgvMoveStatus;
 /***
  * 描述任务从用户下达到发送AGV执行前的逻辑
  ***/
-@Service(InomaSystemQualifier.CTRL_DEALER_MODULE)
-public class InomaCtrlDealModule implements ICtrlDealModule {
+@Service(InomaSystemQualifier.CTRL_MODULE)
+public class InomaCtrlModule implements ICtrlModule {
 
 	@Autowired
 	private AgvCtrlInfoService ctrlService;

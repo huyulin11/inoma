@@ -3,8 +3,8 @@ package com.kaifantech.init.sys.qualifier;
 public class DefaultSystemQualifier extends BaseSystemQualifier {
 	public static final String DEFAULT_SERVICE_PREFIX = InomaSystemQualifier.DEFAULT_SERVICE_PREFIX;
 
-	public static final String DEFAULT_TASKEXE_DEALER_MODULE = InomaSystemQualifier.TASKEXE_DEALER_MODULE;
-	public static final String DEFAULT_CTRL_DEALER_MODULE = InomaSystemQualifier.CTRL_DEALER_MODULE;
+	public static final String DEFAULT_TASKEXE_MODULE = InomaSystemQualifier.TASKEXE_MODULE;
+	public static final String DEFAULT_CTRL_MODULE = InomaSystemQualifier.CTRL_MODULE;
 
 	public static final String DEFAULT_AGV_CLIENT_WORKER = InomaSystemQualifier.AGV_CLIENT_WORKER;
 	public static final String DEFAULT_AGV_SERVER_WORKER = InomaSystemQualifier.AGV_SIMULATOR_MGR;

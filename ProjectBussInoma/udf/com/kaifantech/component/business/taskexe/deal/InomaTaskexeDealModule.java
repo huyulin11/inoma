@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.kaifantech.bean.iot.client.IotClientBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
-import com.kaifantech.component.business.task.deal.ITaskexeDealModule;
-import com.kaifantech.component.business.taskexe.dealer.ITaskexeDealer;
+import com.kaifantech.component.business.taskexe.ITaskexeDealer;
+import com.kaifantech.component.business.taskexe.ITaskexeModule;
 import com.kaifantech.component.comm.worker.client.IConnectWorker;
 import com.kaifantech.component.service.iot.client.IIotClientService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
@@ -27,8 +27,8 @@ import com.ytgrading.util.AppTool;
 /***
  * 描述任务从用户下达到发送AGV执行前的逻辑
  ***/
-@Service(InomaSystemQualifier.TASKEXE_DEALER_MODULE)
-public class InomaTaskexeDealModule implements ITaskexeDealModule {
+@Service(InomaSystemQualifier.TASKEXE_MODULE)
+public class InomaTaskexeDealModule implements ITaskexeModule {
 
 	@Autowired
 	private ITaskexeDealer taskexeDealer;
