@@ -28,7 +28,7 @@ import com.kaifantech.util.thread.ThreadTool;
  * 描述任务从用户下达到发送AGV执行前的逻辑
  ***/
 @Service(AcsSystemQualifier.AGV_CMD_TASK_MODULE)
-public class AcsTaskexeDealModule implements ITaskexeModule {
+public class AcsTaskexeModule implements ITaskexeModule {
 
 	@Autowired
 	private IAgvCmdSender agvCmdSender;

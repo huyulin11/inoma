@@ -28,7 +28,7 @@ import com.ytgrading.util.AppTool;
  * 描述任务从用户下达到发送AGV执行前的逻辑
  ***/
 @Service(InomaSystemQualifier.TASKEXE_MODULE)
-public class InomaTaskexeDealModule implements ITaskexeModule {
+public class InomaTaskexeModule implements ITaskexeModule {
 
 	@Autowired
 	private ITaskexeDealer taskexeDealer;
