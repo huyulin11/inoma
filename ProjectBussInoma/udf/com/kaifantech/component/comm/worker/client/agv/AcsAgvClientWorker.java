@@ -20,7 +20,7 @@ import com.kaifantech.init.sys.qualifier.InomaSystemQualifier;
 import com.kaifantech.util.socket.IConnect;
 import com.kaifantech.util.socket.netty.client.NettyClientFactory;
 import com.kaifantech.util.thread.ThreadTool;
-import com.ytgrading.util.AppTool;
+import com.calculatedfun.util.AppTool;
 
 @Service(InomaSystemQualifier.AGV_CLIENT_WORKER)
 public class AcsAgvClientWorker implements IConnectWorker {

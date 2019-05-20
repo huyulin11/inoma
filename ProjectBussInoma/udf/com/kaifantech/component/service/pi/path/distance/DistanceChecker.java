@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.kaifantech.bean.msg.agv.IXYBean;
 import com.kaifantech.util.constant.pi.detail.BASIC_INFO;
-import com.ytgrading.util.AppTool;
+import com.calculatedfun.util.AppTool;
 
 @Component
 public class DistanceChecker {

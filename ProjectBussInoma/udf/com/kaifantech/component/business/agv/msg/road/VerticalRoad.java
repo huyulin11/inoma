@@ -3,7 +3,7 @@ package com.kaifantech.component.business.agv.msg.road;
 import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.util.agv.msg.Location;
 import com.kaifantech.util.constant.pi.detail.BASIC_INFO;
-import com.ytgrading.util.AppTool;
+import com.calculatedfun.util.AppTool;
 
 public class VerticalRoad {
 

@@ -15,8 +15,8 @@ import com.kaifantech.util.hex.AppByteUtil;
 import com.kaifantech.util.log.AppFileLogger;
 import com.kaifantech.util.msg.agv.FancyAgvMsgGetter;
 import com.kaifantech.util.thread.ThreadTool;
-import com.ytgrading.util.AppTool;
-import com.ytgrading.util.msg.AppMsg;
+import com.calculatedfun.util.AppTool;
+import com.calculatedfun.util.msg.AppMsg;
 
 @Service
 public interface IInomaAgvManager extends IAgvManager {

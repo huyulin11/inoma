@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 import com.kaifantech.component.dao.ControlPIInfoDao;
 import com.kaifantech.component.service.sys.IInitCacheService;
 import com.kaifantech.util.log.AppFileLogger;
-import com.ytgrading.util.AppTool;
+import com.calculatedfun.util.AppTool;
 
 @Component
 @Scope("prototype")

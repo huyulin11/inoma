@@ -12,7 +12,7 @@ import com.kaifantech.component.service.paper.base.WmsPaperService;
 import com.kaifantech.util.constant.taskexe.TaskexeOpFlag;
 import com.kaifantech.util.msg.agv.FancyAgvMsgGetter;
 import com.kaifantech.util.thread.ThreadTool;
-import com.ytgrading.util.AppTool;
+import com.calculatedfun.util.AppTool;
 
 @Service
 public class InomaTaskexeDealer implements ITaskexeDealer {

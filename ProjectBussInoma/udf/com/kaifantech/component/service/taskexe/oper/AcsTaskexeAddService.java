@@ -11,7 +11,7 @@ import com.kaifantech.component.service.taskexe.check.ITaskexeCheckService;
 import com.kaifantech.component.service.taskexe.status.ITaskexeStatusService;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.init.sys.qualifier.InomaSystemQualifier;
-import com.ytgrading.util.msg.AppMsg;
+import com.calculatedfun.util.msg.AppMsg;
 
 /***
  * 描述任务从用户下达到发送AGV执行前的逻辑

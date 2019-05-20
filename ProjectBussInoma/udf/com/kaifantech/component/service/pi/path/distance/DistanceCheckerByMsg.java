@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.kaifantech.bean.msg.agv.IXYBean;
-import com.ytgrading.util.AppTool;
+import com.calculatedfun.util.AppTool;
 
 @Component
 public class DistanceCheckerByMsg {

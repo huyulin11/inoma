@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import com.kaifantech.bean.msg.agv.AGVMsgBean;
 import com.kaifantech.util.agv.msg.PreventImpactCommand;
 import com.kaifantech.util.agv.taskpath.DistanceStatus;
-import com.ytgrading.util.AppTool;
+import com.calculatedfun.util.AppTool;
 
 @Component
 public interface IPICtrlByMsgService {

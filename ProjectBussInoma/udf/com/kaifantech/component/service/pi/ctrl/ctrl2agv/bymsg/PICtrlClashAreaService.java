@@ -14,7 +14,7 @@ import com.kaifantech.util.agv.msg.PreventImpactCommand;
 import com.kaifantech.util.constant.pi.detail.CLASH_AREA_INFO;
 import com.kaifantech.util.constant.pi.detail.ClashArea;
 import com.kaifantech.util.log.AppFileLogger;
-import com.ytgrading.util.AppTool;
+import com.calculatedfun.util.AppTool;
 
 @Component
 public class PICtrlClashAreaService implements IPICtrlByMsgService {

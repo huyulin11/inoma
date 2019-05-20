@@ -24,7 +24,7 @@ import com.kaifantech.util.constant.taskexe.ctrl.IotDevType;
 import com.kaifantech.util.socket.IConnect;
 import com.kaifantech.util.socket.netty.client.NettyClientFactory;
 import com.kaifantech.util.thread.ThreadTool;
-import com.ytgrading.util.AppTool;
+import com.calculatedfun.util.AppTool;
 
 @Service
 public class RoboticArmWorker {

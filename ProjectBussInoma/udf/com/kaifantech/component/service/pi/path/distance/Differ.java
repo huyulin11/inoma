@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import com.kaifantech.bean.msg.agv.IXYBean;
 import com.kaifantech.component.dao.DistanceInfoDao;
 import com.kaifantech.util.agv.msg.Point;
-import com.ytgrading.util.AppTool;
+import com.calculatedfun.util.AppTool;
 
 @Component
 @Scope("prototype")

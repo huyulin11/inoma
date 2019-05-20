@@ -25,7 +25,7 @@ import com.kaifantech.component.service.lap.LapInfoService;
 import com.kaifantech.component.service.sku.SkuInfoService;
 import com.kaifantech.init.sys.params.SystemParameters;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
-import com.ytgrading.util.AppTool;
+import com.calculatedfun.util.AppTool;
 
 @Service
 public class InomaDataInitService implements ISingleCacheWorkerGetter {

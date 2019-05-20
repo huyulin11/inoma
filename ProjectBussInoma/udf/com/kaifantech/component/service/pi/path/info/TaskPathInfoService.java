@@ -10,7 +10,7 @@ import com.kaifantech.bean.msg.agv.TaskPathInfoPointBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.component.dao.taskexe.TaskPathInfoDao;
 import com.kaifantech.util.agv.taskpath.TaskPathInfoMap;
-import com.ytgrading.util.AppTool;
+import com.calculatedfun.util.AppTool;
 
 @Component
 public class TaskPathInfoService {

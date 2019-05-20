@@ -13,7 +13,7 @@ import com.kaifantech.component.log.AgvStatusDBLogger;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.util.constants.cmd.FancyAgvCmdConstant;
 import com.kaifantech.util.log.AppFileLogger;
-import com.ytgrading.util.msg.AppMsg;
+import com.calculatedfun.util.msg.AppMsg;
 
 @Service
 public class InomaAgvCmdSender implements IAgvCmdSender {

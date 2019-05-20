@@ -13,7 +13,7 @@ import com.kaifantech.util.constant.pi.PICtrlConstant;
 import com.kaifantech.util.constant.pi.detail.OTHERS_1_POSITIVE_CLOSE_1_OTHERS;
 import com.kaifantech.util.constant.pi.detail.OTHERS_1_POSITIVE_FARAWAY_1_OTHERS;
 import com.kaifantech.util.constant.pi.detail.OTHERS_2_OTHERS;
-import com.ytgrading.util.AppTool;
+import com.calculatedfun.util.AppTool;
 
 @Component
 public class PICtrlOtherService implements IPICtrlByMsgService {

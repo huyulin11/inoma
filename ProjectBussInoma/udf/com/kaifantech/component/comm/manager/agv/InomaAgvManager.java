@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kaifantech.component.comm.cmd.sender.agv.IAgvCmdSender;
-import com.ytgrading.util.msg.AppMsg;
+import com.calculatedfun.util.msg.AppMsg;
 
 @Service
 public class InomaAgvManager implements IAgvManager {
