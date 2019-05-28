@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.info.agv.AgvBean;
 import com.kaifantech.bean.msg.agv.AGVMsgBean;
 import com.kaifantech.bean.taskexe.AgvStatusBean;
@@ -17,15 +18,14 @@ import com.kaifantech.component.dao.agv.info.AgvInfoDao;
 import com.kaifantech.component.service.pi.ctrl.PIAllCtrlService;
 import com.kaifantech.component.service.pi.ctrl.ctrl2agv.bymsg.PICtrlClashAreaService;
 import com.kaifantech.component.service.status.agv.AgvStatusService;
+import com.kaifantech.component.service.taskexe.add.ITaskexeAddService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
-import com.kaifantech.component.service.taskexe.oper.ITaskexeAddService;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.init.sys.qualifier.InomaSystemQualifier;
 import com.kaifantech.util.agv.msg.PreventImpactCommand;
 import com.kaifantech.util.constant.pi.detail.CLASH_AREA_INFO;
 import com.kaifantech.util.constant.pi.detail.ClashArea;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvMoveStatus;
-import com.calculatedfun.util.AppTool;
 
 @Service(InomaSystemQualifier.PI_WORK_SERVICE)
 public class AcsPiWorkService implements IPiWorkService {

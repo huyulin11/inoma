@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.kaifantech.bean.iot.client.IotClientBean;
-import com.kaifantech.component.business.ctrl.ICtrlModule;
 import com.kaifantech.component.business.msg.info.agv.IAgvMsgInfoModule;
 import com.kaifantech.component.comm.manager.agv.IAgvManager;
 import com.kaifantech.component.comm.worker.client.IConnectWorker;
 import com.kaifantech.component.dao.agv.info.AgvInfoDao;
+import com.kaifantech.component.service.ctrl.ICtrlModule;
 import com.kaifantech.component.service.iot.client.IIotClientService;
 import com.kaifantech.component.service.status.agv.AgvCtrlInfoService;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;

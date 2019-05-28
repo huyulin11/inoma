@@ -15,6 +15,7 @@ import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
 import com.kaifantech.util.constant.taskexe.TaskexeOpFlag;
 import com.kaifantech.util.constant.taskexe.alloc.AllocationStatus;
+import com.kaifantech.component.service.alloc.amount.AllocAmountService;
 
 @Service
 public class InomaAllocAmountService extends AllocAmountService {

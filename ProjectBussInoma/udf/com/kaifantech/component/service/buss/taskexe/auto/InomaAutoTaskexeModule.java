@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import com.kaifantech.component.dao.agv.info.AgvInfoDao;
+import com.kaifantech.component.service.taskexe.auto.IAutoTaskexeModule;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 
 @Component

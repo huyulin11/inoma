@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.calculatedfun.util.AppTool;
+import com.calculatedfun.util.msg.AppMsg;
 import com.kaifantech.bean.iot.client.IotClientBean;
 import com.kaifantech.bean.singletask.SingletaskBean;
 import com.kaifantech.bean.singletask.SingletaskGroupBean;
@@ -21,8 +23,8 @@ import com.kaifantech.component.service.iot.client.IIotClientService;
 import com.kaifantech.component.service.lap.LapInfoService;
 import com.kaifantech.component.service.singletask.group.SingletaskGroupService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
+import com.kaifantech.component.service.taskexe.add.ITaskexeAddService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
-import com.kaifantech.component.service.taskexe.oper.ITaskexeAddService;
 import com.kaifantech.component.service.taskexe.status.ITaskexeStatusService;
 import com.kaifantech.init.sys.qualifier.AcsSystemQualifier;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
@@ -30,8 +32,6 @@ import com.kaifantech.util.constant.taskexe.TaskexeOpFlag;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvMoveStatus;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
 import com.kaifantech.util.thread.ThreadTool;
-import com.calculatedfun.util.AppTool;
-import com.calculatedfun.util.msg.AppMsg;
 
 @Service(AcsSystemQualifier.AGV_MSG_RESOLUTE_MODULE)
 public class AcsMsgResoluteModule implements IMsgResoluteModule {

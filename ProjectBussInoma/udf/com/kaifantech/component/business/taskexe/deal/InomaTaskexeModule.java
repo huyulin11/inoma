@@ -7,14 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.iot.client.IotClientBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
-import com.kaifantech.component.business.taskexe.ITaskexeDealer;
-import com.kaifantech.component.business.taskexe.ITaskexeModule;
 import com.kaifantech.component.comm.worker.client.IConnectWorker;
 import com.kaifantech.component.service.iot.client.IIotClientService;
+import com.kaifantech.component.service.taskexe.add.ITaskexeAddService;
+import com.kaifantech.component.service.taskexe.dealer.ITaskexeDealer;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
-import com.kaifantech.component.service.taskexe.oper.ITaskexeAddService;
+import com.kaifantech.component.service.taskexe.module.ITaskexeModule;
 import com.kaifantech.init.sys.params.SystemLock;
 import com.kaifantech.init.sys.params.SystemParameters;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
@@ -22,7 +23,6 @@ import com.kaifantech.init.sys.qualifier.InomaSystemQualifier;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
 import com.kaifantech.util.seq.ThreadID;
 import com.kaifantech.util.thread.ThreadTool;
-import com.calculatedfun.util.AppTool;
 
 /***
  * 描述任务从用户下达到发送AGV执行前的逻辑

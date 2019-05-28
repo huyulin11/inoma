@@ -24,8 +24,8 @@ import com.kaifantech.component.service.alloc.column.IAllocColumnService;
 import com.kaifantech.component.service.lap.LapInfoService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.sku.SkuInfoService;
+import com.kaifantech.component.service.taskexe.add.ITaskexeAddService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
-import com.kaifantech.component.service.taskexe.oper.ITaskexeAddService;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.util.constant.taskexe.alloc.AllocationStatus;
 

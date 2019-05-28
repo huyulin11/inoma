@@ -93,7 +93,7 @@
 		<link>
 			<name>wms</name>
 			<type>2</type>
-			<location>G:/work2018/src/git/ProjectBussModel/JavaSrc/wms</location>
+			<location>G:/work2018/src/wmsBase/ModuleWmsBase/JavaSrc/wms</location>
 		</link>
 		<link>
 			<name>WebContent/WEB-INF/jsp</name>

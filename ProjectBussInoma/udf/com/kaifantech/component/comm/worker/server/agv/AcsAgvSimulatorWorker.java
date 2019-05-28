@@ -8,17 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.iot.client.IotClientBean;
 import com.kaifantech.bean.msg.agv.TaskPathInfoPointBean;
 import com.kaifantech.bean.msg.agv.XYBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
-import com.kaifantech.component.business.ctrl.ICtrlModule;
-import com.kaifantech.component.business.taskexe.ITaskexeModule;
 import com.kaifantech.component.comm.worker.server.IServerWorker;
 import com.kaifantech.component.dao.simulator.TestPathDao;
+import com.kaifantech.component.service.ctrl.ICtrlModule;
 import com.kaifantech.component.service.iot.client.IIotClientService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
+import com.kaifantech.component.service.taskexe.module.ITaskexeModule;
 import com.kaifantech.init.sys.AppBusinessInfo;
 import com.kaifantech.init.sys.BaseBusinessInfo;
 import com.kaifantech.init.sys.params.SystemParameters;
@@ -31,7 +32,6 @@ import com.kaifantech.util.socket.netty.server.DefauNettyServer;
 import com.kaifantech.util.socket.server.AbstractServer;
 import com.kaifantech.util.socket.server.SocketServerFactory;
 import com.kaifantech.util.thread.ThreadTool;
-import com.calculatedfun.util.AppTool;
 
 @Service(AcsSystemQualifier.AGV_SERVER_MGR)
 public class AcsAgvSimulatorWorker implements IServerWorker {
