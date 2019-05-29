@@ -11,7 +11,7 @@ import com.kaifantech.bean.msg.agv.TaskPathInfoPointBean;
 import com.kaifantech.component.service.pi.ctrl.PIMsgService;
 import com.kaifantech.component.service.pi.path.distance.DistanceChecker;
 import com.kaifantech.component.service.pi.path.info.TaskPathInfoService;
-import com.kaifantech.util.agv.msg.PreventImpactCommand;
+import com.kaifantech.util.agv.msg.PiCommandMsg;
 import com.kaifantech.util.agv.taskpath.DistanceStatus;
 import com.kaifantech.util.constant.pi.TaskPathCtrlConstant;
 
@@ -30,17 +30,17 @@ public class PICtrlOneWithPathService {
 	@Autowired
 	private PIMsgService piMsgService;
 
-	public PreventImpactCommand check2Agvs(List<TaskPathInfoPointBean> pathOne, AGVMsgBean msgOne,
+	public PiCommandMsg check2Agvs(List<TaskPathInfoPointBean> pathOne, AGVMsgBean msgOne,
 			AGVMsgBean msgAnother) {
 
-		PreventImpactCommand commandByMsg = neitherWithPathService.check2AgvsByMsg(msgOne, msgAnother);
+		PiCommandMsg commandByMsg = neitherWithPathService.check2AgvsByMsg(msgOne, msgAnother);
 		if (commandByMsg.getDistanceStatus() == DistanceStatus.DANGEROUS) {
 			piMsgService.danger(msgOne, msgAnother, TaskPathCtrlConstant.ONE_WITH_PATH,
 					TaskPathCtrlConstant.NEITHER_WITH_PATH);
 			return commandByMsg;
 		}
 
-		PreventImpactCommand command = new PreventImpactCommand();
+		PiCommandMsg command = new PiCommandMsg();
 
 		if (isDangerousOneWithPath(pathOne, msgOne, msgAnother)) {
 			msgOne.setWithPath(true);

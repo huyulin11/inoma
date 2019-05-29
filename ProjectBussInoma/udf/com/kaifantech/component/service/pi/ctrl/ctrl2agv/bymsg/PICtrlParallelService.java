@@ -7,7 +7,7 @@ import com.kaifantech.bean.msg.agv.AGVMsgBean;
 import com.kaifantech.component.service.pi.ctrl.PIMsgService;
 import com.kaifantech.util.agv.msg.Direction;
 import com.kaifantech.util.agv.msg.MsgCompare;
-import com.kaifantech.util.agv.msg.PreventImpactCommand;
+import com.kaifantech.util.agv.msg.PiCommandMsg;
 import com.kaifantech.util.constant.pi.PICtrlConstant;
 import com.kaifantech.util.constant.pi.detail.BASIC_INFO;
 import com.kaifantech.util.constant.pi.detail.PARALLEL_CONVERSE_IN_LINE;
@@ -19,7 +19,7 @@ public class PICtrlParallelService implements IPICtrlByMsgService {
 	@Autowired
 	private PIMsgService piMsgService;
 
-	public PreventImpactCommand checkWhenParallel(AGVMsgBean msgOne, AGVMsgBean msgAnother,
+	public PiCommandMsg checkWhenParallel(AGVMsgBean msgOne, AGVMsgBean msgAnother,
 			MsgCompare<AGVMsgBean> compare) {
 		double distanceInParallel = 0;
 		double distanceInOtherAxis = 0;

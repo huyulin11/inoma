@@ -11,7 +11,7 @@ import com.kaifantech.bean.msg.agv.IXYBean;
 import com.kaifantech.bean.msg.agv.TaskPathInfoPointBean;
 import com.kaifantech.component.service.pi.ctrl.PIMsgService;
 import com.kaifantech.component.service.pi.path.distance.DistanceChecker;
-import com.kaifantech.util.agv.msg.PreventImpactCommand;
+import com.kaifantech.util.agv.msg.PiCommandMsg;
 import com.kaifantech.util.agv.taskpath.DistanceStatus;
 import com.kaifantech.util.agv.taskpath.Intersection;
 import com.kaifantech.util.agv.taskpath.TaskPathInfoMap;
@@ -93,9 +93,9 @@ public class IntersectionService {
 	}
 
 	/** 比较双方均有路径记录-即时位置比对-是否需要做停止控制 */
-	public PreventImpactCommand check2Agvs(List<TaskPathInfoPointBean> pathOne, List<TaskPathInfoPointBean> pathAnother,
+	public PiCommandMsg check2Agvs(List<TaskPathInfoPointBean> pathOne, List<TaskPathInfoPointBean> pathAnother,
 			AGVMsgBean msgOne, AGVMsgBean msgAnother) {
-		PreventImpactCommand command = new PreventImpactCommand();
+		PiCommandMsg command = new PiCommandMsg();
 
 		Intersection intersection = getIntersection(pathOne, pathAnother, msgOne, msgAnother);
 

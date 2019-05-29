@@ -8,7 +8,7 @@ import com.kaifantech.component.service.pi.ctrl.PIMsgService;
 import com.kaifantech.component.service.pi.path.distance.Differ;
 import com.kaifantech.util.agv.msg.MsgCompare;
 import com.kaifantech.util.agv.msg.Point;
-import com.kaifantech.util.agv.msg.PreventImpactCommand;
+import com.kaifantech.util.agv.msg.PiCommandMsg;
 import com.kaifantech.util.constant.pi.PICtrlConstant;
 import com.kaifantech.util.constant.pi.detail.BASIC_INFO;
 import com.kaifantech.util.constant.pi.detail.VERTICAL_1_CLOSE_1_FARAWAY;
@@ -24,15 +24,15 @@ public class PICtrlVericalService implements IPICtrlByMsgService {
 	@Autowired
 	private PIMsgService piMsgService;
 
-	public PreventImpactCommand checkWhenV(AGVMsgBean msgOne, AGVMsgBean msgAnother,
+	public PiCommandMsg checkWhenV(AGVMsgBean msgOne, AGVMsgBean msgAnother,
 			MsgCompare<AGVMsgBean> compare, boolean isClashModel) {
 		this.isClashModel = isClashModel;
-		PreventImpactCommand command = checkWhenV(msgOne, msgAnother, compare);
+		PiCommandMsg command = checkWhenV(msgOne, msgAnother, compare);
 		isClashModel = false;
 		return command;
 	}
 
-	public PreventImpactCommand checkWhenV(AGVMsgBean msgOne, AGVMsgBean msgAnother,
+	public PiCommandMsg checkWhenV(AGVMsgBean msgOne, AGVMsgBean msgAnother,
 			MsgCompare<AGVMsgBean> compare) {
 		Point croosPoint = compare.getCrossPoint();
 		boolean isOneCloseToPoint = msgOne.isCloseTo(croosPoint);
@@ -61,13 +61,13 @@ public class PICtrlVericalService implements IPICtrlByMsgService {
 		return null;
 	}
 
-	private PreventImpactCommand when2Faraway(AGVMsgBean msgOne, AGVMsgBean msgAnother,
+	private PiCommandMsg when2Faraway(AGVMsgBean msgOne, AGVMsgBean msgAnother,
 			boolean isOneCloseToPoint, boolean isAnotherCloseToPoint, double distanceOfOneToPoint,
 			double distanceOfAnotherToPoint) {
 		return this.safe(msgOne, msgAnother);
 	}
 
-	private PreventImpactCommand when1Faraway1Close(AGVMsgBean msgOne, AGVMsgBean msgAnother,
+	private PiCommandMsg when1Faraway1Close(AGVMsgBean msgOne, AGVMsgBean msgAnother,
 			MsgCompare<AGVMsgBean> compare, boolean isOneCloseToPoint, boolean isAnotherCloseToPoint,
 			double distanceOfOneToPoint, double distanceOfAnotherToPoint) {
 		AGVMsgBean closeBean = isOneCloseToPoint ? msgOne : msgAnother;
@@ -89,7 +89,7 @@ public class PICtrlVericalService implements IPICtrlByMsgService {
 		}
 	}
 
-	private PreventImpactCommand when2Close(AGVMsgBean msgOne, AGVMsgBean msgAnother,
+	private PiCommandMsg when2Close(AGVMsgBean msgOne, AGVMsgBean msgAnother,
 			MsgCompare<AGVMsgBean> compare, boolean isOneCloseToPoint, boolean isAnotherCloseToPoint,
 			double distanceOfOneToPoint, double distanceOfAnotherToPoint) {
 		double distanceMsgOne = VERTICAL_2_CLOSE.DISTANCE_DANGEROUS + BASIC_INFO.addedDistance(msgOne.getSpeed());

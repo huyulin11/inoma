@@ -8,7 +8,7 @@ import com.kaifantech.component.service.pi.ctrl.PIMsgService;
 import com.kaifantech.component.service.pi.path.distance.Differ;
 import com.kaifantech.util.agv.msg.MsgCompare;
 import com.kaifantech.util.agv.msg.Point;
-import com.kaifantech.util.agv.msg.PreventImpactCommand;
+import com.kaifantech.util.agv.msg.PiCommandMsg;
 import com.kaifantech.util.constant.pi.PICtrlConstant;
 import com.kaifantech.util.constant.pi.detail.OTHERS_1_POSITIVE_CLOSE_1_OTHERS;
 import com.kaifantech.util.constant.pi.detail.OTHERS_1_POSITIVE_FARAWAY_1_OTHERS;
@@ -23,9 +23,9 @@ public class PICtrlOtherService implements IPICtrlByMsgService {
 	@Autowired
 	private PIMsgService piMsgService;
 
-	private PreventImpactCommand command;
+	private PiCommandMsg command;
 
-	public PreventImpactCommand checkWhenOthers(AGVMsgBean msgOne, AGVMsgBean msgAnother,
+	public PiCommandMsg checkWhenOthers(AGVMsgBean msgOne, AGVMsgBean msgAnother,
 			MsgCompare<AGVMsgBean> compare) {
 		boolean isOnePositiveAngle = msgOne.isPositiveAngle();
 		boolean isAnotherPositiveAngle = msgAnother.isPositiveAngle();

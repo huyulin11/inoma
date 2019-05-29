@@ -9,7 +9,7 @@ import com.kaifantech.bean.msg.agv.AGVMsgBean;
 import com.kaifantech.bean.msg.agv.TaskPathInfoPointBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.component.service.pi.ctrl.ctrl2agv.bymsg.PICtrlByMsgService;
-import com.kaifantech.util.agv.msg.PreventImpactCommand;
+import com.kaifantech.util.agv.msg.PiCommandMsg;
 import com.kaifantech.util.agv.taskpath.DistanceStatus;
 import com.calculatedfun.util.AppTool;
 
@@ -28,13 +28,13 @@ public class PICtrlService {
 	@Autowired
 	private PICtrlByMsgService ctrlService;
 
-	public PreventImpactCommand check2Agvs(List<TaskPathInfoPointBean> pathOne, List<TaskPathInfoPointBean> pathAnother,
+	public PiCommandMsg check2Agvs(List<TaskPathInfoPointBean> pathOne, List<TaskPathInfoPointBean> pathAnother,
 			AGVMsgBean msgOne, AGVMsgBean msgAnother, TaskexeBean taskexeBeanOne,
 			TaskexeBean taskexeBeanAnother) {
 		/** --------------------------------------两台AGV都没有任务-------------------------------------- **/
 		/** 如果两台AGV均无任务在执行，直接返回安全 */
 		if (AppTool.isNull(taskexeBeanOne) && AppTool.isNull(taskexeBeanAnother)) {
-			PreventImpactCommand command = new PreventImpactCommand();
+			PiCommandMsg command = new PiCommandMsg();
 			command.setDistanceStatus(DistanceStatus.SAFE);
 			command.getSafeMsgs().add(msgOne);
 			command.getSafeMsgs().add(msgAnother);
@@ -46,7 +46,7 @@ public class PICtrlService {
 	}
 
 	@SuppressWarnings("unused")
-	private PreventImpactCommand checkOnePatten(List<TaskPathInfoPointBean> pathOne,
+	private PiCommandMsg checkOnePatten(List<TaskPathInfoPointBean> pathOne,
 			List<TaskPathInfoPointBean> pathAnother, AGVMsgBean msgOne, AGVMsgBean msgAnother,
 			TaskexeBean taskexeBeanOne, TaskexeBean taskexeBeanAnother) {
 		/** ----------------------------------------一台AGV有任务---------------------------------------- **/

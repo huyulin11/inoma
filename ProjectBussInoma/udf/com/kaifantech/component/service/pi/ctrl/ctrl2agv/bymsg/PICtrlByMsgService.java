@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.kaifantech.bean.msg.agv.AGVMsgBean;
 import com.kaifantech.util.agv.msg.MsgCompare;
-import com.kaifantech.util.agv.msg.PreventImpactCommand;
+import com.kaifantech.util.agv.msg.PiCommandMsg;
 import com.kaifantech.util.log.AppFileLogger;
 import com.calculatedfun.util.DateFactory;
 import com.calculatedfun.util.AppTool;
@@ -30,13 +30,13 @@ public class PICtrlByMsgService implements IPICtrlByMsgService {
 	// @Autowired
 	// private DifferByMsg differByMsg;
 
-	public PreventImpactCommand check2AgvsByMsg(AGVMsgBean msgOne, AGVMsgBean msgAnother) {
+	public PiCommandMsg check2AgvsByMsg(AGVMsgBean msgOne, AGVMsgBean msgAnother) {
 		// differByMsg.initPIParam();
 		MsgCompare<AGVMsgBean> compare = new MsgCompare<AGVMsgBean>(msgOne, msgAnother);
 
 		getTipsMsg(msgOne, msgAnother, compare);
 
-		PreventImpactCommand command;
+		PiCommandMsg command;
 
 		command = piCtrlClashAreaService.check(msgOne, msgAnother, compare);
 		if (!AppTool.isNull(command)) {

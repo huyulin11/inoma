@@ -22,7 +22,7 @@ import com.kaifantech.component.service.taskexe.add.ITaskexeAddService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.init.sys.qualifier.InomaSystemQualifier;
-import com.kaifantech.util.agv.msg.PreventImpactCommand;
+import com.kaifantech.util.agv.msg.PiCommandMsg;
 import com.kaifantech.util.constant.pi.detail.CLASH_AREA_INFO;
 import com.kaifantech.util.constant.pi.detail.ClashArea;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvMoveStatus;
@@ -96,7 +96,7 @@ public class AcsPiWorkService implements IPiWorkService {
 		if (agvBeanOne.getEnvironment() != agvBeanAnother.getEnvironment()) {
 			return;
 		}
-		PreventImpactCommand command = piCtrlService.check2Agvs(agvBeanOne, agvBeanAnother);
+		PiCommandMsg command = piCtrlService.check2Agvs(agvBeanOne, agvBeanAnother);
 		if (AppTool.isNull(command)) {
 			return;
 		}

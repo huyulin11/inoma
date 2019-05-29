@@ -13,7 +13,7 @@ import com.kaifantech.component.business.msg.info.agv.IAgvMsgInfoModule;
 import com.kaifantech.component.service.pi.ctrl.ctrl2agv.byangle.PICtrlService;
 import com.kaifantech.component.service.pi.path.info.TaskPathInfoService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
-import com.kaifantech.util.agv.msg.PreventImpactCommand;
+import com.kaifantech.util.agv.msg.PiCommandMsg;
 import com.calculatedfun.util.AppTool;
 
 @Component
@@ -34,7 +34,7 @@ public class PIAllCtrlService {
 	@Autowired
 	private TaskPathInfoService taskPathInfoService;
 
-	public PreventImpactCommand check2Agvs(AgvBean agvBeanOne, AgvBean agvBeanAnother) {
+	public PiCommandMsg check2Agvs(AgvBean agvBeanOne, AgvBean agvBeanAnother) {
 		AGVMsgBean msgOne = getAGVMsgBean(agvBeanOne.getId());
 		AGVMsgBean msgAnother = getAGVMsgBean(agvBeanAnother.getId());
 		if (AppTool.isNull(msgOne) || AppTool.isNull(msgAnother) || AppTool.isNull(msgOne.getAGVId())

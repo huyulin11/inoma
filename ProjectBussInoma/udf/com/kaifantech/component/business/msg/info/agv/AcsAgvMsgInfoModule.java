@@ -87,7 +87,7 @@ public class AcsAgvMsgInfoModule implements IAgvMsgInfoModule {
 			Deque<AGVMsgBean> msgQueue = msgQueues.get(agvId);
 			if (!AppTool.isNull(agvMsgBean)) {
 				lastAGVMsgBean = (AGVMsgBean) agvMsgBean.clone();
-				lastAGVMsgBean.setLastAGVMsgBean(null);
+				lastAGVMsgBean.setLast(null);
 			}
 			agvMsgBean = InomaAgvMsgBeanTransfer.transToBean(agvId, sFromAGV, agvMsgBean);
 			if (!AppTool.isNull(lastAGVMsgBean) && !AppTool.isNull(lastAGVMsgBean.getAGVId())) {
@@ -103,7 +103,7 @@ public class AcsAgvMsgInfoModule implements IAgvMsgInfoModule {
 					msgQueue.push(lastAGVMsgBean);
 				}
 			}
-			agvMsgBean.setLastAGVMsgBean(msgQueue.size() > 0 ? msgQueue.getLast() : lastAGVMsgBean);
+			agvMsgBean.setLast(msgQueue.size() > 0 ? msgQueue.getLast() : lastAGVMsgBean);
 			agvMsgBean.calDirection();
 			latestMsgMap.put(agvId, agvMsgBean);
 			AGVMsgBean msg = latestMsgMap.get(agvId);
