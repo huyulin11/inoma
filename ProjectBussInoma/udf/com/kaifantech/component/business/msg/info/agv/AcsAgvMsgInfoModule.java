@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.iot.client.IotClientBean;
-import com.kaifantech.bean.msg.agv.AGVMsgBean;
+import com.kaifantech.bean.msg.agv.LaserAgvMsgBean;
 import com.kaifantech.bean.msg.agv.InomaAgvMsgBeanTransfer;
 import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.component.dao.AgvMsgDao;
@@ -29,7 +29,7 @@ import com.kaifantech.util.thread.ThreadTool;
 
 @Service(InomaSystemQualifier.AGV_MSG_INFO_MODULE)
 public class AcsAgvMsgInfoModule implements IAgvMsgInfoModule {
-	private Map<Integer, AGVMsgBean> latestMsgMap = new HashMap<>();
+	private Map<Integer, LaserAgvMsgBean> latestMsgMap = new HashMap<>();
 
 	@Autowired
 	private AgvMsgDao msgDao;
@@ -50,14 +50,14 @@ public class AcsAgvMsgInfoModule implements IAgvMsgInfoModule {
 	@Autowired
 	private TaskexeInfoService taskexeInfoService;
 
-	private Map<Integer, Deque<AGVMsgBean>> msgQueues = new HashMap<>();
+	private Map<Integer, Deque<LaserAgvMsgBean>> msgQueues = new HashMap<>();
 
-	public AGVMsgBean getLatestMsgBean(Integer agvId) {
-		AGVMsgBean latestMsgObj = latestMsgMap.get(agvId);
+	public LaserAgvMsgBean getLatestMsgBean(Integer agvId) {
+		LaserAgvMsgBean latestMsgObj = latestMsgMap.get(agvId);
 		if (latestMsgObj == null) {
-			latestMsgMap.put(agvId, new AGVMsgBean());
+			latestMsgMap.put(agvId, new LaserAgvMsgBean());
 		}
-		AGVMsgBean msg = latestMsgMap.get(agvId);
+		LaserAgvMsgBean msg = latestMsgMap.get(agvId);
 
 		if (AppTool.isNull(msg) || AppTool.isNull(msg.getX()) || AppTool.isNull(msg.getY())) {
 			return null;
@@ -82,11 +82,11 @@ public class AcsAgvMsgInfoModule implements IAgvMsgInfoModule {
 
 			String sFromAGV = msgDao.getLatestMsg(agvId);
 
-			AGVMsgBean agvMsgBean = latestMsgMap.get(agvId);
-			AGVMsgBean lastAGVMsgBean = null;
-			Deque<AGVMsgBean> msgQueue = msgQueues.get(agvId);
+			LaserAgvMsgBean agvMsgBean = latestMsgMap.get(agvId);
+			LaserAgvMsgBean lastAGVMsgBean = null;
+			Deque<LaserAgvMsgBean> msgQueue = msgQueues.get(agvId);
 			if (!AppTool.isNull(agvMsgBean)) {
-				lastAGVMsgBean = (AGVMsgBean) agvMsgBean.clone();
+				lastAGVMsgBean = (LaserAgvMsgBean) agvMsgBean.clone();
 				lastAGVMsgBean.setLast(null);
 			}
 			agvMsgBean = InomaAgvMsgBeanTransfer.transToBean(agvId, sFromAGV, agvMsgBean);
@@ -99,14 +99,14 @@ public class AcsAgvMsgInfoModule implements IAgvMsgInfoModule {
 					msgQueue.removeLast();
 				}
 				if (msgQueue.size() == 0 || (msgQueue.size() > 0
-						&& new MsgCompare<AGVMsgBean>(msgQueue.getFirst(), lastAGVMsgBean).getDistance() > 20)) {
+						&& new MsgCompare<LaserAgvMsgBean>(msgQueue.getFirst(), lastAGVMsgBean).getDistance() > 20)) {
 					msgQueue.push(lastAGVMsgBean);
 				}
 			}
 			agvMsgBean.setLast(msgQueue.size() > 0 ? msgQueue.getLast() : lastAGVMsgBean);
 			agvMsgBean.calDirection();
 			latestMsgMap.put(agvId, agvMsgBean);
-			AGVMsgBean msg = latestMsgMap.get(agvId);
+			LaserAgvMsgBean msg = latestMsgMap.get(agvId);
 			msg.setTaskid(singleTaskInfoService.getSingletaskByTaskName(msg.getTaskName()).getId());
 
 			// ThreadTool.getThreadPool().execute(new Runnable() {

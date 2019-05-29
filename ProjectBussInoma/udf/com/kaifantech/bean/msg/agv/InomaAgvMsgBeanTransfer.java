@@ -4,14 +4,14 @@ import com.calculatedfun.util.AppTool;
 import com.kaifantech.init.sys.SystemInitiator;
 
 public class InomaAgvMsgBeanTransfer {
-	public static AGVMsgBean transToBean(Integer agvId, String sFromAGV, AGVMsgBean agvMsgBean) {
+	public static LaserAgvMsgBean transToBean(Integer agvId, String sFromAGV, LaserAgvMsgBean agvMsgBean) {
 		try {
 			if (AppTool.isNull(agvId)) {
 				return null;
 			}
 
 			if (AppTool.isNull(sFromAGV)) {
-				return new AGVMsgBean();
+				return new LaserAgvMsgBean();
 			}
 			sFromAGV = sFromAGV.trim();
 

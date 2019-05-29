@@ -5,23 +5,23 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.calculatedfun.util.AppTool;
-import com.kaifantech.bean.msg.agv.AGVMsgBean;
+import com.kaifantech.bean.msg.agv.LaserAgvMsgBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
 
 public class IotClientLatestMsg {
-	private AGVMsgBean agvMsg = new AGVMsgBean();
+	private LaserAgvMsgBean agvMsg = new LaserAgvMsgBean();
 	private String latestMsgStr = "";
 
-	public IotClientLatestMsg(AGVMsgBean agvMsg, String latestMsgStr) {
+	public IotClientLatestMsg(LaserAgvMsgBean agvMsg, String latestMsgStr) {
 		this.agvMsg = agvMsg;
 		this.latestMsgStr = latestMsgStr;
 	}
 
-	public AGVMsgBean geAGVMsg() {
+	public LaserAgvMsgBean geAGVMsg() {
 		return agvMsg;
 	}
 
-	public void setAGVMsg(AGVMsgBean latestMsg) {
+	public void setAGVMsg(LaserAgvMsgBean latestMsg) {
 		this.agvMsg = latestMsg;
 	}
 

@@ -5,15 +5,15 @@ import java.util.List;
 
 import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.info.agv.AgvBean;
-import com.kaifantech.bean.msg.agv.AGVMsgBean;
+import com.kaifantech.bean.msg.agv.LaserAgvMsgBean;
 import com.kaifantech.util.agv.taskpath.DistanceStatus;
 
 public class PiCommandMsg {
 	private DistanceStatus distanceStatus;
 
-	private List<AGVMsgBean> safeMsgs = new ArrayList<>();
+	private List<LaserAgvMsgBean> safeMsgs = new ArrayList<>();
 
-	private List<AGVMsgBean> dangerMsgs = new ArrayList<>();
+	private List<LaserAgvMsgBean> dangerMsgs = new ArrayList<>();
 
 	private List<Integer> safeIds = new ArrayList<>();
 
@@ -29,11 +29,11 @@ public class PiCommandMsg {
 		this.distanceStatus = distanceStatus;
 	}
 
-	public List<AGVMsgBean> getSafeMsgs() {
+	public List<LaserAgvMsgBean> getSafeMsgs() {
 		return safeMsgs;
 	}
 
-	public List<AGVMsgBean> getDangerMsgs() {
+	public List<LaserAgvMsgBean> getDangerMsgs() {
 		return dangerMsgs;
 	}
 
@@ -45,14 +45,14 @@ public class PiCommandMsg {
 		return dangerIds;
 	}
 
-	public PiCommandMsg dangerous(AGVMsgBean msgOne) {
+	public PiCommandMsg dangerous(LaserAgvMsgBean msgOne) {
 		if (!AppTool.isNull(msgOne)) {
 			getDangerMsgs().add(msgOne);
 		}
 		return this;
 	}
 
-	public PiCommandMsg safe(AGVMsgBean msgOne) {
+	public PiCommandMsg safe(LaserAgvMsgBean msgOne) {
 		if (!AppTool.isNull(msgOne)) {
 			getSafeMsgs().add(msgOne);
 		}

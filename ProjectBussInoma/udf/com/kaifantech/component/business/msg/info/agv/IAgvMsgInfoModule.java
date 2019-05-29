@@ -2,7 +2,7 @@ package com.kaifantech.component.business.msg.info.agv;
 
 import java.util.Map;
 
-import com.kaifantech.bean.msg.agv.AGVMsgBean;
+import com.kaifantech.bean.msg.agv.LaserAgvMsgBean;
 
 public interface IAgvMsgInfoModule {
 
@@ -10,7 +10,7 @@ public interface IAgvMsgInfoModule {
 		return null;
 	}
 
-	public default AGVMsgBean getLatestMsgBean(Integer agvId) {
+	public default LaserAgvMsgBean getLatestMsgBean(Integer agvId) {
 		return null;
 	}
 
@@ -21,6 +21,6 @@ public interface IAgvMsgInfoModule {
 	public default void setLatestMsg() {
 	}
 
-	public default void storeMsgToPath(AGVMsgBean msg) {
+	public default void storeMsgToPath(LaserAgvMsgBean msg) {
 	}
 }

@@ -9,7 +9,7 @@ import com.kaifantech.util.agv.msg.Location;
 import com.kaifantech.util.constant.pi.detail.BASIC_INFO;
 import com.kaifantech.util.constant.pi.detail.CLASH_AREA_INFO;
 
-public class AGVMsgBean implements IXYBean, Cloneable {
+public class LaserAgvMsgBean implements IXYBean, Cloneable {
 	protected String taskIsfinished;
 	protected String taskid;
 	protected Integer taskStep;
@@ -33,7 +33,7 @@ public class AGVMsgBean implements IXYBean, Cloneable {
 	public int xaxisOfTarget;
 	public int targetLocation;
 
-	public AGVMsgBean() {
+	public LaserAgvMsgBean() {
 	}
 
 	public int getCurrentLoacation() {
@@ -321,10 +321,10 @@ public class AGVMsgBean implements IXYBean, Cloneable {
 		String msg1 = "cmd=position;pause_stat=0;battery=461;error=0;x=-10901;y=-2256;a=275.239014;z=15;gAlarm=0;speed=-205;task=2-D-1-6-1-114.xml;veer_angle=90.000000;task_step=9;task_isfinished=0;task_error=0;walk_path_id=8004�";
 		String msg2 = "cmd=position;pause_stat=0;battery=461;error=0;x=-10878;y=-2270;a=273.638000;z=15;gAlarm=0;speed=-162;task=2-D-1-6-1-114.xml;veer_angle=90.000000;task_step=9;task_isfinished=0;task_error=0;walk_path_id=8004�";
 
-		AGVMsgBean bean1 = new AGVMsgBean();
+		LaserAgvMsgBean bean1 = new LaserAgvMsgBean();
 		InomaAgvMsgBeanTransfer.transToBean(1, msg1, bean1);
 
-		AGVMsgBean bean2 = new AGVMsgBean();
+		LaserAgvMsgBean bean2 = new LaserAgvMsgBean();
 		InomaAgvMsgBeanTransfer.transToBean(1, msg2, bean2);
 		bean2.setLast(bean1);
 		bean2.calDirection();

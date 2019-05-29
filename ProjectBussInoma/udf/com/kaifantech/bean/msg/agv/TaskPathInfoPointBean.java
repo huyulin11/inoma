@@ -1,6 +1,6 @@
 package com.kaifantech.bean.msg.agv;
 
-public class TaskPathInfoPointBean extends AGVMsgBean {
+public class TaskPathInfoPointBean extends LaserAgvMsgBean {
 	private String uuid;
 	private Long secondToStart;
 

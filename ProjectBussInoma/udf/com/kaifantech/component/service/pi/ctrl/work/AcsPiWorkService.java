@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.info.agv.AgvBean;
-import com.kaifantech.bean.msg.agv.AGVMsgBean;
+import com.kaifantech.bean.msg.agv.LaserAgvMsgBean;
 import com.kaifantech.bean.taskexe.AgvStatusBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.component.business.agv.msg.road.VerticalRoad;
@@ -100,12 +100,12 @@ public class AcsPiWorkService implements IPiWorkService {
 		if (AppTool.isNull(command)) {
 			return;
 		}
-		List<AGVMsgBean> dangerMsgs = command.getDangerMsgs();
-		List<AGVMsgBean> safeMsgs = command.getSafeMsgs();
-		for (AGVMsgBean msg : dangerMsgs) {
+		List<LaserAgvMsgBean> dangerMsgs = command.getDangerMsgs();
+		List<LaserAgvMsgBean> safeMsgs = command.getSafeMsgs();
+		for (LaserAgvMsgBean msg : dangerMsgs) {
 			addToStop(msg.getAGVId());
 		}
-		for (AGVMsgBean msg : safeMsgs) {
+		for (LaserAgvMsgBean msg : safeMsgs) {
 			if (!dangerMsgs.contains(msg)) {
 				addToContinue(msg.getAGVId());
 			}

@@ -3,7 +3,7 @@ package com.kaifantech.component.service.pi.ctrl.ctrl2agv.bymsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.kaifantech.bean.msg.agv.AGVMsgBean;
+import com.kaifantech.bean.msg.agv.LaserAgvMsgBean;
 import com.kaifantech.component.service.pi.ctrl.PIMsgService;
 import com.kaifantech.component.service.pi.path.distance.Differ;
 import com.kaifantech.util.agv.msg.MsgCompare;
@@ -24,16 +24,16 @@ public class PICtrlVericalService implements IPICtrlByMsgService {
 	@Autowired
 	private PIMsgService piMsgService;
 
-	public PiCommandMsg checkWhenV(AGVMsgBean msgOne, AGVMsgBean msgAnother,
-			MsgCompare<AGVMsgBean> compare, boolean isClashModel) {
+	public PiCommandMsg checkWhenV(LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother,
+			MsgCompare<LaserAgvMsgBean> compare, boolean isClashModel) {
 		this.isClashModel = isClashModel;
 		PiCommandMsg command = checkWhenV(msgOne, msgAnother, compare);
 		isClashModel = false;
 		return command;
 	}
 
-	public PiCommandMsg checkWhenV(AGVMsgBean msgOne, AGVMsgBean msgAnother,
-			MsgCompare<AGVMsgBean> compare) {
+	public PiCommandMsg checkWhenV(LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother,
+			MsgCompare<LaserAgvMsgBean> compare) {
 		Point croosPoint = compare.getCrossPoint();
 		boolean isOneCloseToPoint = msgOne.isCloseTo(croosPoint);
 		boolean isAnotherCloseToPoint = msgAnother.isCloseTo(croosPoint);
@@ -61,17 +61,17 @@ public class PICtrlVericalService implements IPICtrlByMsgService {
 		return null;
 	}
 
-	private PiCommandMsg when2Faraway(AGVMsgBean msgOne, AGVMsgBean msgAnother,
+	private PiCommandMsg when2Faraway(LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother,
 			boolean isOneCloseToPoint, boolean isAnotherCloseToPoint, double distanceOfOneToPoint,
 			double distanceOfAnotherToPoint) {
 		return this.safe(msgOne, msgAnother);
 	}
 
-	private PiCommandMsg when1Faraway1Close(AGVMsgBean msgOne, AGVMsgBean msgAnother,
-			MsgCompare<AGVMsgBean> compare, boolean isOneCloseToPoint, boolean isAnotherCloseToPoint,
+	private PiCommandMsg when1Faraway1Close(LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother,
+			MsgCompare<LaserAgvMsgBean> compare, boolean isOneCloseToPoint, boolean isAnotherCloseToPoint,
 			double distanceOfOneToPoint, double distanceOfAnotherToPoint) {
-		AGVMsgBean closeBean = isOneCloseToPoint ? msgOne : msgAnother;
-		AGVMsgBean farawayBean = !isOneCloseToPoint ? msgOne : msgAnother;
+		LaserAgvMsgBean closeBean = isOneCloseToPoint ? msgOne : msgAnother;
+		LaserAgvMsgBean farawayBean = !isOneCloseToPoint ? msgOne : msgAnother;
 
 		double distanceOfCloseOneToPoint = isOneCloseToPoint ? distanceOfOneToPoint : distanceOfAnotherToPoint;
 		double distanceOfFarawayOneToPoint = !isOneCloseToPoint ? distanceOfOneToPoint : distanceOfAnotherToPoint;
@@ -89,8 +89,8 @@ public class PICtrlVericalService implements IPICtrlByMsgService {
 		}
 	}
 
-	private PiCommandMsg when2Close(AGVMsgBean msgOne, AGVMsgBean msgAnother,
-			MsgCompare<AGVMsgBean> compare, boolean isOneCloseToPoint, boolean isAnotherCloseToPoint,
+	private PiCommandMsg when2Close(LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother,
+			MsgCompare<LaserAgvMsgBean> compare, boolean isOneCloseToPoint, boolean isAnotherCloseToPoint,
 			double distanceOfOneToPoint, double distanceOfAnotherToPoint) {
 		double distanceMsgOne = VERTICAL_2_CLOSE.DISTANCE_DANGEROUS + BASIC_INFO.addedDistance(msgOne.getSpeed());
 		double distanceMsgAnother = VERTICAL_2_CLOSE.DISTANCE_DANGEROUS + BASIC_INFO.addedDistance(msgAnother.getSpeed());

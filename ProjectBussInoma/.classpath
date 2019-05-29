@@ -10,7 +10,6 @@
 	<classpathentry kind="src" path="IotUtil"/>
 	<classpathentry kind="src" path="BasicComponent"/>
 	<classpathentry kind="src" path="BasicUtil"/>
-	<classpathentry kind="src" path="buss"/>
 	<classpathentry kind="src" path="conf"/>
 	<classpathentry kind="src" path="Singletask"/>
 	<classpathentry kind="src" path="Taskexe"/>

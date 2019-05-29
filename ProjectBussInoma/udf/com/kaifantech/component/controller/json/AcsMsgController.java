@@ -14,7 +14,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.calculatedfun.util.AppTool;
 import com.calculatedfun.util.msg.AppMsg;
 import com.kaifantech.bean.info.agv.AgvBean;
-import com.kaifantech.bean.msg.agv.AGVMsgBean;
+import com.kaifantech.bean.msg.agv.LaserAgvMsgBean;
 import com.kaifantech.bean.msg.agv.TaskPathInfoPointBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.component.business.msg.info.agv.IAgvMsgInfoModule;
@@ -43,9 +43,9 @@ public class AcsMsgController {
 	@ResponseBody
 	public Object getLatestMsg() {
 		List<AgvBean> agvList = agvInfoDao.getList();
-		Map<Integer, AGVMsgBean> latestMsg = new HashMap<Integer, AGVMsgBean>();
+		Map<Integer, LaserAgvMsgBean> latestMsg = new HashMap<Integer, LaserAgvMsgBean>();
 		for (AgvBean bean : agvList) {
-			AGVMsgBean msg = msgService.getLatestMsgBean(bean.getId());
+			LaserAgvMsgBean msg = msgService.getLatestMsgBean(bean.getId());
 			latestMsg.put(bean.getId(), msg);
 		}
 		return JSONArray.toJSON(latestMsg);

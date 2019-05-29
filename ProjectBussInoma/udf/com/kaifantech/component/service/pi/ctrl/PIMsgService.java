@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import com.kaifantech.bean.msg.agv.AGVMsgBean;
+import com.kaifantech.bean.msg.agv.LaserAgvMsgBean;
 import com.kaifantech.component.log.AgvStatusDBLogger;
 import com.kaifantech.component.service.pi.path.distance.Differ;
 import com.kaifantech.component.service.pi.path.distance.DistanceChecker;
@@ -32,7 +32,7 @@ public class PIMsgService {
 	private int safeTimes = 0;
 
 	@Async
-	public void printMsg(AGVMsgBean msgOne, AGVMsgBean msgAnother, boolean withPath, boolean withPathOne,
+	public void printMsg(LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother, boolean withPath, boolean withPathOne,
 			boolean withPathAnother) {
 		if (!SystemInitiator.alwaysTrue) {
 			double distance = Math.sqrt(distanceChecker.getDiffer(withPath).diffPow(msgOne, msgAnother));
@@ -54,7 +54,7 @@ public class PIMsgService {
 	}
 
 	@Async
-	public void danger(AGVMsgBean msgOne, AGVMsgBean msgAnother, int occurredPathCtrlModel, int dangerPathCtrlModel,
+	public void danger(LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother, int occurredPathCtrlModel, int dangerPathCtrlModel,
 			String tips) {
 		safeTimes = 0;
 		boolean withPath = TaskPathCtrlConstant.withPath(dangerPathCtrlModel);
@@ -90,22 +90,22 @@ public class PIMsgService {
 	}
 
 	@Async
-	public void danger(AGVMsgBean msgOne, AGVMsgBean msgAnother, int occurredPathCtrlModel, int dangerPathCtrlModel) {
+	public void danger(LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother, int occurredPathCtrlModel, int dangerPathCtrlModel) {
 		this.danger(msgOne, msgAnother, occurredPathCtrlModel, dangerPathCtrlModel, null);
 	}
 
 	@Async
-	public void danger(AGVMsgBean msgOne, AGVMsgBean msgAnother, int occurredPathCtrlModel) {
+	public void danger(LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother, int occurredPathCtrlModel) {
 		danger(msgOne, msgAnother, occurredPathCtrlModel, occurredPathCtrlModel);
 	}
 
 	@Async
-	public void danger(AGVMsgBean msgOne, AGVMsgBean msgAnother, int occurredPathCtrlModel, String tips) {
+	public void danger(LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother, int occurredPathCtrlModel, String tips) {
 		danger(msgOne, msgAnother, occurredPathCtrlModel, occurredPathCtrlModel, tips);
 	}
 
 	@Async
-	public void dangerInSameTarget(AGVMsgBean msgOne, AGVMsgBean msgAnother) {
+	public void dangerInSameTarget(LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother) {
 		danger(msgOne, msgAnother, PICtrlConstant.MAINCTRL,
 				msgOne.getAGVId() + "车与" + msgAnother.getAGVId() + "车" + "道路重叠，" + "（距离："
 						+ differ.diffX(msgAnother, msgOne.xaxisOfTarget) + "）" + "，" + "需等待" + msgOne.getAGVId()
@@ -114,7 +114,7 @@ public class PIMsgService {
 	}
 
 	@Async
-	public void dangerInSameTargetDangerTwo(AGVMsgBean msgOne, AGVMsgBean msgAnother) {
+	public void dangerInSameTargetDangerTwo(LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother) {
 		danger(msgOne, msgAnother, PICtrlConstant.MAINCTRL,
 				msgOne.getAGVId() + "车与" + msgAnother.getAGVId() + "车" + "道路重叠，且均处于中间冲突地带，停双车，需手工解决冲突！"
 						+ "（msgOne.xaxisOfRoad:" + msgOne.xaxisOfTarget + ",msgAnother.xaxisOfRoad:"
@@ -122,7 +122,7 @@ public class PIMsgService {
 	}
 
 	@Async
-	public void dangerInSameTargetDangerNotMiddle(AGVMsgBean msgOne, AGVMsgBean msgAnother) {
+	public void dangerInSameTargetDangerNotMiddle(LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother) {
 		danger(msgOne, msgAnother, PICtrlConstant.MAINCTRL,
 				msgOne.getAGVId() + "车与" + msgAnother.getAGVId() + "车" + "道路重叠，" + "停车（远离公共区域）"
 						+ (!(msgOne.getCurrentLoacation() == Location.OTHERS) ? msgOne : msgAnother).getAGVId() + "！"
@@ -131,7 +131,7 @@ public class PIMsgService {
 	}
 
 	@Async
-	public void dangerInSameTargetDangerFarawayOne(AGVMsgBean msgOne, AGVMsgBean msgAnother, int roadYaxis) {
+	public void dangerInSameTargetDangerFarawayOne(LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother, int roadYaxis) {
 		danger(msgOne, msgAnother, PICtrlConstant.MAINCTRL,
 				msgOne.getAGVId() + "车与" + msgAnother.getAGVId() + "车" + "道路重叠，" + "且均处于中间冲突地带，停远离回归道路的车辆"
 						+ (differ.diffY(msgOne, roadYaxis) > differ.diffY(msgAnother, roadYaxis) ? msgOne : msgAnother)
@@ -141,7 +141,7 @@ public class PIMsgService {
 	}
 
 	@Async
-	public void dangerInSameTarget(AGVMsgBean msgOne, AGVMsgBean msgAnother, AGVMsgBean stopOne) {
+	public void dangerInSameTarget(LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother, LaserAgvMsgBean stopOne) {
 		danger(msgOne, msgAnother, PICtrlConstant.MAINCTRL,
 				msgOne.getAGVId() + "车与" + msgAnother.getAGVId() + "车" + "，" + "停" + stopOne.getAGVId() + "车"
 						+ "（msgOne.xaxisOfRoad:" + msgOne.xaxisOfTarget + ",msgAnother.xaxisOfRoad:"
@@ -149,12 +149,12 @@ public class PIMsgService {
 	}
 
 	@Async
-	public void dangerInClashArea(AGVMsgBean msgOne, AGVMsgBean msgAnother, AGVMsgBean stopOne) {
+	public void dangerInClashArea(LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother, LaserAgvMsgBean stopOne) {
 		danger(msgOne, msgAnother, PICtrlConstant.CLASHAREA, "停远离区域或非在区域内车：" + stopOne.getAGVId() + "车");
 	}
 
 	@Async
-	public void dangerInClashAreaWhenSameTarger(AGVMsgBean msgOne, AGVMsgBean stopOne) {
+	public void dangerInClashAreaWhenSameTarger(LaserAgvMsgBean msgOne, LaserAgvMsgBean stopOne) {
 		String tips = stopOne.getAGVId() + "车将进入冲突区域，" + "但其目的地被" + msgOne.getAGVId() + "车占用，" + "停"
 				+ stopOne.getAGVId() + "车";
 		danger(msgOne, stopOne, PICtrlConstant.CLASHAREA, tips);

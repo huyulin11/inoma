@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.iot.client.IotClientBean;
-import com.kaifantech.bean.msg.agv.AGVMsgBean;
+import com.kaifantech.bean.msg.agv.LaserAgvMsgBean;
 import com.kaifantech.component.dao.AgvMsgDao;
 import com.kaifantech.component.service.iot.client.IIotClientService;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
@@ -28,7 +28,7 @@ public class IotClientMsgService {
 	public IotClientLatestMsg getLatestMsg(Integer agvId) {
 		IotClientLatestMsg latestMsgObj = latestMsgMap.get(agvId);
 		if (latestMsgObj == null) {
-			latestMsgMap.put(agvId, new IotClientLatestMsg(new AGVMsgBean(), ""));
+			latestMsgMap.put(agvId, new IotClientLatestMsg(new LaserAgvMsgBean(), ""));
 		}
 		return latestMsgMap.get(agvId);
 	}
@@ -124,7 +124,7 @@ public class IotClientMsgService {
 				}
 			}
 
-			AGVMsgBean latestMsg = new AGVMsgBean();
+			LaserAgvMsgBean latestMsg = new LaserAgvMsgBean();
 			latestMsg.setTaskid(taskid);
 			latestMsg.setTaskIsfinished(finishStatus);
 			latestMsg.setBattery(battery);
