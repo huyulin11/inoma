@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- 主机:                           127.0.0.1
--- Server version:               10.3.7-MariaDB - mariadb.org binary distribution
--- Server OS:                    Win64
--- HeidiSQL 版本:                  10.1.0.5492
+-- 服务器版本:                        10.3.7-MariaDB - mariadb.org binary distribution
+-- 服务器OS:                        Win64
+-- HeidiSQL 版本:                  10.1.0.5577
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `ly_resources` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=242 DEFAULT CHARSET=utf8;
 
--- Dumping data for table kf_inoma_weiwei_acs.ly_resources: ~64 rows (approximately)
+-- Dumping data for table kf_inoma_weiwei_acs.ly_resources: ~64 rows (大约)
 DELETE FROM `ly_resources`;
 /*!40000 ALTER TABLE `ly_resources` DISABLE KEYS */;
 INSERT INTO `ly_resources` (`id`, `name`, `parentId`, `resKey`, `type`, `resUrl`, `level`, `icon`, `ishide`, `openType`, `description`, `sortflag`) VALUES
@@ -62,7 +62,7 @@ INSERT INTO `ly_resources` (`id`, `name`, `parentId`, `resKey`, `type`, `resUrl`
 	(202, '档案信息检索', 201, 'archivesSearch', '1', '/s/buss/wms/h/archiveSearch.html', 2, NULL, 0, 0, '档案信息检索', 0),
 	(203, '档案信息管理', 201, 'archivesMgr', '1', '/s/buss/wms/h/archiveMgr.html', NULL, NULL, 0, 0, NULL, 0),
 	(204, 'AGV管理', 0, 'AGVMgr', '0', 'AGVMgr', NULL, NULL, 0, 0, 'AGV管理', 0),
-	(205, 'AGV即时信息', 0, 'AGVMgrUI', '1', '/s/buss/acs/LAO_FOXICONN/h/index.html', NULL, NULL, 0, 1, 'AGV管理功能项', 0),
+	(205, 'AGV即时信息', 0, 'AGVMgrUI', '1', '/s/buss/acs/HONGFU_ZHENMU/h/index.html', NULL, NULL, 0, 1, 'AGV管理功能项', 0),
 	(206, '档案信息录入', 201, 'archivesAdd', '1', '/s/buss/wms/h/archiveAddList.html', NULL, NULL, 0, 0, 'archivesAdd', 0),
 	(207, '执行入库操作', 201, 'AGVEXERK', '1', '/s/buss/wms/h/archiveStockIn.html', NULL, NULL, 0, 0, NULL, 0),
 	(208, '执行出库操作', 201, 'AGVEXECK', '1', '/s/buss/wms/h/archiveStockOut.html', NULL, NULL, 0, 0, NULL, 0),
