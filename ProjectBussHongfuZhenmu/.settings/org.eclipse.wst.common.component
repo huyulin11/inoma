@@ -4,6 +4,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/WebContent/WEB-INF/jsp"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/WebContent/WEB-INF/tag"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/udf"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/iotAgvHongfu"/>
         <dependent-module archiveName="ProjectBussModel.war" deploy-path="/WEB-INF/lib" handle="module:/resource/ProjectBussModel/ProjectBussModel">
             <dependency-type>uses</dependency-type>
         </dependent-module>

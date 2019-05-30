@@ -81,6 +81,11 @@
 			<location>G:/work2018/src/git/ProjectBussModel/JavaSrc/dataExchange</location>
 		</link>
 		<link>
+			<name>iotAgvHongfu</name>
+			<type>2</type>
+			<location>G:/work2018/src/agvHongfu/ModuleAgvHongfu/JavaSrc/iotAgvHongfu</location>
+		</link>
+		<link>
 			<name>iotTraffic</name>
 			<type>2</type>
 			<location>G:/work2018/src/git/ProjectBussModel/JavaSrc/iotTraffic</location>

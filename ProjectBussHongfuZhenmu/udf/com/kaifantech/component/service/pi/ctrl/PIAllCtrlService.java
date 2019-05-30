@@ -9,7 +9,7 @@ import com.kaifantech.bean.info.agv.AgvBean;
 import com.kaifantech.bean.msg.agv.LaserAgvMsgBean;
 import com.kaifantech.bean.msg.agv.TaskPathInfoPointBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
-import com.kaifantech.component.business.msg.info.agv.IAgvMsgInfoModule;
+import com.kaifantech.component.service.msg.info.agv.IAgvMsgInfoModule;
 import com.kaifantech.component.service.pi.ctrl.ctrl2agv.byangle.PICtrlService;
 import com.kaifantech.component.service.pi.path.info.TaskPathInfoService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
