@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="src" path="udf"/>
 	<classpathentry kind="src" path="WebContent/WEB-INF/tag"/>
 	<classpathentry kind="src" path="WebContent/WEB-INF/jsp"/>
 	<classpathentry kind="src" path="dataCache"/>
@@ -14,7 +15,6 @@
 	<classpathentry kind="src" path="Singletask"/>
 	<classpathentry kind="src" path="Taskexe"/>
 	<classpathentry kind="src" path="wms"/>
-	<classpathentry kind="src" path="udf"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>
