@@ -12,7 +12,7 @@ public class DefaultSystemQualifier extends BaseSystemQualifier {
 	public static final String DEFAULT_TASKEXE_ADD_SERVICE = InomaSystemQualifier.TASKEXE_ADD_SERVICE;
 
 	public static final String DEFAULT_ALLOC_CHECK_SERVICE = InomaSystemQualifier.ALLOC_CHECK_SERVICE;
-	public static final String DEFAULT_ALLOC_INFO_SERVICE = WmsSystemQualifier.ALLOC_INFO_SERVICE;
+	public static final String DEFAULT_ALLOC_INFO_SERVICE = InomaSystemQualifier.ALLOC_INFO_SERVICE;
 
 	public static final String DEFAULT_TASKEXE_CHECK_SERVICE = WmsSystemQualifier.TASKEXE_CHECK_SERVICE;
 }

@@ -46,6 +46,7 @@ public class InomaMsgResoluteModule implements IMsgResoluteModule {
 	private TaskexeInfoService taskInfoService;
 
 	@Autowired
+	@Qualifier(DefaultSystemQualifier.DEFAULT_ALLOC_INFO_SERVICE)
 	private IAllocInfoService allocInfoService;
 
 	@Autowired

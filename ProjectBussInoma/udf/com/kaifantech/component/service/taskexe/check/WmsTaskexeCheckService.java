@@ -18,6 +18,7 @@ import com.kaifantech.init.sys.qualifier.WmsSystemQualifier;
 @Service(WmsSystemQualifier.TASKEXE_CHECK_SERVICE)
 public class WmsTaskexeCheckService extends AcsTaskexeCheckService {
 	@Autowired
+	@Qualifier(DefaultSystemQualifier.DEFAULT_ALLOC_INFO_SERVICE)
 	private IAllocInfoService allocInfoService;
 
 	@Autowired

@@ -6,8 +6,9 @@ import org.springframework.stereotype.Service;
 import com.kaifantech.bean.singletask.SingletaskBean;
 import com.kaifantech.bean.wms.alloc.AllocItemInfoBean;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
+import com.kaifantech.init.sys.qualifier.InomaSystemQualifier;
 
-@Service
+@Service(InomaSystemQualifier.ALLOC_INFO_SERVICE)
 public class InomaAllocInfoService extends AllocInfoService {
 	@Autowired
 	private SingleTaskInfoService singleTaskInfoService;
