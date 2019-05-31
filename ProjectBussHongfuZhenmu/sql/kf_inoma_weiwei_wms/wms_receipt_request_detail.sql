@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- 主机:                           127.0.0.1
--- Server version:               10.3.7-MariaDB - mariadb.org binary distribution
--- Server OS:                    Win64
--- HeidiSQL 版本:                  10.1.0.5492
+-- 服务器版本:                        10.3.7-MariaDB - mariadb.org binary distribution
+-- 服务器OS:                        Win64
+-- HeidiSQL 版本:                  10.1.0.5577
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `wms_receipt_request_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='入库信息明细表';
 
--- Dumping data for table kf_inoma_weiwei_wms.wms_receipt_request_detail: ~15 rows (approximately)
+-- Dumping data for table kf_inoma_weiwei_wms.wms_receipt_request_detail: ~15 rows (大约)
 DELETE FROM `wms_receipt_request_detail`;
 /*!40000 ALTER TABLE `wms_receipt_request_detail` DISABLE KEYS */;
 INSERT INTO `wms_receipt_request_detail` (`id`, `paperid`, `item`, `itemname`, `itemcount`, `sprice`, `inventorysts`, `expirationdate`, `lot`, `sequence`, `remark`, `userdef1`, `userdef2`, `userdef3`, `userdef4`, `status`, `opFlag`, `updatetime`, `createtime`, `delflag`) VALUES

@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- 主机:                           127.0.0.1
--- Server version:               10.3.7-MariaDB - mariadb.org binary distribution
--- Server OS:                    Win64
--- HeidiSQL 版本:                  10.1.0.5492
+-- 服务器版本:                        10.3.7-MariaDB - mariadb.org binary distribution
+-- 服务器OS:                        Win64
+-- HeidiSQL 版本:                  10.1.0.5577
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `ly_user_role` (
   PRIMARY KEY (`userId`,`roleId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table kf_inoma_weiwei_acs.ly_user_role: ~32 rows (approximately)
+-- Dumping data for table kf_inoma_weiwei_acs.ly_user_role: ~32 rows (大约)
 DELETE FROM `ly_user_role`;
 /*!40000 ALTER TABLE `ly_user_role` DISABLE KEYS */;
 INSERT INTO `ly_user_role` (`userId`, `roleId`) VALUES

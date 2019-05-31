@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- 主机:                           127.0.0.1
--- Server version:               10.3.7-MariaDB - mariadb.org binary distribution
--- Server OS:                    Win64
--- HeidiSQL 版本:                  10.1.0.5492
+-- 服务器版本:                        10.3.7-MariaDB - mariadb.org binary distribution
+-- 服务器OS:                        Win64
+-- HeidiSQL 版本:                  10.1.0.5577
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -42,11 +42,12 @@ CREATE TABLE IF NOT EXISTS `agv_info` (
   KEY `id` (`id`)
 ) ENGINE=MEMORY DEFAULT CHARSET=utf8 COMMENT='AGV信息表';
 
--- Dumping data for table kf_inoma_weiwei_agv.agv_info: 1 rows
+-- Dumping data for table kf_inoma_weiwei_agv.agv_info: 0 rows
 DELETE FROM `agv_info`;
 /*!40000 ALTER TABLE `agv_info` DISABLE KEYS */;
 INSERT INTO `agv_info` (`id`, `movestatus`, `sitestatus`, `taskstatus`, `agvstatus`, `plcstatus`, `taskid`, `stock`, `currentsite`, `speed`, `battery`, `environment`, `chargeid`, `taskStep`, `isFinished`, `isUsed`, `delflag`, `nextXaxis`, `currentXaxis`, `inCurrentXaxis`, `nextLocation`, `currentLocation`, `gotIt`, `lastXaxis`) VALUES
-	(0, 'CONTINUE', 'INIT', 'FREE', '未准备', '未准备', NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, 0, -1, -1, 0, 4, 4, 0, -1);
+	(2, 'CONTINUE', 'INIT', 'FREE', '未准备', '未准备', NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, 0, -1, -1, 0, 4, 4, 0, -1),
+	(1, 'CONTINUE', 'INIT', 'FREE', '未准备', '未准备', NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, 0, -1, -1, 0, 4, 4, 0, -1);
 /*!40000 ALTER TABLE `agv_info` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

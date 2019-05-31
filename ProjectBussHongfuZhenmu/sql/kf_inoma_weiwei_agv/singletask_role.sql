@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- 主机:                           127.0.0.1
--- Server version:               10.3.7-MariaDB - mariadb.org binary distribution
--- Server OS:                    Win64
--- HeidiSQL 版本:                  10.1.0.5492
+-- 服务器版本:                        10.3.7-MariaDB - mariadb.org binary distribution
+-- 服务器OS:                        Win64
+-- HeidiSQL 版本:                  10.1.0.5577
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `singletask_role` (
   KEY `id` (`taskId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6249 DEFAULT CHARSET=utf8 COMMENT='任务与角色对应权限信息表';
 
--- Dumping data for table kf_inoma_weiwei_agv.singletask_role: ~5,912 rows (approximately)
+-- Dumping data for table kf_inoma_weiwei_agv.singletask_role: ~5,912 rows (大约)
 DELETE FROM `singletask_role`;
 /*!40000 ALTER TABLE `singletask_role` DISABLE KEYS */;
 INSERT INTO `singletask_role` (`taskId`, `roleId`, `agvId`, `delflag`) VALUES

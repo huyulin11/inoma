@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- 主机:                           127.0.0.1
--- Server version:               10.3.7-MariaDB - mariadb.org binary distribution
--- Server OS:                    Win64
--- HeidiSQL 版本:                  10.1.0.5492
+-- 服务器版本:                        10.3.7-MariaDB - mariadb.org binary distribution
+-- 服务器OS:                        Win64
+-- HeidiSQL 版本:                  10.1.0.5577
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `allocation_column_info` (
   UNIQUE KEY `rowid` (`areaId`,`colId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8 COMMENT='仓库列信息表';
 
--- Dumping data for table kf_inoma_weiwei_wms.allocation_column_info: ~102 rows (approximately)
+-- Dumping data for table kf_inoma_weiwei_wms.allocation_column_info: ~102 rows (大约)
 DELETE FROM `allocation_column_info`;
 /*!40000 ALTER TABLE `allocation_column_info` DISABLE KEYS */;
 INSERT INTO `allocation_column_info` (`environment`, `columnId`, `areaId`, `colId`, `allowedSkuType`, `allowedSkuId`, `allowedLayerHeight`, `text`, `xaxis`, `delflag`) VALUES

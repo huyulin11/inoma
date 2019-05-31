@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- 主机:                           127.0.0.1
--- Server version:               10.3.7-MariaDB - mariadb.org binary distribution
--- Server OS:                    Win64
--- HeidiSQL 版本:                  10.1.0.5492
+-- 服务器版本:                        10.3.7-MariaDB - mariadb.org binary distribution
+-- 服务器OS:                        Win64
+-- HeidiSQL 版本:                  10.1.0.5577
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -21,13 +21,20 @@ CREATE TABLE IF NOT EXISTS `ly_userlogin` (
   `loginIP` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `ly_user_loginlist` (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
--- Dumping data for table kf_inoma_weiwei_acs.ly_userlogin: ~1 rows (approximately)
+-- Dumping data for table kf_inoma_weiwei_acs.ly_userlogin: ~5 rows (大约)
 DELETE FROM `ly_userlogin`;
 /*!40000 ALTER TABLE `ly_userlogin` DISABLE KEYS */;
 INSERT INTO `ly_userlogin` (`id`, `userId`, `accountName`, `loginTime`, `loginIP`) VALUES
-	(1, 9810026, 'cheng', '2019-03-11 17:15:42', '127.0.0.1');
+	(1, 9810026, 'cheng', '2019-03-11 17:15:42', '127.0.0.1'),
+	(2, 27, '1408040', '2019-05-30 14:17:21', '127.0.0.1'),
+	(3, 27, '1408040', '2019-05-30 15:38:17', '127.0.0.1'),
+	(4, 27, '1408040', '2019-05-30 15:38:37', '127.0.0.1'),
+	(5, 27, '1408040', '2019-05-30 15:46:58', '127.0.0.1'),
+	(6, 27, '1408040', '2019-05-31 17:10:48', '127.0.0.1'),
+	(7, 27, '1408040', '2019-05-31 17:11:22', '127.0.0.1'),
+	(8, 27, '1408040', '2019-05-31 17:53:38', '127.0.0.1');
 /*!40000 ALTER TABLE `ly_userlogin` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

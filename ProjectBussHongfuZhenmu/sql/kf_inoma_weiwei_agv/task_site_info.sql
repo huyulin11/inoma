@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- 主机:                           127.0.0.1
--- Server version:               10.3.7-MariaDB - mariadb.org binary distribution
--- Server OS:                    Win64
--- HeidiSQL 版本:                  10.1.0.5492
+-- 服务器版本:                        10.3.7-MariaDB - mariadb.org binary distribution
+-- 服务器OS:                        Win64
+-- HeidiSQL 版本:                  10.1.0.5577
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `task_site_info` (
   UNIQUE KEY `sitecode` (`sitecode`)
 ) ENGINE=InnoDB AUTO_INCREMENT=504 DEFAULT CHARSET=utf8 COMMENT='任务站点信息表';
 
--- Dumping data for table kf_inoma_weiwei_agv.task_site_info: ~72 rows (approximately)
+-- Dumping data for table kf_inoma_weiwei_agv.task_site_info: ~72 rows (大约)
 DELETE FROM `task_site_info`;
 /*!40000 ALTER TABLE `task_site_info` DISABLE KEYS */;
 INSERT INTO `task_site_info` (`id`, `sitename`, `sitecode`, `line`, `updatetime`, `sitetype`, `keyid`, `json`, `createtime`, `delflag`) VALUES
