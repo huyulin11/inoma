@@ -2,6 +2,8 @@ package com.kaifantech.util.socket.netty.client.hongfu;
 
 import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.iot.client.IotClientBean;
+import com.kaifantech.cache.manager.AppCacheManager;
+import com.kaifantech.init.sys.params.HongfuCacheKeys;
 import com.kaifantech.util.socket.netty.client.AbstractNettyClient;
 
 import io.netty.buffer.ByteBuf;
@@ -22,11 +24,18 @@ public class HongfuAgvNettyClient extends AbstractNettyClient {
 	}
 
 	public void dealData(ChannelHandlerContext ctx, ByteBuf in) {
-		setLatestMsg(in.toString(CharsetUtil.UTF_8));
+		String agvMsgStr = in.toString(CharsetUtil.UTF_8);
+		agvMsgStr = getMsg(agvMsgStr);
+		if (AppTool.isNull(agvMsgStr)) {
+			return;
+		}
+
+		AppCacheManager.getWorker().hset(HongfuCacheKeys.agvMsgKey(), getAgvId(), agvMsgStr);
+		setLatestMsg(agvMsgStr);
 	}
 
-	public String getMsg() {
-		String info = getLatestMsg();
+	public String getMsg(String msg) {
+		String info = msg;
 		info = info.replaceAll(MSG_SUFFIX2, "").replaceAll("[" + MSG_SUFFIX + "]", "") + MSG_SUFFIX;
 
 		if (!AppTool.isNullStr(info)) {

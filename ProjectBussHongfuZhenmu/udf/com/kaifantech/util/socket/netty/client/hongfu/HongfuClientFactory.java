@@ -9,7 +9,9 @@ import com.kaifantech.util.socket.netty.client.AbstractNettyClient;
 public class HongfuClientFactory {
 	private static IConnect create(IotClientBean iotClientBean, String devtype) {
 		if (devtype.equals(IotDevType.AGV_HONGFU)) {
-			return new HongfuAgvNettyClient(iotClientBean);
+			HongfuAgvNettyClient agvNettyClient = new HongfuAgvNettyClient(iotClientBean);
+			agvNettyClient.setAgvId(iotClientBean.getId());
+			return agvNettyClient;
 		} else if (devtype.equals(IotDevType.RONOT_ON_AGV)) {
 			return new RoboticArmClient(iotClientBean);
 		}
