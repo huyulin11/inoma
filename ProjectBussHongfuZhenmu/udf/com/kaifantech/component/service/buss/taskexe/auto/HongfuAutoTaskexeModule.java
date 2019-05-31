@@ -11,7 +11,7 @@ import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 
 @Component
 @Lazy(false)
-public class InomaAutoTaskexeModule implements IAutoTaskexeModule {
+public class HongfuAutoTaskexeModule implements IAutoTaskexeModule {
 	@Autowired
 	@Qualifier(DefaultSystemQualifier.DEFAULT_AGV_INFO_DAO)
 	private AgvInfoDao agvInfoDao;

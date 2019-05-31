@@ -3,6 +3,7 @@ package com.kaifantech.util.socket.netty.client.hongfu;
 import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.iot.client.IotClientBean;
 import com.kaifantech.cache.manager.AppCacheManager;
+import com.kaifantech.cache.manager.AppConfManager;
 import com.kaifantech.init.sys.params.HongfuCacheKeys;
 import com.kaifantech.util.socket.netty.client.AbstractNettyClient;
 
@@ -19,24 +20,30 @@ public class HongfuAgvNettyClient extends AbstractNettyClient {
 	public static final String MSG_SUFFIX = "?";
 	public static final String MSG_SUFFIX2 = "�";
 
+	private int msgIndex = 0;
+
 	public HongfuAgvNettyClient(IotClientBean iotClientBean) {
 		super(iotClientBean);
 	}
 
 	public void dealData(ChannelHandlerContext ctx, ByteBuf in) {
 		String agvMsgStr = in.toString(CharsetUtil.UTF_8);
-		agvMsgStr = getMsg(agvMsgStr);
+		agvMsgStr = dealMsg(agvMsgStr);
 		if (AppTool.isNull(agvMsgStr)) {
 			return;
 		}
 
 		AppCacheManager.getWorker().hset(HongfuCacheKeys.agvMsgKey(), getAgvId(), agvMsgStr);
+		if (msgIndex > 100000) {
+			msgIndex = 0;
+			AppConfManager.getWorker().del(HongfuCacheKeys.agvMsgList(getAgvId()));
+		}
+		AppConfManager.getWorker().hset(HongfuCacheKeys.agvMsgList(getAgvId()), msgIndex++, agvMsgStr);
 		setLatestMsg(agvMsgStr);
 	}
 
-	public String getMsg(String msg) {
-		String info = msg;
-		info = info.replaceAll(MSG_SUFFIX2, "").replaceAll("[" + MSG_SUFFIX + "]", "") + MSG_SUFFIX;
+	public String dealMsg(String msg) {
+		String info = msg.replaceAll(MSG_SUFFIX2, "").replaceAll("[" + MSG_SUFFIX + "]", "") + MSG_SUFFIX;
 
 		if (!AppTool.isNullStr(info)) {
 			int i = info.indexOf(MSG_PREFIX);
