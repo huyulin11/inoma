@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.iot.client.IotClientBean;
 import com.kaifantech.component.dao.IotClientConnectMsgDao;
 import com.kaifantech.component.log.AgvStatusDBLogger;
@@ -22,9 +23,8 @@ import com.kaifantech.init.sys.BaseBusinessInfo;
 import com.kaifantech.init.sys.params.SystemAutoParameters;
 import com.kaifantech.util.constant.taskexe.ctrl.IotDevType;
 import com.kaifantech.util.socket.IConnect;
-import com.kaifantech.util.socket.netty.client.NettyClientFactory;
+import com.kaifantech.util.socket.netty.client.hongfu.HongfuClientFactory;
 import com.kaifantech.util.thread.ThreadTool;
-import com.calculatedfun.util.AppTool;
 
 @Service
 public class RoboticArmWorker {
@@ -61,7 +61,7 @@ public class RoboticArmWorker {
 						&& bean.getDevtype().equals(IotDevType.ROBOT_GOODS_FROM)) {
 					try {
 						IConnect client;
-						client = NettyClientFactory.create(bean);
+						client = HongfuClientFactory.create(bean);
 						clientMap.put(bean.getId(), client);
 						client.init();
 					} catch (Exception e) {

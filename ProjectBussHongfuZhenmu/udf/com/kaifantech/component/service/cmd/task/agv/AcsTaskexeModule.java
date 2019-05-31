@@ -21,7 +21,7 @@ import com.kaifantech.component.service.taskexe.module.ITaskexeModule;
 import com.kaifantech.init.sys.qualifier.AcsSystemQualifier;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.util.constant.taskexe.TaskexeOpFlag;
-import com.kaifantech.util.socket.netty.client.InomaNettyClient;
+import com.kaifantech.util.socket.netty.client.hongfu.HongfuAgvNettyClient;
 import com.kaifantech.util.thread.ThreadTool;
 
 /***
@@ -67,7 +67,7 @@ public class AcsTaskexeModule implements ITaskexeModule {
 			return;
 		}
 		SingletaskBean singletaskBean = singleTaskInfoService.getSingletask(taskexeBean.getTaskid());
-		String cmd = InomaNettyClient.PREFIX_WHEN_SEND_TASK + singletaskBean.getTaskName();
+		String cmd = HongfuAgvNettyClient.PREFIX_WHEN_SEND_TASK + singletaskBean.getTaskName();
 		lastTask.put(agvId, taskexeBean.getTaskid());
 		if (TaskexeOpFlag.NEW.equals(taskexeBean.getOpflag())) {
 			if (!msgService.getLatestMsgBean(taskexeBean.getAgvId()).isSendDone(taskexeBean)) {
