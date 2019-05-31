@@ -19,7 +19,7 @@ import com.kaifantech.component.service.taskexe.module.ITaskexeModule;
 import com.kaifantech.init.sys.params.SystemLock;
 import com.kaifantech.init.sys.params.SystemParameters;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
-import com.kaifantech.init.sys.qualifier.InomaSystemQualifier;
+import com.kaifantech.init.sys.qualifier.HongfuSystemQualifier;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
 import com.kaifantech.util.seq.ThreadID;
 import com.kaifantech.util.thread.ThreadTool;
@@ -27,7 +27,7 @@ import com.kaifantech.util.thread.ThreadTool;
 /***
  * 描述任务从用户下达到发送AGV执行前的逻辑
  ***/
-@Service(InomaSystemQualifier.TASKEXE_MODULE)
+@Service(HongfuSystemQualifier.TASKEXE_MODULE)
 public class InomaTaskexeModule implements ITaskexeModule {
 
 	@Autowired

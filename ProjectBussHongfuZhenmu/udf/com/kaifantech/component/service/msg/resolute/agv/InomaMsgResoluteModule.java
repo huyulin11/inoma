@@ -31,13 +31,13 @@ import com.kaifantech.component.service.taskexe.add.ITaskexeAddService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
 import com.kaifantech.component.service.taskexe.status.ITaskexeStatusService;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
-import com.kaifantech.init.sys.qualifier.InomaSystemQualifier;
+import com.kaifantech.init.sys.qualifier.HongfuSystemQualifier;
 import com.kaifantech.util.constant.taskexe.TaskexeOpFlag;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvMoveStatus;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
 import com.kaifantech.util.thread.ThreadTool;
 
-@Service(InomaSystemQualifier.AGV_MSG_RESOLUTE_MODULE)
+@Service(HongfuSystemQualifier.AGV_MSG_RESOLUTE_MODULE)
 public class InomaMsgResoluteModule implements IMsgResoluteModule {
 
 	@Autowired

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.iot.client.IotClientBean;
-import com.kaifantech.bean.msg.agv.InomaAgvMsgBeanTransfer;
+import com.kaifantech.bean.msg.agv.HongfuAgvMsgBeanTransfer;
 import com.kaifantech.bean.msg.agv.LaserAgvMsgBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.component.dao.AgvMsgDao;
@@ -20,11 +20,11 @@ import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
 import com.kaifantech.init.sys.params.SystemAutoParameters;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
-import com.kaifantech.init.sys.qualifier.InomaSystemQualifier;
+import com.kaifantech.init.sys.qualifier.HongfuSystemQualifier;
 import com.kaifantech.util.agv.msg.MsgCompare;
 import com.kaifantech.util.thread.ThreadTool;
 
-@Service(InomaSystemQualifier.AGV_MSG_INFO_MODULE)
+@Service(HongfuSystemQualifier.AGV_MSG_INFO_MODULE)
 public class AcsAgvMsgInfoModule implements IAgvMsgInfoModule {
 	private Map<Integer, LaserAgvMsgBean> latestMsgMap = new HashMap<>();
 
@@ -78,7 +78,7 @@ public class AcsAgvMsgInfoModule implements IAgvMsgInfoModule {
 				lastAGVMsgBean = (LaserAgvMsgBean) agvMsgBean.clone();
 				lastAGVMsgBean.setLast(null);
 			}
-			agvMsgBean = InomaAgvMsgBeanTransfer.transToBean(agvId, sFromAGV, agvMsgBean);
+			agvMsgBean = HongfuAgvMsgBeanTransfer.transToBean(agvId, sFromAGV, agvMsgBean);
 			if (!AppTool.isNull(lastAGVMsgBean) && !AppTool.isNull(lastAGVMsgBean.getAGVId())) {
 				if (AppTool.isNull(msgQueue)) {
 					msgQueue = new ArrayDeque<>();

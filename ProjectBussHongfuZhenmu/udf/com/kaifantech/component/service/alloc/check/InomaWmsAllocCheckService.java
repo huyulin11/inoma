@@ -11,10 +11,10 @@ import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.component.service.singletask.group.SingletaskGroupService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
-import com.kaifantech.init.sys.qualifier.InomaSystemQualifier;
+import com.kaifantech.init.sys.qualifier.HongfuSystemQualifier;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
 
-@Service(InomaSystemQualifier.ALLOC_CHECK_SERVICE)
+@Service(HongfuSystemQualifier.ALLOC_CHECK_SERVICE)
 public class InomaWmsAllocCheckService extends WmsAllocCheckService {
 	@Autowired
 	private SingletaskGroupService singletaskGroupService;

@@ -16,13 +16,13 @@ import com.kaifantech.component.service.msg.info.agv.IAgvMsgInfoModule;
 import com.kaifantech.component.service.status.agv.AgvCtrlInfoService;
 import com.kaifantech.component.service.taskexe.ctrl.ICtrlModule;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
-import com.kaifantech.init.sys.qualifier.InomaSystemQualifier;
+import com.kaifantech.init.sys.qualifier.HongfuSystemQualifier;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvMoveStatus;
 
 /***
  * 描述任务从用户下达到发送AGV执行前的逻辑
  ***/
-@Service(InomaSystemQualifier.CTRL_MODULE)
+@Service(HongfuSystemQualifier.CTRL_MODULE)
 public class InomaCtrlModule implements ICtrlModule {
 
 	@Autowired

@@ -12,12 +12,12 @@ import com.kaifantech.component.service.taskexe.add.ITaskexeAddService;
 import com.kaifantech.component.service.taskexe.check.ITaskexeCheckService;
 import com.kaifantech.component.service.taskexe.status.ITaskexeStatusService;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
-import com.kaifantech.init.sys.qualifier.InomaSystemQualifier;
+import com.kaifantech.init.sys.qualifier.HongfuSystemQualifier;
 
 /***
  * 描述任务从用户下达到发送AGV执行前的逻辑
  ***/
-@Service(InomaSystemQualifier.TASKEXE_ADD_SERVICE)
+@Service(HongfuSystemQualifier.TASKEXE_ADD_SERVICE)
 public class AcsTaskexeAddService implements ITaskexeAddService {
 
 	@Autowired
