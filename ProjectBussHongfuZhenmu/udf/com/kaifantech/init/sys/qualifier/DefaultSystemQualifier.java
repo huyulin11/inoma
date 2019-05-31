@@ -15,4 +15,6 @@ public class DefaultSystemQualifier extends BaseSystemQualifier {
 	public static final String DEFAULT_ALLOC_INFO_SERVICE = HongfuSystemQualifier.ALLOC_INFO_SERVICE;
 
 	public static final String DEFAULT_TASKEXE_CHECK_SERVICE = WmsSystemQualifier.TASKEXE_CHECK_SERVICE;
+
+	public static final String DEFAULT_IOT_CLIENT_SERVICE = HongfuSystemQualifier.IOT_CLIENT_SERVICE;
 }
