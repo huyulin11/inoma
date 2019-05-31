@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.kaifantech.bean.msg.agv.LaserAgvMsgBean;
+import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.bean.msg.agv.IXYBean;
 import com.kaifantech.bean.msg.agv.TaskPathInfoPointBean;
 import com.kaifantech.component.service.pi.ctrl.PIMsgService;
@@ -30,8 +30,8 @@ public class PICtrlOneWithPathService {
 	@Autowired
 	private PIMsgService piMsgService;
 
-	public PiCommandMsg check2Agvs(List<TaskPathInfoPointBean> pathOne, LaserAgvMsgBean msgOne,
-			LaserAgvMsgBean msgAnother) {
+	public PiCommandMsg check2Agvs(List<TaskPathInfoPointBean> pathOne, HongfuAgvMsgBean msgOne,
+			HongfuAgvMsgBean msgAnother) {
 
 		PiCommandMsg commandByMsg = neitherWithPathService.check2AgvsByMsg(msgOne, msgAnother);
 		if (commandByMsg.getDistanceStatus() == DistanceStatus.DANGEROUS) {

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import com.kaifantech.bean.msg.agv.LaserAgvMsgBean;
+import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.util.agv.msg.MsgCompare;
 import com.kaifantech.util.agv.msg.PiCommandMsg;
 import com.kaifantech.util.log.AppFileLogger;
@@ -30,9 +30,9 @@ public class PICtrlByMsgService implements IPICtrlByMsgService {
 	// @Autowired
 	// private DifferByMsg differByMsg;
 
-	public PiCommandMsg check2AgvsByMsg(LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother) {
+	public PiCommandMsg check2AgvsByMsg(HongfuAgvMsgBean msgOne, HongfuAgvMsgBean msgAnother) {
 		// differByMsg.initPIParam();
-		MsgCompare<LaserAgvMsgBean> compare = new MsgCompare<LaserAgvMsgBean>(msgOne, msgAnother);
+		MsgCompare<HongfuAgvMsgBean> compare = new MsgCompare<HongfuAgvMsgBean>(msgOne, msgAnother);
 
 		getTipsMsg(msgOne, msgAnother, compare);
 
@@ -61,7 +61,7 @@ public class PICtrlByMsgService implements IPICtrlByMsgService {
 	}
 
 	@Async
-	private void printCurrentModel(LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother, String model) {
+	private void printCurrentModel(HongfuAgvMsgBean msgOne, HongfuAgvMsgBean msgAnother, String model) {
 		if (!model.equals(currentModel)) {
 			currentModel = model;
 			AppFileLogger.piLogs(DateFactory.getCurrTime() + "--" + currentModel + "--");
@@ -69,7 +69,7 @@ public class PICtrlByMsgService implements IPICtrlByMsgService {
 	}
 
 	@Async
-	private void getTipsMsg(LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother, MsgCompare<LaserAgvMsgBean> compare) {
+	private void getTipsMsg(HongfuAgvMsgBean msgOne, HongfuAgvMsgBean msgAnother, MsgCompare<HongfuAgvMsgBean> compare) {
 		double distanceXAxis = 0;
 		double distanceYAxis = 0;
 		double distance = 0;

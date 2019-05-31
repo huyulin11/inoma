@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.kaifantech.bean.msg.agv.LaserAgvMsgBean;
+import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.bean.msg.agv.IXYBean;
 import com.kaifantech.bean.msg.agv.TaskPathInfoPointBean;
 import com.kaifantech.component.service.pi.ctrl.PIMsgService;
@@ -94,7 +94,7 @@ public class IntersectionService {
 
 	/** 比较双方均有路径记录-即时位置比对-是否需要做停止控制 */
 	public PiCommandMsg check2Agvs(List<TaskPathInfoPointBean> pathOne, List<TaskPathInfoPointBean> pathAnother,
-			LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother) {
+			HongfuAgvMsgBean msgOne, HongfuAgvMsgBean msgAnother) {
 		PiCommandMsg command = new PiCommandMsg();
 
 		Intersection intersection = getIntersection(pathOne, pathAnother, msgOne, msgAnother);

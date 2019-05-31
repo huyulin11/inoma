@@ -3,7 +3,7 @@ package com.kaifantech.component.service.pi.ctrl.ctrl2agv.bymsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.kaifantech.bean.msg.agv.LaserAgvMsgBean;
+import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.component.service.pi.ctrl.PIMsgService;
 import com.kaifantech.component.service.pi.path.distance.Differ;
 import com.kaifantech.util.agv.msg.MsgCompare;
@@ -25,15 +25,15 @@ public class PICtrlOtherService implements IPICtrlByMsgService {
 
 	private PiCommandMsg command;
 
-	public PiCommandMsg checkWhenOthers(LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother,
-			MsgCompare<LaserAgvMsgBean> compare) {
+	public PiCommandMsg checkWhenOthers(HongfuAgvMsgBean msgOne, HongfuAgvMsgBean msgAnother,
+			MsgCompare<HongfuAgvMsgBean> compare) {
 		boolean isOnePositiveAngle = msgOne.isPositiveAngle();
 		boolean isAnotherPositiveAngle = msgAnother.isPositiveAngle();
 		double distance = differ.diff(msgOne, msgAnother);
 		/** --------------------------------------一正角，另一非正角-------------------------------------- **/
 		if (isOnePositiveAngle == !isAnotherPositiveAngle) {
-			LaserAgvMsgBean positiveAngleBean = isOnePositiveAngle ? msgOne : msgAnother;
-			LaserAgvMsgBean unPositiveAngleBean = !isOnePositiveAngle ? msgOne : msgAnother;
+			HongfuAgvMsgBean positiveAngleBean = isOnePositiveAngle ? msgOne : msgAnother;
+			HongfuAgvMsgBean unPositiveAngleBean = !isOnePositiveAngle ? msgOne : msgAnother;
 			Point croosPoint = compare.getCrossPoint();
 			if (AppTool.isNull(croosPoint)) {
 				return command;

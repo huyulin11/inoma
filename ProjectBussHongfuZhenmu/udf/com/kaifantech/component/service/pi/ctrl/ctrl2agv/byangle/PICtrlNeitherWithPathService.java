@@ -3,7 +3,7 @@ package com.kaifantech.component.service.pi.ctrl.ctrl2agv.byangle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.kaifantech.bean.msg.agv.LaserAgvMsgBean;
+import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.component.service.pi.path.distance.DistanceChecker;
 import com.kaifantech.util.agv.msg.PiCommandMsg;
 import com.kaifantech.util.agv.taskpath.DistanceStatus;
@@ -14,7 +14,7 @@ public class PICtrlNeitherWithPathService {
 	@Autowired
 	private DistanceChecker distanceChecker;
 
-	public PiCommandMsg check2AgvsByMsg(LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother) {
+	public PiCommandMsg check2AgvsByMsg(HongfuAgvMsgBean msgOne, HongfuAgvMsgBean msgAnother) {
 		PiCommandMsg command = new PiCommandMsg();
 		if (distanceChecker.isDangerous(msgOne, msgAnother, false)) {
 			command.setDistanceStatus(DistanceStatus.DANGEROUS);

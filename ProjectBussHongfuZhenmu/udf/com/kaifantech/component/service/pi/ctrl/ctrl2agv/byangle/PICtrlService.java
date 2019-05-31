@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.kaifantech.bean.msg.agv.LaserAgvMsgBean;
+import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.bean.msg.agv.TaskPathInfoPointBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.component.service.pi.ctrl.ctrl2agv.bymsg.PICtrlByMsgService;
@@ -29,7 +29,7 @@ public class PICtrlService {
 	private PICtrlByMsgService ctrlService;
 
 	public PiCommandMsg check2Agvs(List<TaskPathInfoPointBean> pathOne, List<TaskPathInfoPointBean> pathAnother,
-			LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother, TaskexeBean taskexeBeanOne,
+			HongfuAgvMsgBean msgOne, HongfuAgvMsgBean msgAnother, TaskexeBean taskexeBeanOne,
 			TaskexeBean taskexeBeanAnother) {
 		/** --------------------------------------两台AGV都没有任务-------------------------------------- **/
 		/** 如果两台AGV均无任务在执行，直接返回安全 */
@@ -47,7 +47,7 @@ public class PICtrlService {
 
 	@SuppressWarnings("unused")
 	private PiCommandMsg checkOnePatten(List<TaskPathInfoPointBean> pathOne,
-			List<TaskPathInfoPointBean> pathAnother, LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother,
+			List<TaskPathInfoPointBean> pathAnother, HongfuAgvMsgBean msgOne, HongfuAgvMsgBean msgAnother,
 			TaskexeBean taskexeBeanOne, TaskexeBean taskexeBeanAnother) {
 		/** ----------------------------------------一台AGV有任务---------------------------------------- **/
 		/** 如果至少有一个不处在任务执行状态，仅用AGV的消息作为控制条件 */

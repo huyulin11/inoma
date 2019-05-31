@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.kaifantech.bean.info.agv.AgvBean;
-import com.kaifantech.bean.msg.agv.LaserAgvMsgBean;
+import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.bean.msg.agv.TaskPathInfoPointBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.component.service.msg.info.agv.IAgvMsgInfoModule;
@@ -35,8 +35,8 @@ public class PIAllCtrlService {
 	private TaskPathInfoService taskPathInfoService;
 
 	public PiCommandMsg check2Agvs(AgvBean agvBeanOne, AgvBean agvBeanAnother) {
-		LaserAgvMsgBean msgOne = getAGVMsgBean(agvBeanOne.getId());
-		LaserAgvMsgBean msgAnother = getAGVMsgBean(agvBeanAnother.getId());
+		HongfuAgvMsgBean msgOne = getAGVMsgBean(agvBeanOne.getId());
+		HongfuAgvMsgBean msgAnother = getAGVMsgBean(agvBeanAnother.getId());
 		if (AppTool.isNull(msgOne) || AppTool.isNull(msgAnother) || AppTool.isNull(msgOne.getAGVId())
 				|| AppTool.isNull(msgAnother.getAGVId())) {
 			return null;
@@ -60,7 +60,7 @@ public class PIAllCtrlService {
 		return piCtrlService.check2Agvs(pathOne, pathAnother, msgOne, msgAnother, taskexeBeanOne, taskexeBeanAnother);
 	}
 
-	private LaserAgvMsgBean getAGVMsgBean(Integer agvId) {
+	private HongfuAgvMsgBean getAGVMsgBean(Integer agvId) {
 		return msgFromAGVService.getLatestMsgBean(agvId);
 	}
 

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.kaifantech.bean.info.agv.AGVBeanWithLocation;
-import com.kaifantech.bean.msg.agv.LaserAgvMsgBean;
+import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.component.dao.agv.info.AgvInfoDao;
 import com.kaifantech.component.service.pi.path.distance.Differ;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
@@ -14,8 +14,8 @@ import com.kaifantech.util.constant.pi.detail.CLASH_AREA_INFO;
 
 @Component
 public class PICtrlSameTargetInitService {
-	private LaserAgvMsgBean msgInCurrentXOne;
-	private LaserAgvMsgBean msgAnother;
+	private HongfuAgvMsgBean msgInCurrentXOne;
+	private HongfuAgvMsgBean msgAnother;
 
 	AGVBeanWithLocation agvInCurrentXOne;
 	AGVBeanWithLocation agvAnother;
@@ -40,7 +40,7 @@ public class PICtrlSameTargetInitService {
 	@Qualifier(DefaultSystemQualifier.DEFAULT_AGV_INFO_DAO)
 	private AgvInfoDao agvDao;
 
-	public void init(LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother) {
+	public void init(HongfuAgvMsgBean msgOne, HongfuAgvMsgBean msgAnother) {
 		this.msgInCurrentXOne = msgOne;
 		this.msgAnother = msgAnother;
 
@@ -65,11 +65,11 @@ public class PICtrlSameTargetInitService {
 		return agvAnother;
 	}
 
-	public LaserAgvMsgBean getMsgInCurrentXOne() {
+	public HongfuAgvMsgBean getMsgInCurrentXOne() {
 		return msgInCurrentXOne;
 	}
 
-	public LaserAgvMsgBean getMsgAnother() {
+	public HongfuAgvMsgBean getMsgAnother() {
 		return msgAnother;
 	}
 
@@ -81,7 +81,7 @@ public class PICtrlSameTargetInitService {
 				agvAnother = temp;
 			}
 			{
-				LaserAgvMsgBean temp = msgInCurrentXOne;
+				HongfuAgvMsgBean temp = msgInCurrentXOne;
 				msgInCurrentXOne = msgAnother;
 				msgAnother = temp;
 			}

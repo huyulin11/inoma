@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.kaifantech.bean.info.agv.AGVBeanWithLocation;
-import com.kaifantech.bean.msg.agv.LaserAgvMsgBean;
+import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.component.service.pi.ctrl.PIMsgService;
 import com.kaifantech.component.service.pi.path.distance.Differ;
 import com.kaifantech.util.agv.msg.Location;
@@ -25,8 +25,8 @@ public class PICtrlSameTargetService implements IPICtrlByMsgService {
 	@Autowired
 	private PIMsgService piMsgService;
 
-	public PiCommandMsg check(LaserAgvMsgBean msgInCurrentXOne, LaserAgvMsgBean msgAnotherOne,
-			MsgCompare<LaserAgvMsgBean> compare) {
+	public PiCommandMsg check(HongfuAgvMsgBean msgInCurrentXOne, HongfuAgvMsgBean msgAnotherOne,
+			MsgCompare<HongfuAgvMsgBean> compare) {
 		piCtrlSameTargetInitService.init(msgAnotherOne, msgInCurrentXOne);
 		boolean isInTheWarning = piCtrlSameTargetInitService.isInTheWarningArea();
 		boolean isInClash = piCtrlSameTargetInitService.isInTheClash();
@@ -61,9 +61,9 @@ public class PICtrlSameTargetService implements IPICtrlByMsgService {
 			if ((msgInCurrentXOne.getCurrentLoacation() != Location.OTHERS) != (msgAnotherOne
 					.getCurrentLoacation() != Location.OTHERS)) {
 
-				LaserAgvMsgBean tempMsgNotInMiddleXOne = msgInCurrentXOne.getCurrentLoacation() == Location.OTHERS
+				HongfuAgvMsgBean tempMsgNotInMiddleXOne = msgInCurrentXOne.getCurrentLoacation() == Location.OTHERS
 						? msgAnotherOne : msgInCurrentXOne;
-				LaserAgvMsgBean tempMsgInMiddleOne = msgInCurrentXOne.getCurrentLoacation() != Location.OTHERS
+				HongfuAgvMsgBean tempMsgInMiddleOne = msgInCurrentXOne.getCurrentLoacation() != Location.OTHERS
 						? msgAnotherOne : msgInCurrentXOne;
 				if (tempMsgNotInMiddleXOne.isCloseToMainRoad()) {
 					piMsgService.dangerInSameTarget(tempMsgNotInMiddleXOne, tempMsgInMiddleOne, tempMsgNotInMiddleXOne);

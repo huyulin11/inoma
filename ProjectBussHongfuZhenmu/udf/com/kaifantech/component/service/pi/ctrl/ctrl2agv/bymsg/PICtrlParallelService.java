@@ -3,7 +3,7 @@ package com.kaifantech.component.service.pi.ctrl.ctrl2agv.bymsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.kaifantech.bean.msg.agv.LaserAgvMsgBean;
+import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.component.service.pi.ctrl.PIMsgService;
 import com.kaifantech.util.agv.msg.Direction;
 import com.kaifantech.util.agv.msg.MsgCompare;
@@ -19,8 +19,8 @@ public class PICtrlParallelService implements IPICtrlByMsgService {
 	@Autowired
 	private PIMsgService piMsgService;
 
-	public PiCommandMsg checkWhenParallel(LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother,
-			MsgCompare<LaserAgvMsgBean> compare) {
+	public PiCommandMsg checkWhenParallel(HongfuAgvMsgBean msgOne, HongfuAgvMsgBean msgAnother,
+			MsgCompare<HongfuAgvMsgBean> compare) {
 		double distanceInParallel = 0;
 		double distanceInOtherAxis = 0;
 		if (msgOne.isOnTheXaxis()) {
@@ -50,7 +50,7 @@ public class PICtrlParallelService implements IPICtrlByMsgService {
 
 			if (distanceInOtherAxis <= PARALLEL_CONVERSE_IN_LINE.DISTANCE_DANGEROUS_ONE
 					&& distanceInOtherAxis > PARALLEL_CONVERSE_IN_LINE.DISTANCE_DANGEROUS_TWO) {
-				LaserAgvMsgBean stopOne = null;
+				HongfuAgvMsgBean stopOne = null;
 				if (Math.abs(msgOne.getY() - BASIC_INFO.COORDINATE_Y_MAIN_ROAD_SOUTH) > Math
 						.abs(msgAnother.getY() - BASIC_INFO.COORDINATE_Y_MAIN_ROAD_SOUTH)) {
 					stopOne = msgOne;

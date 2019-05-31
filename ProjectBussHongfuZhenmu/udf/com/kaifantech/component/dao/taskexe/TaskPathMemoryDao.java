@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.calculatedfun.util.DateFactory;
-import com.kaifantech.bean.msg.agv.LaserAgvMsgBean;
+import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.bean.msg.agv.TaskPathInfoPointBean;
 import com.kaifantech.init.sys.SystemInitTables;
 
@@ -26,7 +26,7 @@ public class TaskPathMemoryDao {
 				+ (DateFactory.getCurrentUnixTime() - startMoveSecond) + "," + taskStep + ")");
 	}
 
-	public void addAPoint(LaserAgvMsgBean msg, Long startMoveSecond) {
+	public void addAPoint(HongfuAgvMsgBean msg, Long startMoveSecond) {
 		addAPoint(msg.getAGVId(), msg.getTaskid(), msg.getX(), msg.getY(), startMoveSecond, msg.getAngle(),
 				msg.getTaskStep());
 	}

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.kaifantech.bean.info.agv.AGVBeanWithLocation;
-import com.kaifantech.bean.msg.agv.LaserAgvMsgBean;
+import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.component.dao.agv.info.AgvInfoDao;
 import com.kaifantech.component.service.pi.ctrl.PIMsgService;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
@@ -42,7 +42,7 @@ public class PICtrlClashAreaService implements IPICtrlByMsgService {
 		this.clashArea = clashArea;
 	}
 
-	public PiCommandMsg check(LaserAgvMsgBean msgOne, LaserAgvMsgBean msgAnother, MsgCompare<LaserAgvMsgBean> compare) {
+	public PiCommandMsg check(HongfuAgvMsgBean msgOne, HongfuAgvMsgBean msgAnother, MsgCompare<HongfuAgvMsgBean> compare) {
 		PiCommandMsg command = new PiCommandMsg();
 		if (msgOne.isInTheXArea(clashArea) && msgAnother.isInTheXArea(clashArea)) {
 
