@@ -145,7 +145,7 @@ public class DefauTaskexeAutoService implements ITaskexeAutoService {
 						}
 					}
 
-					SingletaskBean singletask = singleTaskInfoService.getSingletaskBy(bean.getId(), agvId, lapId);
+					SingletaskBean singletask = singleTaskInfoService.getBy(bean.getId(), agvId, lapId);
 					if (singletask == null) {
 						continue;
 					}

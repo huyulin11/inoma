@@ -66,7 +66,7 @@ public class AcsTaskexeModule implements ITaskexeModule {
 		if (taskexeBean == null) {
 			return;
 		}
-		SingletaskBean singletaskBean = singleTaskInfoService.getSingletask(taskexeBean.getTaskid());
+		SingletaskBean singletaskBean = singleTaskInfoService.get(taskexeBean.getTaskid());
 		String cmd = HongfuAgvNettyClient.PREFIX_WHEN_SEND_TASK + singletaskBean.getTaskName();
 		lastTask.put(agvId, taskexeBean.getTaskid());
 		if (TaskexeOpFlag.NEW.equals(taskexeBean.getOpflag())) {

@@ -107,7 +107,7 @@ public class AcsAgvMsgInfoModule implements IAgvMsgInfoModule {
 			agvMsgBean.calDirection();
 			latestMsgMap.put(agvId, agvMsgBean);
 			HongfuAgvMsgBean msg = latestMsgMap.get(agvId);
-			msg.setTaskid(singleTaskInfoService.getSingletaskByTaskName(msg.getTaskName()).getId());
+			msg.setTaskid(singleTaskInfoService.getByTaskName(msg.getTaskName()).getId());
 
 			// ThreadTool.getThreadPool().execute(new Runnable() {
 			// public void run() {

@@ -32,7 +32,7 @@ public class WmsTaskexeCheckService extends AcsTaskexeCheckService {
 	private IAllocCheckService allocCheckService;
 
 	public AppMsg checkAllocBeforeAddTask(TaskexeBean taskexeBean, Integer agvId) {
-		SingletaskBean singletaskBean = singleTaskInfoService.getSingletaskBy(taskexeBean.getAllocid(), agvId,
+		SingletaskBean singletaskBean = singleTaskInfoService.getBy(taskexeBean.getAllocid(), agvId,
 				taskexeBean.getLapId());
 		if (singletaskBean == null) {
 			return new AppMsg(-1, "未获取到对应基础任务信息！");

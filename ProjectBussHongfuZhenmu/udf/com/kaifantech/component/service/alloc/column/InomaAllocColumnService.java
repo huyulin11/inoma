@@ -19,7 +19,7 @@ public class InomaAllocColumnService extends AllocColumnService {
 
 	@Override
 	public AllocColumnInfoBean getBeanByTaskid(String taskid) {
-		SingletaskBean singletaskOfOne = singleTaskInfoService.getSingletask(taskid);
+		SingletaskBean singletaskOfOne = singleTaskInfoService.get(taskid);
 		AllocItemInfoBean allocItemOfOne = allocItemDao.getAllocationInfoBean(singletaskOfOne.getAllocid());
 		return getBeanBy(allocItemOfOne.getAreaId(), allocItemOfOne.getColId());
 	}

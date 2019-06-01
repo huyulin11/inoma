@@ -25,7 +25,7 @@ public class TaskexeStatusService implements ITaskexeStatusService {
 	private SingleTaskInfoService singleTaskInfoService;
 
 	public int changeStatusWhenOver(String taskid) {
-		SingletaskBean singletaskBean = singleTaskInfoService.getSingletask(taskid);
+		SingletaskBean singletaskBean = singleTaskInfoService.get(taskid);
 		if (NormalTaskType.NORMAL.equals(singletaskBean.getTaskType())
 				|| NormalTaskType.NOTCONTROL.equals(singletaskBean.getTaskType())
 				|| AppTool.isNull(singletaskBean.getTaskType())) {
@@ -49,7 +49,7 @@ public class TaskexeStatusService implements ITaskexeStatusService {
 	}
 
 	public int changeStatusWhenNew(String taskid) {
-		SingletaskBean singletaskBean = singleTaskInfoService.getSingletask(taskid);
+		SingletaskBean singletaskBean = singleTaskInfoService.get(taskid);
 		if (AppTool.isNull(singletaskBean.getTaskType())) {
 			return 1;
 		}

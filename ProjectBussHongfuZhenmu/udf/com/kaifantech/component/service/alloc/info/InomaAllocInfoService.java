@@ -15,7 +15,7 @@ public class InomaAllocInfoService extends AllocInfoService {
 
 	@Override
 	public AllocItemInfoBean getByTaskid(String taskid) {
-		SingletaskBean singletaskBean = singleTaskInfoService.getSingletask(taskid);
+		SingletaskBean singletaskBean = singleTaskInfoService.get(taskid);
 		if (singletaskBean == null) {
 			return null;
 		}

@@ -47,7 +47,7 @@ public class InomaAllocAmountService extends AllocAmountService {
 					allocDao.updateNum(allocItemId, item.getStatus(), AllocationStatus.KONGWEI,
 							(currentSku == null ? null : currentSku.getId()), num);
 					changeSku(item.getAreaId(), item.getColId(), currentSku);
-					List<SingletaskBean> singleTaskList = singleTaskInfoService.getSingletaskBy(item.getId());
+					List<SingletaskBean> singleTaskList = singleTaskInfoService.getBy(item.getId());
 					for (SingletaskBean singletask : singleTaskList) {
 						TaskexeBean taskexe = taskexeInfoService.getNotOverOne(singletask.getId());
 						if (!AppTool.isNull(taskexe)) {
