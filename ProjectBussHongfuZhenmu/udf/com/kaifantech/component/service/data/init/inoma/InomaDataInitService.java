@@ -66,7 +66,7 @@ public class InomaDataInitService implements ISingleCacheWorkerGetter {
 			return;
 		}
 
-		for (AllocItemInfoBean bean : allocItemDao.getAll()) {
+		for (AllocItemInfoBean bean : allocItemDao.getAllocs()) {
 			AllocColumnInfoBean columnBean = allocColumnDao.getAllocationColumnInfoBeanBy(bean.getAreaId(),
 					bean.getColId());
 			if (columnBean == null) {
@@ -158,7 +158,7 @@ public class InomaDataInitService implements ISingleCacheWorkerGetter {
 					for (int z = 1; z <= area.getzNum(); z++) {
 						String allocTextName = ("CHG".equals(area.getText()) || "UCHG".equals(area.getText()))
 								? (area.getText() + "-" + y) : (area.getText() + "-" + y + "-" + x + "-" + z);
-						if (allocItemDao.getAllAllocationInfoBeanCount(area.getAreaId(), x, y, z) > 0) {
+						if (allocItemDao.getAllocsCountBy(area.getAreaId(), x, y, z) > 0) {
 							AllocItemInfoBean item = allocItemDao.getAllocationInfoBean(area.getAreaId(), x, y, z);
 							if (!AppTool.isNull(item)) {
 								if (!(allocTextName).equals(columnBean.getText())) {
