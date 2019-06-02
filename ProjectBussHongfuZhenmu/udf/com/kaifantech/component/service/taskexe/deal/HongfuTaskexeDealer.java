@@ -11,7 +11,7 @@ import com.kaifantech.util.constant.taskexe.TaskexeOpFlag;
 import com.kaifantech.util.thread.ThreadTool;
 
 @Service
-public class InomaTaskexeDealer implements ITaskexeDealer {
+public class HongfuTaskexeDealer implements ITaskexeDealer {
 	@Autowired
 	protected TaskexeOpDao taskexeTaskDao;
 

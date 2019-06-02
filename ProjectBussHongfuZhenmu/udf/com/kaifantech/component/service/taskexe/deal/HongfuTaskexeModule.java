@@ -28,7 +28,7 @@ import com.kaifantech.util.thread.ThreadTool;
  * 描述任务从用户下达到发送AGV执行前的逻辑
  ***/
 @Service(HongfuSystemQualifier.TASKEXE_MODULE)
-public class InomaTaskexeModule implements ITaskexeModule {
+public class HongfuTaskexeModule implements ITaskexeModule {
 
 	@Autowired
 	private ITaskexeDealer taskexeDealer;
@@ -50,24 +50,18 @@ public class InomaTaskexeModule implements ITaskexeModule {
 
 	private Map<Integer, Boolean> isRunning = new HashMap<>();
 
-	public void startControl() {
-		for (IotClientBean agvBean : iotClientService.getAgvCacheList()) {
-			startControl(agvBean.getId());
-		}
-	}
-
-	private void startControl(Integer agvId) {
-		Boolean flag = isRunning.get(agvId);
+	public void startControl(IotClientBean agvBean) {
+		Boolean flag = isRunning.get(agvBean.getId());
 		if (AppTool.isNull(flag) || !flag) {
 			ThreadTool.run(() -> {
-				Thread.currentThread().setName("任务处理定时器(AGV:" + agvId + ")" + "衍生进程" + ThreadID.number++);
-				isRunning.put(agvId, true);
+				Thread.currentThread().setName("任务处理定时器(AGV:" + agvBean.getId() + ")" + "衍生进程" + ThreadID.number++);
+				isRunning.put(agvBean.getId(), true);
 				while (true) {
 					try {
 						ThreadTool.sleepOneSecond();
-						doDeal(agvId);
+						doDeal(agvBean.getId());
 					} catch (Exception e) {
-						System.err.println(agvId + "号AGV解析任务时发生错误：" + e.getMessage());
+						System.err.println(agvBean.getId() + "号AGV解析任务时发生错误：" + e.getMessage());
 						continue;
 					}
 				}

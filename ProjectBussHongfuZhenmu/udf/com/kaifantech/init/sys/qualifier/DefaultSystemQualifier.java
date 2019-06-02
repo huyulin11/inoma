@@ -8,7 +8,7 @@ public class DefaultSystemQualifier extends BaseSystemQualifier {
 
 	public static final String DEFAULT_AGV_CLIENT_WORKER = HongfuSystemQualifier.AGV_CLIENT_WORKER;
 	public static final String DEFAULT_AGV_SERVER_WORKER = HongfuSystemQualifier.AGV_SIMULATOR_MGR;
-
+	public static final String DEFAULT_AGV_CMD_TASK_MODULE = HongfuSystemQualifier.AGV_CMD_TASK_MODULE;
 	public static final String DEFAULT_TASKEXE_ADD_SERVICE = HongfuSystemQualifier.TASKEXE_ADD_SERVICE;
 
 	public static final String DEFAULT_ALLOC_CHECK_SERVICE = HongfuSystemQualifier.ALLOC_CHECK_SERVICE;
