@@ -30,7 +30,7 @@ public class InomaWmsAllocCheckService extends WmsAllocCheckService {
 		if (latestTaskList != null && latestTaskList.size() > 0) {
 			for (TaskexeBean taskexeBean : latestTaskList) {
 				SingletaskBean tmpSingletaskBean = singleTaskInfoService.get(taskexeBean.getTaskid());
-				if (AgvTaskType.ZUHE_RENWU.equals(singletaskBean.getAllocOpType())
+				if (AgvTaskType.ZUHE_RENWU.equals(singletaskBean.getTaskType())
 						&& !singletaskGroupService.inTheSameGroupWith(tmpSingletaskBean, singletaskBean)) {
 					return new AppMsg(-1, "正在执行的子任务与已执行的子任务不属于同一组！");
 				} else if (tmpSingletaskBean.getId().equals(singletaskBean.getId())) {

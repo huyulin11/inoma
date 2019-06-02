@@ -62,8 +62,9 @@ public class HongfuTaskexeAddService implements ITaskexeAddService {
 		AppMsg msg = taskexeCheckService.checkAllocBeforeAddTask(taskexeBean, tmpAGVId);
 		if (msg.getCode() >= 0) {
 			SingletaskBean singletaskBean = singleTaskInfoService.get(taskexeBean.getTaskid());
+			taskexeBean.setTasktype(singletaskBean.getTaskType());
 			AllocItemInfoBean allocItem = allocInfoService.getByTaskid(taskexeBean.getTaskid());
-			allocService.lockTheAllocation(allocItem, taskexeBean.getSkuId(), singletaskBean.getAllocOpType());
+			allocService.lockTheAllocation(allocItem, taskexeBean.getSkuId(), singletaskBean.getTaskType());
 			taskexeStatusService.changeStatusWhenNew(taskexeBean.getTaskid());
 			taskexeTaskDao.addATask(taskexeBean);
 			msg.setMsg("任务完成下达！");

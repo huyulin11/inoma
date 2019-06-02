@@ -97,7 +97,7 @@ public class AcsMsgResoluteModule implements IMsgResoluteModule {
 			if (AgvMoveStatus.CONTINUE.equals(agvInfoDao.getMoveStatus(latestTaskexe.getAgvId()))
 					&& !TaskexeOpFlag.OVER.equals(latestTaskexe.getOpflag())) {
 				SingletaskBean singletaskBean = singleTaskInfoService.get(latestTaskexe.getTaskid());
-				if (!AgvTaskType.ZUHE_RENWU.equals(singletaskBean.getAllocOpType())) {
+				if (!AgvTaskType.ZUHE_RENWU.equals(singletaskBean.getTaskType())) {
 					AppMsg msg = resoluteGroupTask(latestTaskexe);
 					if (msg.getCode() < 0) {
 						return msg;
