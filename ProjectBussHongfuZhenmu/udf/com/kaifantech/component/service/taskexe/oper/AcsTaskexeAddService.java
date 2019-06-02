@@ -44,8 +44,7 @@ public class AcsTaskexeAddService implements ITaskexeAddService {
 		if (tmpAGVId < 0) {
 			return new AppMsg(-1, "错误的agv编号");
 		}
-		AppMsg msg;
-		msg = taskexeCheckService.checkAllocBeforeAddTask(taskexeBean, tmpAGVId);
+		AppMsg msg = taskexeCheckService.checkAllocBeforeAddTask(taskexeBean, tmpAGVId);
 		if (msg.getCode() >= 0) {
 			taskexeStatusService.changeStatusWhenNew(taskexeBean.getTaskid());
 			taskexeTaskDao.addATask(taskexeBean);
