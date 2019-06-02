@@ -7,7 +7,8 @@ public class DefaultSystemQualifier extends BaseSystemQualifier {
 	public static final String DEFAULT_CTRL_MODULE = HongfuSystemQualifier.CTRL_MODULE;
 
 	public static final String DEFAULT_AGV_CLIENT_WORKER = HongfuSystemQualifier.AGV_CLIENT_WORKER;
-	public static final String DEFAULT_AGV_SERVER_WORKER = HongfuSystemQualifier.AGV_SIMULATOR_MGR;
+	public static final String DEFAULT_AGV_SERVER_WORKER = HongfuSystemQualifier.AGV_SERVER_WORKER;
+
 	public static final String DEFAULT_AGV_CMD_TASK_MODULE = HongfuSystemQualifier.AGV_CMD_TASK_MODULE;
 	public static final String DEFAULT_TASKEXE_ADD_SERVICE = HongfuSystemQualifier.TASKEXE_ADD_SERVICE;
 
@@ -17,4 +18,7 @@ public class DefaultSystemQualifier extends BaseSystemQualifier {
 	public static final String DEFAULT_TASKEXE_CHECK_SERVICE = WmsSystemQualifier.TASKEXE_CHECK_SERVICE;
 
 	public static final String DEFAULT_IOT_CLIENT_SERVICE = HongfuSystemQualifier.IOT_CLIENT_SERVICE;
+
+	public static final String DEFAULT_MSGRESOLUTE_MODULE = HongfuSystemQualifier.AGV_MSG_RESOLUTE_MODULE;
+	public static final String DEFAULT_PI_WORK_SERVICE = HongfuSystemQualifier.PI_WORK_SERVICE;
 }
