@@ -42,11 +42,11 @@ CREATE TABLE IF NOT EXISTS `agv_info` (
   KEY `id` (`id`)
 ) ENGINE=MEMORY DEFAULT CHARSET=utf8 COMMENT='AGV信息表';
 
--- Dumping data for table kf_inoma_weiwei_agv.agv_info: 0 rows
+-- Dumping data for table kf_inoma_weiwei_agv.agv_info: 2 rows
 DELETE FROM `agv_info`;
 /*!40000 ALTER TABLE `agv_info` DISABLE KEYS */;
 INSERT INTO `agv_info` (`id`, `movestatus`, `sitestatus`, `taskstatus`, `agvstatus`, `plcstatus`, `taskid`, `stock`, `currentsite`, `speed`, `battery`, `environment`, `chargeid`, `taskStep`, `isFinished`, `isUsed`, `delflag`, `nextXaxis`, `currentXaxis`, `inCurrentXaxis`, `nextLocation`, `currentLocation`, `gotIt`, `lastXaxis`) VALUES
-	(2, 'CONTINUE', 'INIT', 'FREE', '未准备', '未准备', NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, 0, -1, -1, 0, 4, 4, 0, -1),
+	(2, 'CONTINUE', 'INIT', 'FREE', '未准备', '未准备', '', NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, 0, -1, -1, 0, 4, 4, 0, -1),
 	(1, 'CONTINUE', 'INIT', 'FREE', '未准备', '未准备', NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, 0, -1, -1, 0, 4, 4, 0, -1);
 /*!40000 ALTER TABLE `agv_info` ENABLE KEYS */;
 
