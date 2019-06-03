@@ -26,20 +26,20 @@ public class TaskexeStatusService implements ITaskexeStatusService {
 
 	public int changeStatusWhenOver(String taskid) {
 		SingletaskBean singletaskBean = singleTaskInfoService.get(taskid);
-		if (NormalTaskType.NORMAL.equals(singletaskBean.getTaskType())
-				|| NormalTaskType.NOTCONTROL.equals(singletaskBean.getTaskType())
-				|| AppTool.isNull(singletaskBean.getTaskType())) {
+		if (NormalTaskType.NORMAL.equals(singletaskBean.getTasktype())
+				|| NormalTaskType.NOTCONTROL.equals(singletaskBean.getTasktype())
+				|| AppTool.isNull(singletaskBean.getTasktype())) {
 			return 1;
 		}
 
 		if (AppBusinessInfo.CURRENT_PROJECT.equals(BaseBusinessInfo.Projects.CANGZHOU)) {
-			if (TaskType.CangzhouTaskType.SONGLIAO.equals(singletaskBean.getTaskType())) {
+			if (TaskType.CangzhouTaskType.SONGLIAO.equals(singletaskBean.getTasktype())) {
 				return controlInfoDao.updateCurrentTaskexeStatusToV1FromV2(CangzhouTaskexeStep.SONGLIAO_OVER,
 						CangzhouTaskexeStep.SONGLIAO_EXE);
-			} else if (TaskType.CangzhouTaskType.SHANGLIAO.equals(singletaskBean.getTaskType())) {
+			} else if (TaskType.CangzhouTaskType.SHANGLIAO.equals(singletaskBean.getTasktype())) {
 				return controlInfoDao.updateCurrentTaskexeStatusToV1FromV2(CangzhouTaskexeStep.SHANGLIAO_OVER,
 						CangzhouTaskexeStep.SHANGLIAO_EXE);
-			} else if (TaskType.CangzhouTaskType.SONGGUANGZHOU.equals(singletaskBean.getTaskType())) {
+			} else if (TaskType.CangzhouTaskType.SONGGUANGZHOU.equals(singletaskBean.getTasktype())) {
 				return controlInfoDao.updateCurrentTaskexeStatusToV1FromV2(CangzhouTaskexeStep.INIT_OR_OVER_SGZ,
 						CangzhouTaskexeStep.SONGGUANGZHOU_EXE);
 			}
@@ -50,31 +50,31 @@ public class TaskexeStatusService implements ITaskexeStatusService {
 
 	public int changeStatusWhenNew(String taskid) {
 		SingletaskBean singletaskBean = singleTaskInfoService.get(taskid);
-		if (AppTool.isNull(singletaskBean.getTaskType())) {
+		if (AppTool.isNull(singletaskBean.getTasktype())) {
 			return 1;
 		}
-		if (NormalTaskType.NOTCONTROL.equals(singletaskBean.getTaskType())) {
+		if (NormalTaskType.NOTCONTROL.equals(singletaskBean.getTasktype())) {
 			return 1;
 		}
 
-		if (NormalTaskType.GOTO_CHARGE.equals(singletaskBean.getTaskType())
-				|| NormalTaskType.BACK_FROM_CHARGE.equals(singletaskBean.getTaskType())) {
+		if (NormalTaskType.GOTO_CHARGE.equals(singletaskBean.getTasktype())
+				|| NormalTaskType.BACK_FROM_CHARGE.equals(singletaskBean.getTasktype())) {
 			return 1;
 		}
 
 		if (AppBusinessInfo.CURRENT_PROJECT.equals(BaseBusinessInfo.Projects.CANGZHOU)) {
-			if (NormalTaskType.NORMAL.equals(singletaskBean.getTaskType())) {
+			if (NormalTaskType.NORMAL.equals(singletaskBean.getTasktype())) {
 				return controlInfoDao.updateCurrentTaskexeStatusToV1FromV2(CangzhouTaskexeStep.TASK_READY,
 						CangzhouTaskexeStep.INIT_OR_OVER_SGZ);
 			}
 			controlInfoDao.updateCurrentEnvironment(singletaskBean.getEnvironmentId());
-			if (TaskType.CangzhouTaskType.SONGLIAO.equals(singletaskBean.getTaskType())) {
+			if (TaskType.CangzhouTaskType.SONGLIAO.equals(singletaskBean.getTasktype())) {
 				return controlInfoDao.updateCurrentTaskexeStatusToV1FromV2(CangzhouTaskexeStep.SONGLIAO_EXE,
 						CangzhouTaskexeStep.TASK_READY);
-			} else if (TaskType.CangzhouTaskType.SHANGLIAO.equals(singletaskBean.getTaskType())) {
+			} else if (TaskType.CangzhouTaskType.SHANGLIAO.equals(singletaskBean.getTasktype())) {
 				return controlInfoDao.updateCurrentTaskexeStatusToV1FromV2(CangzhouTaskexeStep.SHANGLIAO_EXE,
 						CangzhouTaskexeStep.SONGLIAO_OVER);
-			} else if (TaskType.CangzhouTaskType.SONGGUANGZHOU.equals(singletaskBean.getTaskType())) {
+			} else if (TaskType.CangzhouTaskType.SONGGUANGZHOU.equals(singletaskBean.getTasktype())) {
 				return controlInfoDao.updateCurrentTaskexeStatusToV1FromV2(CangzhouTaskexeStep.SONGGUANGZHOU_EXE,
 						CangzhouTaskexeStep.SHANGLIAO_OVER);
 			}

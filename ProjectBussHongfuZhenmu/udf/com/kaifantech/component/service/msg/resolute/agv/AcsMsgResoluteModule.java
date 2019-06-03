@@ -97,7 +97,7 @@ public class AcsMsgResoluteModule implements IMsgResoluteModule {
 			if (AgvMoveStatus.CONTINUE.equals(agvInfoDao.getMoveStatus(latestTaskexe.getAgvId()))
 					&& !TaskexeOpFlag.OVER.equals(latestTaskexe.getOpflag())) {
 				SingletaskBean singletaskBean = singleTaskInfoService.get(latestTaskexe.getTaskexesid());
-				if (!AgvTaskType.ZUHE_RENWU.equals(singletaskBean.getTaskType())) {
+				if (!AgvTaskType.ZUHE_RENWU.equals(singletaskBean.getTasktype())) {
 					AppMsg msg = resoluteGroupTask(latestTaskexe);
 					if (msg.getCode() < 0) {
 						return msg;
@@ -116,25 +116,25 @@ public class AcsMsgResoluteModule implements IMsgResoluteModule {
 
 	private AppMsg resoluteTask(TaskexeBean latestTaskexe, Object obj) {
 		SingletaskBean singletaskBean = (SingletaskBean) obj;
-		if (isSendToAGV(singletaskBean)) {
+		if (issend(singletaskBean)) {
 			if (!TaskexeOpFlag.SEND.equals(latestTaskexe.getOpflag())) {
 				return new AppMsg(-1, "任务尚未发送，不能解析！");
 			}
 			if (!msgService.getLatestMsgBean(latestTaskexe.getAgvId()).isSuccessDone(latestTaskexe)) {
-				return new AppMsg(-1, "任务：" + singletaskBean.getTaskText() + "，尚未执行结束！");
+				return new AppMsg(-1, "任务：" + singletaskBean.getTasktext() + "，尚未执行结束！");
 			}
 		}
 
 		if (lapInfoService.getLapInUsed(latestTaskexe.getLapId())) {
 			lapInfoService.setLapInUsed(latestTaskexe.getLapId(), false);
 		}
-		if (isSendToAGV(singletaskBean)) {
+		if (issend(singletaskBean)) {
 			taskexeStatusService.changeStatusWhenOver(singletaskBean.getId());
 			taskexeTaskDao.overASendTask(latestTaskexe.getUuid());
 		} else {
 			taskexeTaskDao.overANormalTask(latestTaskexe.getUuid());
 		}
-		dbLogger.warning(latestTaskexe.getAgvId() + "号AGV任务：" + singletaskBean.getTaskText() + "执行完毕！ ",
+		dbLogger.warning(latestTaskexe.getAgvId() + "号AGV任务：" + singletaskBean.getTasktext() + "执行完毕！ ",
 				latestTaskexe.getAgvId(), AgvStatusDBLogger.MSG_LEVEL_WARNING);
 		return new AppMsg(0, "可以继续解析！");
 	}
@@ -162,7 +162,7 @@ public class AcsMsgResoluteModule implements IMsgResoluteModule {
 					if (!(latestTaskexeList.stream().filter((bean) -> bean.getTaskexesid().equals(tmpBean.getId()))
 							.count() == 1)) {
 						flag = false;
-						msgStr.append(tmpBean.getTaskText() + ",");
+						msgStr.append(tmpBean.getTasktext() + ",");
 					}
 				}
 				if (!flag) {
@@ -177,11 +177,11 @@ public class AcsMsgResoluteModule implements IMsgResoluteModule {
 		return new AppMsg(0, "可以继续解析！");
 	}
 
-	private boolean isSendToAGV(SingletaskBean singletaskBean) {
+	private boolean issend(SingletaskBean singletaskBean) {
 		if (AppTool.isNull(singletaskBean)) {
 			return false;
 		} else {
-			return singletaskBean.getIsSendToAgv() == 1;
+			return singletaskBean.getIssend() == 1;
 		}
 
 	}

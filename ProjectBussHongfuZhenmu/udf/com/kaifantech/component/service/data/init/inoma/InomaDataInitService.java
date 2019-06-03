@@ -108,7 +108,7 @@ public class InomaDataInitService implements ISingleCacheWorkerGetter {
 					for (String taskName : tasks.keySet()) {
 						SingletaskBean singletask = tasks.get(taskName);
 						if (!AppTool.isNull(singletask)) {
-							if ((taskName + ".xml").equals(singletask.getTaskName())) {
+							if ((taskName + ".xml").equals(singletask.getTaskname())) {
 								continue;
 							} else {
 								singletaskDao.update(taskName + ".xml", taskName + "任务", singletask.getId());

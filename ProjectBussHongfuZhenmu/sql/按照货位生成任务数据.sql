@@ -26,7 +26,7 @@ END if;
 
 INSERT INTO `kf_inoma_weiwei_agv`.`singletask_info` 
 		(`environment`, `taskName`, `taskText`, `taskType`, `allocid`,
- 		`environmentId`, `agvId`, `lapId`, `isSendToAGV`, `delflag`)
+ 		`environmentId`, `agvId`, `lapId`, `issend`, `delflag`)
 SELECT 
 	'1',CONCAT(@agvid,'-',@tasktypeSt,@lapId,'-',`text`, '.xml')
  	, CONCAT(@agvid,'车',@lapId,@tasktypeCn,'点', @tasktypeCn,'到',`text`), @tasktypeEn,

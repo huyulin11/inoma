@@ -11,7 +11,7 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Dumping structure for table kf_inoma_weiwei_iot.agv_status_log
+-- Dumping structure for table kf_lao_foxiconn_iot.agv_status_log
 DROP TABLE IF EXISTS `agv_status_log`;
 CREATE TABLE IF NOT EXISTS `agv_status_log` (
   `uuid` varchar(36) NOT NULL COMMENT '主键',
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `agv_status_log` (
   KEY `taskid` (`tasktype`,`agvId`,`time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='启停任务执行表';
 
--- Dumping data for table kf_inoma_weiwei_iot.agv_status_log: ~14 rows (大约)
+-- Dumping data for table kf_lao_foxiconn_iot.agv_status_log: ~1 rows (大约)
 DELETE FROM `agv_status_log`;
 /*!40000 ALTER TABLE `agv_status_log` DISABLE KEYS */;
 /*!40000 ALTER TABLE `agv_status_log` ENABLE KEYS */;

@@ -64,7 +64,7 @@ public class HongfuTaskexeDealer implements ITaskexeDealer {
 	private void startWork(TaskexeBean taskexeBean) {
 		ThreadTool.sleep(5000);
 		SingletaskBean singletaskBean = singleTaskInfoService.get(taskexeBean.getTaskexesid());
-		AppMsg msg = agvManager.doTask(taskexeBean.getAgvId(), singletaskBean.getTaskName());
+		AppMsg msg = agvManager.doTask(taskexeBean.getAgvId(), singletaskBean.getTaskname());
 		if (!msg.isSuccess()) {
 			return;
 		}
