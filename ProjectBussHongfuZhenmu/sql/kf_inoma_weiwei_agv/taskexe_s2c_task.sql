@@ -15,7 +15,7 @@
 DROP TABLE IF EXISTS `taskexe_s2c_task`;
 CREATE TABLE IF NOT EXISTS `taskexe_s2c_task` (
   `uuid` varchar(36) NOT NULL COMMENT '主键',
-  `taskid` varchar(36) DEFAULT NULL COMMENT '任务ID',
+  `taskexesid` varchar(36) DEFAULT NULL COMMENT '任务ID',
   `tasksequence` int(11) DEFAULT 1 COMMENT '序列',
   `time` timestamp NOT NULL DEFAULT current_timestamp() COMMENT '发生时间',
   `lapId` int(3) DEFAULT NULL COMMENT '货源编号（维维为机械手）',
@@ -29,10 +29,10 @@ CREATE TABLE IF NOT EXISTS `taskexe_s2c_task` (
   `overtime` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '完成时间',
   `autoflag` int(1) DEFAULT 0 COMMENT '是否自动发送（1为是，0为否，-1为半自动）',
   PRIMARY KEY (`uuid`),
-  UNIQUE KEY `UNIQ` (`taskid`,`tasksequence`)
+  UNIQUE KEY `UNIQ` (`taskexesid`,`tasksequence`)
 ) ENGINE=MEMORY DEFAULT CHARSET=utf8 COMMENT='运输任务执行表';
 
--- Dumping data for table kf_inoma_weiwei_agv.taskexe_s2c_task: 1 rows
+-- Dumping data for table kf_inoma_weiwei_agv.taskexe_s2c_task: 0 rows
 DELETE FROM `taskexe_s2c_task`;
 /*!40000 ALTER TABLE `taskexe_s2c_task` DISABLE KEYS */;
 /*!40000 ALTER TABLE `taskexe_s2c_task` ENABLE KEYS */;

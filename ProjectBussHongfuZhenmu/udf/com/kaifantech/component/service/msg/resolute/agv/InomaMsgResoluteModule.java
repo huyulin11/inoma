@@ -106,7 +106,7 @@ public class InomaMsgResoluteModule implements IMsgResoluteModule {
 		if (latestTaskexe != null) {
 			if (AgvMoveStatus.CONTINUE.equals(agvInfoDao.getMoveStatus(latestTaskexe.getAgvId()))
 					&& !TaskexeOpFlag.OVER.equals(latestTaskexe.getOpflag())) {
-				SingletaskBean singletaskBean = singleTaskInfoService.get(latestTaskexe.getTaskid());
+				SingletaskBean singletaskBean = singleTaskInfoService.get(latestTaskexe.getTaskexesid());
 				if (!AgvTaskType.ZUHE_RENWU.equals(singletaskBean.getTaskType())) {
 					AppMsg msg = resoluteGroupTask(latestTaskexe);
 					if (msg.getCode() < 0) {
@@ -135,7 +135,7 @@ public class InomaMsgResoluteModule implements IMsgResoluteModule {
 			}
 		}
 
-		AllocItemInfoBean allocItem = allocInfoService.getByTaskid(latestTaskexe.getTaskid());
+		AllocItemInfoBean allocItem = allocInfoService.getByTaskid(latestTaskexe.getTaskexesid());
 		AppMsg msg = AgvTaskType.RECEIPT.equals(singletaskBean.getTaskType())
 				? allocService.transferUpDone(allocItem) : allocService.transferDownDone(allocItem);
 		if (msg.getCode() >= 0) {
@@ -163,7 +163,7 @@ public class InomaMsgResoluteModule implements IMsgResoluteModule {
 		String parentTaskid = "";
 		for (TaskexeBean tmpTaskBean : latestTaskexeList) {
 			List<SingletaskGroupBean> groupList = singletaskGroupService
-					.getSingletaskGroupListByTask(tmpTaskBean.getTaskid());
+					.getSingletaskGroupListByTask(tmpTaskBean.getTaskexesid());
 			if (groupList != null && groupList.size() == 1) {
 				parentTaskid = groupList.get(0).getParentTaskid();
 				singletaskBeanList = singletaskDao.getSingletaskBeanListByGroup(parentTaskid);
@@ -176,7 +176,7 @@ public class InomaMsgResoluteModule implements IMsgResoluteModule {
 				StringBuffer msgStr = new StringBuffer();
 				msgStr.append("等待执行下列任务：");
 				for (SingletaskBean tmpBean : singletaskBeanList) {
-					if (!(latestTaskexeList.stream().filter((bean) -> bean.getTaskid().equals(tmpBean.getId()))
+					if (!(latestTaskexeList.stream().filter((bean) -> bean.getTaskexesid().equals(tmpBean.getId()))
 							.count() == 1)) {
 						flag = false;
 						msgStr.append(tmpBean.getTaskText() + ",");

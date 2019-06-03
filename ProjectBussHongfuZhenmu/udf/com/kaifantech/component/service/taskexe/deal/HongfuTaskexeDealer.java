@@ -48,13 +48,13 @@ public class HongfuTaskexeDealer implements ITaskexeDealer {
 		if (TaskexeOpFlag.SEND.equals(taskexeBean.getOpflag())) {
 			HongfuAgvMsgBean agvMsg = HongfuAgvMsgGetter.getBean(taskexeBean.getAgvId());
 			if (!AppTool.isNull(agvMsg) && agvMsg.isTaskfinished()) {
-				AllocItemInfoBean allocItem = allocInfoService.getByTaskid(taskexeBean.getTaskid());
+				AllocItemInfoBean allocItem = allocInfoService.getByTaskid(taskexeBean.getTaskexesid());
 				AppMsg msg = AgvTaskType.RECEIPT.equals(taskexeBean.getTasktype())
 						? allocService.transferUpDone(allocItem) : allocService.transferDownDone(allocItem);
 				if (!msg.isSuccess()) {
 					return;
 				}
-				System.out.println(taskexeBean.getAgvId() + "号AGV执行的" + taskexeBean.getTaskid() + "-"
+				System.out.println(taskexeBean.getAgvId() + "号AGV执行的" + taskexeBean.getTaskexesid() + "-"
 						+ taskexeBean.getTasksequence() + "任务所有明细任务均已执行完毕，更新任务状态为OVER！");
 				taskexeTaskDao.overASendTask(taskexeBean);
 			}
@@ -63,7 +63,7 @@ public class HongfuTaskexeDealer implements ITaskexeDealer {
 
 	private void startWork(TaskexeBean taskexeBean) {
 		ThreadTool.sleep(5000);
-		SingletaskBean singletaskBean = singleTaskInfoService.get(taskexeBean.getTaskid());
+		SingletaskBean singletaskBean = singleTaskInfoService.get(taskexeBean.getTaskexesid());
 		AppMsg msg = agvManager.doTask(taskexeBean.getAgvId(), singletaskBean.getTaskName());
 		if (!msg.isSuccess()) {
 			return;

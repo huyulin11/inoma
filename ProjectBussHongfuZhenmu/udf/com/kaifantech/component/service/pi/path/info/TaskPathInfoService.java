@@ -20,7 +20,7 @@ public class TaskPathInfoService {
 	private List<TaskPathInfoMap> taskPathInfoMapList = new ArrayList<TaskPathInfoMap>();
 
 	public List<TaskPathInfoPointBean> getPathFromDB(TaskexeBean bean) {
-		return getPathFromDB(bean.getAgvId(), bean.getTaskid());
+		return getPathFromDB(bean.getAgvId(), bean.getTaskexesid());
 	}
 
 	public List<TaskPathInfoPointBean> getPathFromDB(Integer agvId, String taskid) {
@@ -50,7 +50,7 @@ public class TaskPathInfoService {
 	}
 
 	public List<TaskPathInfoPointBean> findPathInMap(TaskexeBean taskexeBean) {
-		List<TaskPathInfoPointBean> tmpList = findPathInMap(taskexeBean.getAgvId(), taskexeBean.getTaskid());
+		List<TaskPathInfoPointBean> tmpList = findPathInMap(taskexeBean.getAgvId(), taskexeBean.getTaskexesid());
 		return tmpList == null ? getPathFromDB(taskexeBean) : tmpList;
 	}
 

@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `agv_info` (
   `taskstatus` varchar(50) NOT NULL DEFAULT 'FREE' COMMENT '任务状态',
   `agvstatus` varchar(10) NOT NULL DEFAULT '未准备' COMMENT '从AGV反馈消息得出的状态',
   `plcstatus` varchar(10) NOT NULL DEFAULT '未准备',
-  `taskid` varchar(50) DEFAULT NULL COMMENT '关联任务ID',
+  `taskexesid` varchar(50) DEFAULT NULL COMMENT '关联任务ID',
   `stock` varchar(50) DEFAULT NULL COMMENT '当前AGV上缓存所在层数',
   `currentsite` int(11) DEFAULT NULL COMMENT '当前站点',
   `speed` int(11) DEFAULT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `agv_info` (
 -- Dumping data for table kf_inoma_weiwei_agv.agv_info: 2 rows
 DELETE FROM `agv_info`;
 /*!40000 ALTER TABLE `agv_info` DISABLE KEYS */;
-INSERT INTO `agv_info` (`id`, `movestatus`, `sitestatus`, `taskstatus`, `agvstatus`, `plcstatus`, `taskid`, `stock`, `currentsite`, `speed`, `battery`, `environment`, `chargeid`, `taskStep`, `isFinished`, `isUsed`, `delflag`, `nextXaxis`, `currentXaxis`, `inCurrentXaxis`, `nextLocation`, `currentLocation`, `gotIt`, `lastXaxis`) VALUES
+INSERT INTO `agv_info` (`id`, `movestatus`, `sitestatus`, `taskstatus`, `agvstatus`, `plcstatus`, `taskexesid`, `stock`, `currentsite`, `speed`, `battery`, `environment`, `chargeid`, `taskStep`, `isFinished`, `isUsed`, `delflag`, `nextXaxis`, `currentXaxis`, `inCurrentXaxis`, `nextLocation`, `currentLocation`, `gotIt`, `lastXaxis`) VALUES
 	(2, 'CONTINUE', 'INIT', 'FREE', '未准备', '未准备', '', NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, 0, -1, -1, 0, 4, 4, 0, -1),
 	(1, 'CONTINUE', 'INIT', 'FREE', '未准备', '未准备', NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, 0, -1, -1, 0, 4, 4, 0, -1);
 /*!40000 ALTER TABLE `agv_info` ENABLE KEYS */;

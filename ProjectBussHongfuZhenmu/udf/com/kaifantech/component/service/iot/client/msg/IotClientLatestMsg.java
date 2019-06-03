@@ -39,7 +39,7 @@ public class IotClientLatestMsg {
 			if (latestMsgTime.getTime() - cmdTime.getTime() < 10000) {
 				return false;
 			}
-			if (!command.getTaskid().equals(agvMsg.getTaskid()) || !"1".equals(agvMsg.getTaskIsfinished())) {
+			if (!command.getTaskexesid().equals(agvMsg.getTaskid()) || !"1".equals(agvMsg.getTaskIsfinished())) {
 				return false;
 			} else {
 				return true;

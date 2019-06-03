@@ -34,7 +34,7 @@ public class VerticalRoadService {
 
 	public VerticalRoad getRoadOfAlloc(TaskexeBean latestTaskexe) {
 		AllocColumnInfoBean column = allocColumnService
-				.getBeanByTaskid(latestTaskexe.getTaskid());
+				.getBeanByTaskid(latestTaskexe.getTaskexesid());
 		AllocationAreaInfoBean area = allocAreaService.getAllocationAreaInfoBeanByAreaId(column.getAreaId());
 		VerticalRoad init = new VerticalRoad(column.getXaxis(), area.getLocation());
 		init.setNeedInDeep(false);
