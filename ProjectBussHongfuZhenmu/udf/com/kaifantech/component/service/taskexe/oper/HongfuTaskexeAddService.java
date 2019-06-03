@@ -8,6 +8,7 @@ import com.calculatedfun.util.msg.AppMsg;
 import com.kaifantech.bean.singletask.SingletaskBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.bean.wms.alloc.AllocItemInfoBean;
+import com.kaifantech.component.dao.agv.info.AgvOpWmsDao;
 import com.kaifantech.component.dao.taskexe.op.TaskexeOpDao;
 import com.kaifantech.component.service.agv.info.AgvInfoService;
 import com.kaifantech.component.service.alloc.info.IAllocInfoService;
@@ -57,6 +58,9 @@ public class HongfuTaskexeAddService implements ITaskexeAddService {
 	@Autowired
 	private ShipmentCrudService shipmentCrudService;
 
+	@Autowired
+	private AgvOpWmsDao agvOpWmsDao;
+
 	@Override
 	public AppMsg addTask(Object obj) {
 		TaskexeBean taskexeBean = (TaskexeBean) obj;
@@ -87,6 +91,7 @@ public class HongfuTaskexeAddService implements ITaskexeAddService {
 			allocService.lockTheAllocation(allocItem, taskexeBean.getSkuId(), singletaskBean.getTasktype());
 			taskexeStatusService.changeStatusWhenNew(taskid);
 			taskexeTaskDao.addATask(taskexeBean);
+			agvOpWmsDao.command(taskexeBean.getAgvId(), taskexeBean.getTasktype());
 			msg.setMsg("任务完成下达！");
 		}
 		return msg;
