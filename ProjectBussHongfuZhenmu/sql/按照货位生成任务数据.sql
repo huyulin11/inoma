@@ -28,8 +28,8 @@ INSERT INTO `kf_inoma_weiwei_agv`.`singletask_info`
 		(`environment`, `taskName`, `taskText`, `taskType`, `allocid`,
  		`environmentId`, `agvId`, `lapId`, `isSendToAGV`, `delflag`)
 SELECT 
-	'1', CONCAT(@agvid,'车',@lapId,'取货点',`text`, @tasktypeCn),
- 	CONCAT(@agvid,'-',@tasktypeSt,@lapId,'-',`text`, '.xml'), @tasktypeEn,
+	'1',CONCAT(@agvid,'-',@tasktypeSt,@lapId,'-',`text`, '.xml')
+ 	, CONCAT(@agvid,'车',@lapId,'取货点',`text`, @tasktypeCn), @tasktypeEn,
 	`id`, '1', @agvid, @lapId, '1', '0'
 FROM kf_inoma_weiwei_wms.allocation_item_info
 ORDER BY id;
