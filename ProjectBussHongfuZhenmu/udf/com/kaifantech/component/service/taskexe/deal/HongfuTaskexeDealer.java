@@ -3,9 +3,11 @@ package com.kaifantech.component.service.taskexe.deal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kaifantech.bean.singletask.SingletaskBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
-import com.kaifantech.component.comm.manager.agv.IAgvManager;
+import com.kaifantech.component.comm.manager.agv.HongfuAgvManager;
 import com.kaifantech.component.dao.taskexe.op.TaskexeOpDao;
+import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.taskexe.dealer.ITaskexeDealer;
 import com.kaifantech.util.constant.taskexe.TaskexeOpFlag;
 import com.kaifantech.util.thread.ThreadTool;
@@ -16,7 +18,10 @@ public class HongfuTaskexeDealer implements ITaskexeDealer {
 	protected TaskexeOpDao taskexeTaskDao;
 
 	@Autowired
-	protected IAgvManager agvManager;
+	protected HongfuAgvManager agvManager;
+
+	@Autowired
+	private SingleTaskInfoService singleTaskInfoService;
 
 	public void dealTaskexe(TaskexeBean taskexeBean) throws Exception {
 		if (TaskexeOpFlag.NEW.equals(taskexeBean.getOpflag())) {
@@ -29,6 +34,8 @@ public class HongfuTaskexeDealer implements ITaskexeDealer {
 
 	private void startWork(TaskexeBean taskexeBean) {
 		ThreadTool.sleep(5000);
+		SingletaskBean singletaskBean = singleTaskInfoService.get(taskexeBean.getTaskid());
+		agvManager.doTask(taskexeBean.getAgvId(), singletaskBean.getTaskName());
 		taskexeTaskDao.sendATask(taskexeBean);
 	}
 }
