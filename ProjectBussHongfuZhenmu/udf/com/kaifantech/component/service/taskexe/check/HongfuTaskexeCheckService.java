@@ -22,7 +22,7 @@ public class HongfuTaskexeCheckService extends AcsTaskexeCheckService {
 	private IAllocCheckService allocCheckService;
 
 	public AppMsg checkAllocBeforeAddTask(TaskexeBean taskexeBean, Integer agvId) {
-		SingletaskBean singletaskBean = singleTaskInfoService.get(taskexeBean.getTaskexesid());
+		SingletaskBean singletaskBean = singleTaskInfoService.get(taskexeBean.getJsonItem("taskid"));
 		if (singletaskBean == null) {
 			return new AppMsg(-1, "未获取到对应基础任务信息！");
 		}

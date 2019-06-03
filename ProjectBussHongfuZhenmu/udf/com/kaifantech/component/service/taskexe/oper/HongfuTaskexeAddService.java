@@ -12,12 +12,15 @@ import com.kaifantech.component.dao.taskexe.op.TaskexeOpDao;
 import com.kaifantech.component.service.agv.info.AgvInfoService;
 import com.kaifantech.component.service.alloc.info.IAllocInfoService;
 import com.kaifantech.component.service.alloc.status.IAllocStatusMgrService;
+import com.kaifantech.component.service.paper.receipt.ReceiptCrudService;
+import com.kaifantech.component.service.paper.shipment.ShipmentCrudService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.taskexe.add.ITaskexeAddService;
 import com.kaifantech.component.service.taskexe.check.ITaskexeCheckService;
 import com.kaifantech.component.service.taskexe.status.ITaskexeStatusService;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.init.sys.qualifier.HongfuSystemQualifier;
+import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
 
 /***
  * 描述任务从用户下达到发送AGV执行前的逻辑
@@ -48,6 +51,12 @@ public class HongfuTaskexeAddService implements ITaskexeAddService {
 	@Autowired
 	private SingleTaskInfoService singleTaskInfoService;
 
+	@Autowired
+	private ReceiptCrudService receiptCrudService;
+
+	@Autowired
+	private ShipmentCrudService shipmentCrudService;
+
 	@Override
 	public AppMsg addTask(Object obj) {
 		TaskexeBean taskexeBean = (TaskexeBean) obj;
@@ -61,11 +70,22 @@ public class HongfuTaskexeAddService implements ITaskexeAddService {
 		}
 		AppMsg msg = taskexeCheckService.checkAllocBeforeAddTask(taskexeBean, tmpAgvId);
 		if (msg.getCode() >= 0) {
-			SingletaskBean singletaskBean = singleTaskInfoService.get(taskexeBean.getTaskexesid());
+			String taskid = taskexeBean.getJsonItem("taskid");
+			SingletaskBean singletaskBean = singleTaskInfoService.get(taskid);
+			String taskexesid = null;
+			if (AgvTaskType.RECEIPT.equals(singletaskBean.getTasktype())) {
+				taskexesid = receiptCrudService.getPaperid();
+			} else if (AgvTaskType.SHIPMENT.equals(singletaskBean.getTasktype())) {
+				taskexesid = shipmentCrudService.getPaperid();
+			} else {
+				System.err.println("无法处理的任务类型");
+				return AppMsg.fail();
+			}
+			taskexeBean.setTaskexesid(taskexesid);
 			taskexeBean.setTasktype(singletaskBean.getTasktype());
-			AllocItemInfoBean allocItem = allocInfoService.getByTaskid(taskexeBean.getTaskexesid());
+			AllocItemInfoBean allocItem = allocInfoService.getByTaskid(taskid);
 			allocService.lockTheAllocation(allocItem, taskexeBean.getSkuId(), singletaskBean.getTasktype());
-			taskexeStatusService.changeStatusWhenNew(taskexeBean.getTaskexesid());
+			taskexeStatusService.changeStatusWhenNew(taskid);
 			taskexeTaskDao.addATask(taskexeBean);
 			msg.setMsg("任务完成下达！");
 		}

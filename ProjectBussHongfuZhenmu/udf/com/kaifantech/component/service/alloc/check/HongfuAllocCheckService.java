@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.calculatedfun.util.msg.AppMsg;
 import com.kaifantech.bean.singletask.SingletaskBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
+import com.kaifantech.bean.wms.alloc.AllocItemInfoBean;
 import com.kaifantech.component.service.singletask.group.SingletaskGroupService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
@@ -15,7 +16,7 @@ import com.kaifantech.init.sys.qualifier.HongfuSystemQualifier;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
 
 @Service(HongfuSystemQualifier.ALLOC_CHECK_SERVICE)
-public class InomaWmsAllocCheckService extends WmsAllocCheckService {
+public class HongfuAllocCheckService extends WmsAllocCheckService {
 	@Autowired
 	private SingletaskGroupService singletaskGroupService;
 
@@ -40,4 +41,16 @@ public class InomaWmsAllocCheckService extends WmsAllocCheckService {
 		}
 		return new AppMsg(0, "任务可以下达！");
 	}
+
+	public AppMsg checkBeforeAddTask(Object obj, Integer agvId) {
+		AppMsg msg = super.checkBeforeAddTask(obj, agvId);
+		if (msg.getCode() < 0) {
+			return msg;
+		}
+		SingletaskBean singletaskBean = (SingletaskBean) obj;
+		AllocItemInfoBean allocationInfoBean = allocService.getByTaskid(singletaskBean.getId());
+		msg = checkAllocInfo(allocationInfoBean, singletaskBean.getTasktype());
+		return msg;
+	}
+
 }
