@@ -102,18 +102,18 @@ public class InomaMsgResoluteModule implements IMsgResoluteModule {
 		}
 	}
 
-	public AppMsg resoluteTaskexe(TaskexeBean latestTaskexe) {
-		if (latestTaskexe != null) {
-			if (AgvMoveStatus.CONTINUE.equals(agvInfoDao.getMoveStatus(latestTaskexe.getAgvId()))
-					&& !TaskexeOpFlag.OVER.equals(latestTaskexe.getOpflag())) {
-				SingletaskBean singletaskBean = singleTaskInfoService.get(latestTaskexe.getTaskexesid());
+	public AppMsg resoluteTaskexe(TaskexeBean taskexeBean) {
+		if (taskexeBean != null) {
+			if (AgvMoveStatus.CONTINUE.equals(agvInfoDao.getMoveStatus(taskexeBean.getAgvId()))
+					&& !TaskexeOpFlag.OVER.equals(taskexeBean.getOpflag())) {
+				SingletaskBean singletaskBean = singleTaskInfoService.get(taskexeBean.getJsonItem("taskid"));
 				if (!AgvTaskType.ZUHE_RENWU.equals(singletaskBean.getTasktype())) {
-					AppMsg msg = resoluteGroupTask(latestTaskexe);
+					AppMsg msg = resoluteGroupTask(taskexeBean);
 					if (msg.getCode() < 0) {
 						return msg;
 					}
 				} else {
-					AppMsg msg = resoluteTask(latestTaskexe, singletaskBean);
+					AppMsg msg = resoluteTask(taskexeBean, singletaskBean);
 					if (msg.getCode() < 0) {
 						return msg;
 					}

@@ -8,7 +8,7 @@ import com.kaifantech.component.dao.alloc.AllocItemDao;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 
 public class AppBusinessInfo extends BaseBusinessInfo {
-	public static final Clients CURRENT_CLIENT = Clients.INOMA;
+	public static final Clients CURRENT_CLIENT = Clients.HONGFU;
 	public static final Projects CURRENT_PROJECT = Projects.HONGFU_ZHENMU;
 
 	public static void createStaticFile() throws IOException {
