@@ -3,6 +3,7 @@ package com.kaifantech.component.service.taskexe.deal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.calculatedfun.util.msg.AppMsg;
 import com.kaifantech.bean.singletask.SingletaskBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.component.comm.manager.agv.HongfuAgvManager;
@@ -35,7 +36,10 @@ public class HongfuTaskexeDealer implements ITaskexeDealer {
 	private void startWork(TaskexeBean taskexeBean) {
 		ThreadTool.sleep(5000);
 		SingletaskBean singletaskBean = singleTaskInfoService.get(taskexeBean.getTaskid());
-		agvManager.doTask(taskexeBean.getAgvId(), singletaskBean.getTaskName());
+		AppMsg msg = agvManager.doTask(taskexeBean.getAgvId(), singletaskBean.getTaskName());
+		if (!msg.isSuccess()) {
+			return;
+		}
 		taskexeTaskDao.sendATask(taskexeBean);
 	}
 }
