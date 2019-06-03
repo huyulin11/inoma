@@ -22,8 +22,8 @@ CREATE TABLE IF NOT EXISTS `singletask_info` (
   `allocoptype` varchar(50) DEFAULT '1' COMMENT '操作目标货位的类型：1为向目标货位放货；2为从目标货位取货；3为与其它任务一道的组合任务；',
   `allocid` int(11) DEFAULT NULL COMMENT '目标货位',
   `environmentid` int(11) DEFAULT 0 COMMENT '针对沧州项目多控制台，0代表不属于哪个控制台',
-  `agvId` int(11) DEFAULT 0 COMMENT '指定的agv才能执行此任务，0代表都可以执行',
-  `lapId` int(11) DEFAULT NULL COMMENT '对应取货点ID（维维为机械手）',
+  `agvid` int(11) DEFAULT 0 COMMENT '指定的agv才能执行此任务，0代表都可以执行',
+  `lapid` int(11) DEFAULT NULL COMMENT '对应取货点ID（维维为机械手）',
   `issend` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否发送到AGV执行',
   `delflag` smallint(1) DEFAULT 0 COMMENT '删除标志',
   `orderby` int(11) DEFAULT 0 COMMENT '排序依据',
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `singletask_info` (
 -- Dumping data for table kf_inoma_weiwei_agv.singletask_info: ~320 rows (大约)
 DELETE FROM `singletask_info`;
 /*!40000 ALTER TABLE `singletask_info` DISABLE KEYS */;
-INSERT INTO `singletask_info` (`environment`, `id`, `taskname`, `tasktext`, `tasktype`, `allocoptype`, `allocid`, `environmentid`, `agvId`, `lapId`, `issend`, `delflag`, `orderby`, `createtime`) VALUES
+INSERT INTO `singletask_info` (`environment`, `id`, `taskname`, `tasktext`, `tasktype`, `allocoptype`, `allocid`, `environmentid`, `agvid`, `lapid`, `issend`, `delflag`, `orderby`, `createtime`) VALUES
 	(1, 1, '1-Q1-A-0-1.xml', '1车1存货点存货到A-0-1', 'RECEIPT', '1', 1, 1, 1, 1, 1, 0, 0, '2019-06-03 12:38:49'),
 	(1, 2, '1-Q1-A-0-2.xml', '1车1存货点存货到A-0-2', 'RECEIPT', '1', 2, 1, 1, 1, 1, 0, 0, '2019-06-03 12:38:49'),
 	(1, 3, '1-Q1-A-0-3.xml', '1车1存货点存货到A-0-3', 'RECEIPT', '1', 3, 1, 1, 1, 1, 0, 0, '2019-06-03 12:38:49'),

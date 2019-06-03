@@ -55,11 +55,11 @@ public class HongfuTaskexeAddService implements ITaskexeAddService {
 	}
 
 	private AppMsg addTask(TaskexeBean taskexeBean) {
-		Integer tmpAGVId = agvInfoService.checkAgvId(taskexeBean.getAgvId());
-		if (tmpAGVId < 0) {
+		Integer tmpAgvId = agvInfoService.checkAgvId(taskexeBean.getAgvId());
+		if (tmpAgvId < 0) {
 			return new AppMsg(-1, "错误的agv编号");
 		}
-		AppMsg msg = taskexeCheckService.checkAllocBeforeAddTask(taskexeBean, tmpAGVId);
+		AppMsg msg = taskexeCheckService.checkAllocBeforeAddTask(taskexeBean, tmpAgvId);
 		if (msg.getCode() >= 0) {
 			SingletaskBean singletaskBean = singleTaskInfoService.get(taskexeBean.getTaskexesid());
 			taskexeBean.setTasktype(singletaskBean.getTasktype());

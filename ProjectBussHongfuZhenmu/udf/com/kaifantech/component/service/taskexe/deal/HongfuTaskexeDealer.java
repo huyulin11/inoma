@@ -68,6 +68,8 @@ public class HongfuTaskexeDealer implements ITaskexeDealer {
 		if (!msg.isSuccess()) {
 			return;
 		}
+		System.out.println(taskexeBean.getAgvId() + "号AGV执行的" + taskexeBean.getTaskexesid() + "-"
+				+ taskexeBean.getTasksequence() + "发送成功，更新任务状态为SEND！");
 		taskexeTaskDao.sendATask(taskexeBean);
 	}
 }
