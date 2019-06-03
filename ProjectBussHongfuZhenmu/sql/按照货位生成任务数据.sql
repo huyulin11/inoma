@@ -29,7 +29,7 @@ INSERT INTO `kf_inoma_weiwei_agv`.`singletask_info`
  		`environmentId`, `agvId`, `lapId`, `isSendToAGV`, `delflag`)
 SELECT 
 	'1',CONCAT(@agvid,'-',@tasktypeSt,@lapId,'-',`text`, '.xml')
- 	, CONCAT(@agvid,'车',@lapId,@tasktypeCn,'点',`text`, @tasktypeCn), @tasktypeEn,
+ 	, CONCAT(@agvid,'车',@lapId,@tasktypeCn,'点', @tasktypeCn,'到',`text`), @tasktypeEn,
 	`id`, '1', @agvid, @lapId, '1', '0'
 FROM kf_inoma_weiwei_wms.allocation_item_info
 ORDER BY id;
