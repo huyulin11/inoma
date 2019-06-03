@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS `taskexe_s2c_task` (
   `addeddesc` varchar(50) DEFAULT '0' COMMENT '附加消息描述（在盘点功能中增加）',
   `opflag` varchar(16) DEFAULT NULL COMMENT '操作标志',
   `agvId` int(11) DEFAULT NULL COMMENT 'AGV的id，0代表全部',
+  `json` varchar(500) DEFAULT NULL,
   `delflag` smallint(1) DEFAULT 0 COMMENT '删除标志，1代表已删除，0代表可用',
   `overtime` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '完成时间',
   `autoflag` int(1) DEFAULT 0 COMMENT '是否自动发送（1为是，0为否，-1为半自动）',
@@ -31,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `taskexe_s2c_task` (
   UNIQUE KEY `UNIQ` (`taskid`,`tasksequence`)
 ) ENGINE=MEMORY DEFAULT CHARSET=utf8 COMMENT='运输任务执行表';
 
--- Dumping data for table kf_inoma_weiwei_agv.taskexe_s2c_task: 0 rows
+-- Dumping data for table kf_inoma_weiwei_agv.taskexe_s2c_task: 1 rows
 DELETE FROM `taskexe_s2c_task`;
 /*!40000 ALTER TABLE `taskexe_s2c_task` DISABLE KEYS */;
 /*!40000 ALTER TABLE `taskexe_s2c_task` ENABLE KEYS */;
