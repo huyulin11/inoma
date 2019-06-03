@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- 主机:                           127.0.0.1
--- 服务器版本:                        10.3.7-MariaDB - mariadb.org binary distribution
--- 服务器OS:                        Win64
--- HeidiSQL 版本:                  10.1.0.5577
+-- Server version:               10.3.7-MariaDB - mariadb.org binary distribution
+-- Server OS:                    Win64
+-- HeidiSQL 版本:                  10.1.0.5505
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -33,10 +33,14 @@ CREATE TABLE IF NOT EXISTS `singletask_info` (
   KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=505 DEFAULT CHARSET=utf8 COMMENT='任务信息表';
 
--- Dumping data for table kf_inoma_weiwei_agv.singletask_info: ~320 rows (大约)
+-- Dumping data for table kf_inoma_weiwei_agv.singletask_info: ~320 rows (approximately)
 DELETE FROM `singletask_info`;
 /*!40000 ALTER TABLE `singletask_info` DISABLE KEYS */;
 INSERT INTO `singletask_info` (`environment`, `id`, `taskname`, `tasktext`, `tasktype`, `allocoptype`, `allocid`, `environmentid`, `agvid`, `lapid`, `issend`, `delflag`, `orderby`, `createtime`) VALUES
+	(1, -4, 'C1.xml', '1号车前往充电', 'GOTO_CHARGE', '1', 0, 1, 1, 1, 1, 0, 0, '2019-06-03 21:50:51'),
+	(1, -3, 'D1.xml', '1号车充电返回', 'BACK_CHARGE', '1', 0, 1, 1, 1, 1, 0, 0, '2019-06-03 21:51:16'),
+	(1, -2, 'C2.xml', '2号车前往充电', 'GOTO_CHARGE', '1', 0, 1, 1, 1, 1, 0, 0, '2019-06-03 21:51:57'),
+	(1, -1, 'D2.xml', '2号车充电返回', 'BACK_CHARGE', '1', 0, 1, 1, 1, 1, 0, 0, '2019-06-03 21:52:25'),
 	(1, 1, '1-Q1-A-0-1.xml', '1车1存货点存货到A-0-1', 'RECEIPT', '1', 1, 1, 1, 1, 1, 0, 0, '2019-06-03 12:38:49'),
 	(1, 2, '1-Q1-A-0-2.xml', '1车1存货点存货到A-0-2', 'RECEIPT', '1', 2, 1, 1, 1, 1, 0, 0, '2019-06-03 12:38:49'),
 	(1, 3, '1-Q1-A-0-3.xml', '1车1存货点存货到A-0-3', 'RECEIPT', '1', 3, 1, 1, 1, 1, 0, 0, '2019-06-03 12:38:49'),

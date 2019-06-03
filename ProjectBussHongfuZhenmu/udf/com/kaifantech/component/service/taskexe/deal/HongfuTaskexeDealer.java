@@ -11,6 +11,7 @@ import com.kaifantech.bean.singletask.SingletaskBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.bean.wms.alloc.AllocItemInfoBean;
 import com.kaifantech.component.comm.manager.agv.HongfuAgvManager;
+import com.kaifantech.component.dao.agv.info.AgvOpChargeDao;
 import com.kaifantech.component.dao.taskexe.op.TaskexeOpDao;
 import com.kaifantech.component.service.alloc.info.IAllocInfoService;
 import com.kaifantech.component.service.alloc.status.IAllocStatusMgrService;
@@ -40,6 +41,9 @@ public class HongfuTaskexeDealer implements ITaskexeDealer {
 	@Qualifier(DefaultSystemQualifier.DEFAULT_ALLOC_INFO_SERVICE)
 	private IAllocInfoService allocInfoService;
 
+	@Autowired
+	private AgvOpChargeDao agvOpDao;
+
 	public void dealTaskexe(TaskexeBean taskexeBean) throws Exception {
 		if (TaskexeOpFlag.NEW.equals(taskexeBean.getOpflag())) {
 			startWork(taskexeBean);
@@ -59,30 +63,34 @@ public class HongfuTaskexeDealer implements ITaskexeDealer {
 			if (!msg.isSuccess()) {
 				return;
 			}
-			taskexeTaskDao.sendATask(taskexeBean);
-			System.out.println(taskexeBean.getAgvId() + "号AGV执行的" + taskexeBean.getTaskexesid() + "-"
-					+ taskexeBean.getTasksequence() + "发送成功，更新任务状态为SEND！");
-		}
-		if (AppTool.equals(taskexeBean.getTasktype(), AgvTaskType.GOTO_CHARGE, AgvTaskType.BACK_CHARGE)) {
+		} else if (AppTool.equals(taskexeBean.getTasktype(), AgvTaskType.GOTO_CHARGE, AgvTaskType.BACK_CHARGE)) {
 			SingletaskBean singletaskBean = singleTaskInfoService.get(taskexeBean.getJsonItem("taskid"));
 			AppMsg msg = agvManager.doTask(taskexeBean.getAgvId(), singletaskBean.getTaskname());
 			if (!msg.isSuccess()) {
 				return;
 			}
-			taskexeTaskDao.sendATask(taskexeBean);
-			System.out.println(taskexeBean.getAgvId() + "号AGV执行的" + taskexeBean.getTaskexesid() + "-"
-					+ taskexeBean.getTasksequence() + "发送成功，更新任务状态为SEND！");
 		}
+		taskexeTaskDao.sendATask(taskexeBean);
+		System.out.println(taskexeBean.getAgvId() + "号AGV执行的" + taskexeBean.getTaskexesid() + "-"
+				+ taskexeBean.getTasksequence() + "发送成功，更新任务状态为SEND！");
 	}
 
 	private void watchWork(TaskexeBean taskexeBean) {
 		HongfuAgvMsgBean agvMsg = HongfuAgvMsgGetter.getBean(taskexeBean.getAgvId());
 		if (!AppTool.isNull(agvMsg) && agvMsg.isTaskfinished()) {
-			AllocItemInfoBean allocItem = allocInfoService.getByTaskid(taskexeBean.getJsonItem("taskid"));
-			AppMsg msg = AgvTaskType.RECEIPT.equals(taskexeBean.getTasktype()) ? allocService.transferUpDone(allocItem)
-					: allocService.transferDownDone(allocItem);
-			if (!msg.isSuccess()) {
-				return;
+			if (AppTool.equals(taskexeBean.getTasktype(), AgvTaskType.RECEIPT, AgvTaskType.SHIPMENT)) {
+				AllocItemInfoBean allocItem = allocInfoService.getByTaskid(taskexeBean.getJsonItem("taskid"));
+				AppMsg msg = AgvTaskType.RECEIPT.equals(taskexeBean.getTasktype())
+						? allocService.transferUpDone(allocItem) : allocService.transferDownDone(allocItem);
+				if (!msg.isSuccess()) {
+					return;
+				}
+			} else if (AppTool.equals(taskexeBean.getTasktype(), AgvTaskType.GOTO_CHARGE, AgvTaskType.BACK_CHARGE)) {
+				if (AgvTaskType.GOTO_CHARGE.equals(taskexeBean.getTasktype())) {
+					agvOpDao.workOverGotoCharge(taskexeBean.getAgvId());
+				} else if (AgvTaskType.BACK_CHARGE.equals(taskexeBean.getTasktype())) {
+					agvOpDao.workOverBackCharge(taskexeBean.getAgvId());
+				}
 			}
 			taskexeTaskDao.overASendTask(taskexeBean);
 			System.out.println(taskexeBean.getAgvId() + "号AGV执行的" + taskexeBean.getTaskexesid() + "-"
