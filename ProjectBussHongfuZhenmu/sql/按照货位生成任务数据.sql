@@ -4,7 +4,7 @@ create procedure test()                 #创建无参存储过程,名称为test
 begin
     declare i int;                      #申明变量
     set i = 1;                          #变量赋值
-TRUNCATE TABLE `kf_inoma_weiwei_agv`.`singletask_info`;
+DELETE from `kf_inoma_weiwei_agv`.`singletask_info` WHERE id>0;
     while i <= 8 do                     #结束循环的条件: 当i大于10时跳出while循环
     if i=1 then
 SET @agvid = 1, @tasktypeCn = '存货', @tasktypeEn = 'RECEIPT', @tasktypeSt = 'Q', @lapId = '1';
@@ -29,7 +29,7 @@ INSERT INTO `kf_inoma_weiwei_agv`.`singletask_info`
  		`environmentId`, `agvId`, `lapId`, `issend`, `delflag`)
 SELECT 
 	'1',CONCAT(@agvid,'-',@tasktypeSt,@lapId,'-',`text`, '.xml')
- 	, CONCAT(@agvid,'车',@lapId,@tasktypeCn,'点','到',`text`), @tasktypeEn,
+ 	, CONCAT('@','车',@agvid,'@',@tasktypeCn,'点',@lapId,'@',`text`), @tasktypeEn,
 	`id`, '1', @agvid, @lapId, '1', '0'
 FROM kf_inoma_weiwei_wms.allocation_item_info
 ORDER BY id;
