@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- 主机:                           127.0.0.1
--- Server version:               10.3.7-MariaDB - mariadb.org binary distribution
--- Server OS:                    Win64
--- HeidiSQL 版本:                  10.1.0.5505
+-- 服务器版本:                        10.3.7-MariaDB - mariadb.org binary distribution
+-- 服务器OS:                        Win64
+-- HeidiSQL 版本:                  10.1.0.5577
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -20,17 +20,17 @@ CREATE TABLE IF NOT EXISTS `conf_key` (
   PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table kf_inoma_weiwei__conf.conf_key: ~11 rows (approximately)
+-- Dumping data for table kf_inoma_weiwei__conf.conf_key: ~11 rows (大约)
 DELETE FROM `conf_key`;
 /*!40000 ALTER TABLE `conf_key` DISABLE KEYS */;
 INSERT INTO `conf_key` (`key`, `value`, `updatetime`) VALUES
 	('ACS_CONTROL', '[{"id":"PAUSE_USER","name":"暂停所有"},{"id":"togglePiBtn","name":"交通管制"},{"id":"autoTaskBtn","name":"自动任务"},{"id":"autoChargeBtn","name":"自动充电"},{"id":"errBackBtn","name":"错误回家"}]', '2019-03-11 17:13:54'),
-	('AGV_CONTROL', '[{"id":"PAUSE_USER","name":"暂停"},{"id":"CONTINUE","name":"继续"},{"id":"GOTO_CHARGE","name":"前往充电"},{"id":"BACK_CHARGE","name":"停止充电"},{"id":"SHUTDOWN","name":"取消任务","color":"red"},{"id":"GOTO_INIT","name":"返回初始位置","color":"red"},{"id":"RE_PATH","name":"重新规划路径","color":"black"}]', '2019-03-11 17:14:07'),
+	('AGV_CONTROL', '[{"id":"PAUSE_USER","name":"暂停"},{"id":"CONTINUE","name":"继续"},{"id":"GOTO_CHARGE","name":"前往充电"},{"id":"BACK_CHARGE","name":"停止充电"},{"id":"SHUTDOWN","name":"取消任务","color":"#D24D57"}]', '2019-06-04 15:24:58'),
 	('AGV_GENERAL_SEARCH_INTEVAL', '200', '2019-06-01 09:18:50'),
 	('AGV_JUDGED_TIMES_INTEVAL', '1000', '2019-06-01 09:18:50'),
-	('IS_AUTO_CHARGE', 'TRUE', '2019-06-01 09:18:55'),
-	('IS_AUTO_TASK', 'TRUE', '2019-06-01 09:18:55'),
-	('IS_ERR_BACK', 'FALSE', '2019-06-01 09:18:55'),
+	('IS_AUTO_CHARGE', 'FALSE', '2019-06-03 09:36:11'),
+	('IS_AUTO_TASK', 'FALSE', '2019-06-03 09:36:11'),
+	('IS_ERR_BACK', 'FALSE', '2019-06-03 09:36:11'),
 	('IS_OPEN_PI', 'TRUE', '2019-06-01 09:18:55'),
 	('NGINX_PATH', 'G:/JavaTools/nginx-1.10.1/html/static/s/jsons/', '2019-03-11 17:14:28'),
 	('NGINX_PORT', '99', '2019-06-02 10:00:51'),
