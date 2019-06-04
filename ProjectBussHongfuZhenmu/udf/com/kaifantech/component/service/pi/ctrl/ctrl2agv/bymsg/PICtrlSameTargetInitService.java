@@ -44,8 +44,8 @@ public class PICtrlSameTargetInitService {
 		this.msgInCurrentXOne = msgOne;
 		this.msgAnother = msgAnother;
 
-		agvInCurrentXOne = agvDao.getAGVBeanWithLocation(msgInCurrentXOne.getAGVId());
-		agvAnother = agvDao.getAGVBeanWithLocation(msgAnother.getAGVId());
+		agvInCurrentXOne = agvDao.getAGVBeanWithLocation(msgInCurrentXOne.getAgvId());
+		agvAnother = agvDao.getAGVBeanWithLocation(msgAnother.getAgvId());
 
 		distanceDangerYY = CLASH_AREA_INFO.DISTANCE_SAFE_WHEN_IN_SAME_ROAD_Y_ONE + BASIC_INFO.addedDistance(msgOne);
 		distanceDangerXY = msgAnother.isOnTheXaxis() ? CLASH_AREA_INFO.DISTANCE_SAFE_WHEN_IN_SAME_ROAD_XY

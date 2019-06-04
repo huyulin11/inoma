@@ -37,7 +37,7 @@ public class TaskPathInfoDao {
 	}
 
 	public void addAPoint(IXYBean msg, Long startMoveSecond) {
-		addAPoint(msg.getAGVId(), msg.getTaskid(), msg.getX(), msg.getY(), startMoveSecond, msg.getAngle(),
+		addAPoint(msg.getAgvId(), msg.getTaskid(), msg.getX(), msg.getY(), startMoveSecond, msg.getAngle(),
 				msg.getTaskStep());
 	}
 

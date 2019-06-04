@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.bean.msg.agv.IXYBean;
 import com.kaifantech.bean.msg.agv.TaskPathInfoPointBean;
-import com.kaifantech.component.service.pi.ctrl.PIMsgService;
+import com.kaifantech.component.service.pi.ctrl.HongfuPiMsgService;
 import com.kaifantech.component.service.pi.path.distance.DistanceChecker;
 import com.kaifantech.component.service.pi.path.info.TaskPathInfoService;
 import com.kaifantech.util.agv.msg.PiCommandMsg;
@@ -28,7 +28,7 @@ public class PICtrlOneWithPathService {
 	private DistanceChecker distanceChecker;
 
 	@Autowired
-	private PIMsgService piMsgService;
+	private HongfuPiMsgService piMsgService;
 
 	public PiCommandMsg check2Agvs(List<TaskPathInfoPointBean> pathOne, HongfuAgvMsgBean msgOne,
 			HongfuAgvMsgBean msgAnother) {
@@ -60,7 +60,7 @@ public class PICtrlOneWithPathService {
 
 	/** 比较一方有路径记录，另一无记录-即时位置比对-是否需要做停止控制 */
 	public <T extends IXYBean> boolean isDangerousOneWithPath(List<T> pathOne, IXYBean msgOne, IXYBean msgAnother) {
-		return taskPathInfoService.findPathInMap(msgOne.getAGVId(), msgOne.getTaskid()).stream()
+		return taskPathInfoService.findPathInMap(msgOne.getAgvId(), msgOne.getTaskid()).stream()
 				.anyMatch((point) -> distanceChecker.isDangerous(point, msgAnother, true));
 	}
 

@@ -15,7 +15,7 @@ public class TaskPathInfoMap {
 	public TaskPathInfoMap(List<TaskPathInfoPointBean> taskPath) {
 		if (taskPath != null && taskPath.size() > 0) {
 			this.setTaskid(taskPath.get(0).getTaskid());
-			this.setAGVId(taskPath.get(0).getAGVId());
+			this.setAGVId(taskPath.get(0).getAgvId());
 			this.setPathList(taskPath);
 		}
 	}

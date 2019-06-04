@@ -5,11 +5,11 @@ import org.springframework.stereotype.Component;
 
 import com.kaifantech.bean.info.agv.AGVBeanWithLocation;
 import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
-import com.kaifantech.component.service.pi.ctrl.PIMsgService;
+import com.kaifantech.component.service.pi.ctrl.HongfuPiMsgService;
 import com.kaifantech.component.service.pi.path.distance.Differ;
 import com.kaifantech.util.agv.msg.Location;
 import com.kaifantech.util.agv.msg.MsgCompare;
-import com.kaifantech.util.agv.msg.PiCommandMsg;
+import com.kaifantech.util.agv.msg.PiCommandId;
 import com.kaifantech.util.constant.pi.detail.BASIC_INFO;
 import com.kaifantech.util.constant.pi.detail.CLASH_AREA_INFO;
 
@@ -23,9 +23,9 @@ public class PICtrlSameTargetService implements IPICtrlByMsgService {
 	private PICtrlSameTargetInitService piCtrlSameTargetInitService;
 
 	@Autowired
-	private PIMsgService piMsgService;
+	private HongfuPiMsgService piMsgService;
 
-	public PiCommandMsg check(HongfuAgvMsgBean msgInCurrentXOne, HongfuAgvMsgBean msgAnotherOne,
+	public PiCommandId check(HongfuAgvMsgBean msgInCurrentXOne, HongfuAgvMsgBean msgAnotherOne,
 			MsgCompare<HongfuAgvMsgBean> compare) {
 		piCtrlSameTargetInitService.init(msgAnotherOne, msgInCurrentXOne);
 		boolean isInTheWarning = piCtrlSameTargetInitService.isInTheWarningArea();

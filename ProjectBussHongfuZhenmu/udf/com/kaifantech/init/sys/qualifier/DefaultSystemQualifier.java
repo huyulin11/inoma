@@ -20,5 +20,6 @@ public class DefaultSystemQualifier extends BaseSystemQualifier {
 	public static final String DEFAULT_IOT_CLIENT_SERVICE = HongfuSystemQualifier.IOT_CLIENT_SERVICE;
 
 	public static final String DEFAULT_MSGRESOLUTE_MODULE = HongfuSystemQualifier.AGV_MSG_RESOLUTE_MODULE;
-	public static final String DEFAULT_PI_WORK_SERVICE = HongfuSystemQualifier.PI_WORK_SERVICE;
+
+	public static final String DEFAULT_PI_WORK_TODO_SERVICE = AcsSystemQualifier.PI_WORK_TODO_SERVICE;
 }

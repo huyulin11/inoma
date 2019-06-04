@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
-import com.kaifantech.component.service.pi.ctrl.PIMsgService;
+import com.kaifantech.component.service.pi.ctrl.HongfuPiMsgService;
 import com.kaifantech.component.service.pi.path.distance.Differ;
 import com.kaifantech.util.agv.msg.MsgCompare;
 import com.kaifantech.util.agv.msg.Point;
@@ -21,7 +21,7 @@ public class PICtrlOtherService implements IPICtrlByMsgService {
 	private Differ differ;
 
 	@Autowired
-	private PIMsgService piMsgService;
+	private HongfuPiMsgService piMsgService;
 
 	private PiCommandMsg command;
 
@@ -46,10 +46,10 @@ public class PICtrlOtherService implements IPICtrlByMsgService {
 				if (distanceOfPositiveToPoint < OTHERS_1_POSITIVE_CLOSE_1_OTHERS.DISTANCE_DANGEROUS
 						&& distanceOfUnPositiveToPoint < OTHERS_1_POSITIVE_CLOSE_1_OTHERS.DISTANCE_DANGEROUS_OTHERS) {
 					piMsgService.danger(msgOne, msgAnother, PICtrlConstant.OTHERS,
-							"非正角行驶，其中" + positiveAngleBean.getAGVId() + "车正角，"
-									+ unPositiveAngleBean.getAGVId() + "车非正角，距离为" + distance + "，在"
+							"非正角行驶，其中" + positiveAngleBean.getAgvId() + "车正角，"
+									+ unPositiveAngleBean.getAgvId() + "车非正角，距离为" + distance + "，在"
 									+ OTHERS_1_POSITIVE_CLOSE_1_OTHERS.DISTANCE_DANGEROUS
-									+ "，正角车远离非正角车时停非正角车，正角车靠近非正角车时停正角车：" + positiveAngleBean.getAGVId());
+									+ "，正角车远离非正角车时停非正角车，正角车靠近非正角车时停正角车：" + positiveAngleBean.getAgvId());
 					command = this.dangerous(positiveAngleBean, null);
 				} else {
 					command = this.safe(msgOne, msgAnother);
@@ -59,10 +59,10 @@ public class PICtrlOtherService implements IPICtrlByMsgService {
 			else {
 				if (distance <= OTHERS_1_POSITIVE_FARAWAY_1_OTHERS.DISTANCE_DANGEROUS) {
 					piMsgService.danger(msgOne, msgAnother, PICtrlConstant.OTHERS,
-							"非正角行驶，其中" + positiveAngleBean.getAGVId() + "车正角，"
-									+ unPositiveAngleBean.getAGVId() + "车非正角，距离为" + distance + "，小于"
+							"非正角行驶，其中" + positiveAngleBean.getAgvId() + "车正角，"
+									+ unPositiveAngleBean.getAgvId() + "车非正角，距离为" + distance + "，小于"
 									+ OTHERS_1_POSITIVE_FARAWAY_1_OTHERS.DISTANCE_DANGEROUS
-									+ "，正角车远离非正角车时停非正角车，正角车靠近非正角车时停正角车：" + unPositiveAngleBean.getAGVId());
+									+ "，正角车远离非正角车时停非正角车，正角车靠近非正角车时停正角车：" + unPositiveAngleBean.getAgvId());
 					command = this.dangerous(unPositiveAngleBean, null);
 				} else {
 					command = this.safe(msgOne, msgAnother);

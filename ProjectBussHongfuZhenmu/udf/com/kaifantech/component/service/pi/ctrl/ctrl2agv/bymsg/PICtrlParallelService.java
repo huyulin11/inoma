@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
-import com.kaifantech.component.service.pi.ctrl.PIMsgService;
+import com.kaifantech.component.service.pi.ctrl.HongfuPiMsgService;
 import com.kaifantech.util.agv.msg.Direction;
 import com.kaifantech.util.agv.msg.MsgCompare;
-import com.kaifantech.util.agv.msg.PiCommandMsg;
+import com.kaifantech.util.agv.msg.PiCommandId;
 import com.kaifantech.util.constant.pi.PICtrlConstant;
 import com.kaifantech.util.constant.pi.detail.BASIC_INFO;
 import com.kaifantech.util.constant.pi.detail.PARALLEL_CONVERSE_IN_LINE;
@@ -17,9 +17,9 @@ import com.kaifantech.util.constant.pi.detail.PARALLEL_SYNTROPY_IN_LINE;
 public class PICtrlParallelService implements IPICtrlByMsgService {
 
 	@Autowired
-	private PIMsgService piMsgService;
+	private HongfuPiMsgService piMsgService;
 
-	public PiCommandMsg checkWhenParallel(HongfuAgvMsgBean msgOne, HongfuAgvMsgBean msgAnother,
+	public PiCommandId checkWhenParallel(HongfuAgvMsgBean msgOne, HongfuAgvMsgBean msgAnother,
 			MsgCompare<HongfuAgvMsgBean> compare) {
 		double distanceInParallel = 0;
 		double distanceInOtherAxis = 0;
@@ -60,7 +60,7 @@ public class PICtrlParallelService implements IPICtrlByMsgService {
 				piMsgService.danger(msgOne, msgAnother, PICtrlConstant.PARALLEL,
 						"相逆行驶，平行距离为" + distanceInParallel + "，垂直距离为" + distanceInOtherAxis + "，小于"
 								+ PARALLEL_CONVERSE_IN_LINE.DISTANCE_DANGEROUS_ONE + ",停止远离回归干道车辆:"
-								+ stopOne.getAGVId());
+								+ stopOne.getAgvId());
 				return this.dangerous(stopOne, null).safe(stopOne.equals(msgOne) ? msgAnother : msgOne);
 			}
 
@@ -83,7 +83,7 @@ public class PICtrlParallelService implements IPICtrlByMsgService {
 						&& msgOne.getDirection().equals(Direction.Y_POS)) {
 					piMsgService.danger(msgOne, msgAnother, PICtrlConstant.PARALLEL,
 							"同向行驶，非平行线距离小于" + BASIC_INFO.DISTANCE_IN_LINE_SAFE + "，垂直距离为" + distanceInOtherAxis
-									+ "，停相对位置靠后车辆：" + compare.getBehindOne().getAGVId());
+									+ "，停相对位置靠后车辆：" + compare.getBehindOne().getAgvId());
 					return this.dangerous(compare.getBehindOne(), null)
 							.safe(msgOne.equals(compare.getBehindOne()) ? msgAnother : msgOne);
 				} else {
@@ -98,7 +98,7 @@ public class PICtrlParallelService implements IPICtrlByMsgService {
 				} else {
 					piMsgService.danger(msgOne, msgAnother, PICtrlConstant.PARALLEL,
 							"同向行驶，平行距离小于" + PARALLEL_SYNTROPY_IN_LINE.DISTANCE_DANGEROUS + "，垂直距离为"
-									+ distanceInOtherAxis + "，停相对位置靠后车辆：" + compare.getBehindOne().getAGVId());
+									+ distanceInOtherAxis + "，停相对位置靠后车辆：" + compare.getBehindOne().getAgvId());
 					return this.dangerous(compare.getBehindOne(), null)
 							.safe(msgOne.equals(compare.getBehindOne()) ? msgAnother : msgOne);
 				}

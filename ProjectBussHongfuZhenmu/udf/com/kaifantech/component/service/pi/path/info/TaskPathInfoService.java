@@ -20,7 +20,7 @@ public class TaskPathInfoService {
 	private List<TaskPathInfoMap> taskPathInfoMapList = new ArrayList<TaskPathInfoMap>();
 
 	public List<TaskPathInfoPointBean> getPathFromDB(TaskexeBean bean) {
-		return getPathFromDB(bean.getAgvId(), bean.getTaskexesid());
+		return getPathFromDB(bean.getAgvId(), bean.getJsonItem("taskid"));
 	}
 
 	public List<TaskPathInfoPointBean> getPathFromDB(Integer agvId, String taskid) {

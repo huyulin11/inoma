@@ -90,7 +90,7 @@ public class AcsAgvMsgInfoModule implements IAgvMsgInfoModule {
 				lastAGVMsgBean.setLast(null);
 			}
 			agvMsgBean = HongfuAgvMsgBeanTransfer.transToBean(agvId, sFromAGV, agvMsgBean);
-			if (!AppTool.isNull(lastAGVMsgBean) && !AppTool.isNull(lastAGVMsgBean.getAGVId())) {
+			if (!AppTool.isNull(lastAGVMsgBean) && !AppTool.isNull(lastAGVMsgBean.getAgvId())) {
 				if (AppTool.isNull(msgQueue)) {
 					msgQueue = new ArrayDeque<>();
 					msgQueues.put(agvId, msgQueue);

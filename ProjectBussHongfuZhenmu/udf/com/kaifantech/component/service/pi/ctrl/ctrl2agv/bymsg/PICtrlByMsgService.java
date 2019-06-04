@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
+import com.calculatedfun.util.AppTool;
+import com.calculatedfun.util.DateFactory;
 import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.util.agv.msg.MsgCompare;
-import com.kaifantech.util.agv.msg.PiCommandMsg;
+import com.kaifantech.util.agv.msg.PiCommandId;
 import com.kaifantech.util.log.AppFileLogger;
-import com.calculatedfun.util.DateFactory;
-import com.calculatedfun.util.AppTool;
 
 @Component
 public class PICtrlByMsgService implements IPICtrlByMsgService {
@@ -30,15 +30,13 @@ public class PICtrlByMsgService implements IPICtrlByMsgService {
 	// @Autowired
 	// private DifferByMsg differByMsg;
 
-	public PiCommandMsg check2AgvsByMsg(HongfuAgvMsgBean msgOne, HongfuAgvMsgBean msgAnother) {
+	public PiCommandId check2AgvsByMsg(HongfuAgvMsgBean msgOne, HongfuAgvMsgBean msgAnother) {
 		// differByMsg.initPIParam();
 		MsgCompare<HongfuAgvMsgBean> compare = new MsgCompare<HongfuAgvMsgBean>(msgOne, msgAnother);
 
 		getTipsMsg(msgOne, msgAnother, compare);
 
-		PiCommandMsg command;
-
-		command = piCtrlClashAreaService.check(msgOne, msgAnother, compare);
+		PiCommandId command = piCtrlClashAreaService.check(msgOne, msgAnother, compare);
 		if (!AppTool.isNull(command)) {
 			printCurrentModel(msgOne, msgAnother, "易冲突区域控制");
 			return command;
@@ -69,7 +67,8 @@ public class PICtrlByMsgService implements IPICtrlByMsgService {
 	}
 
 	@Async
-	private void getTipsMsg(HongfuAgvMsgBean msgOne, HongfuAgvMsgBean msgAnother, MsgCompare<HongfuAgvMsgBean> compare) {
+	private void getTipsMsg(HongfuAgvMsgBean msgOne, HongfuAgvMsgBean msgAnother,
+			MsgCompare<HongfuAgvMsgBean> compare) {
 		double distanceXAxis = 0;
 		double distanceYAxis = 0;
 		double distance = 0;
@@ -86,7 +85,6 @@ public class PICtrlByMsgService implements IPICtrlByMsgService {
 			patten += "非正角模式";
 		}
 
-		AppFileLogger
-				.piLogs(patten + "，距离为：" + distance + "，X坐标距离：" + distanceXAxis + "，Y坐标距离：" + distanceYAxis);
+		AppFileLogger.piLogs(patten + "，距离为：" + distance + "，X坐标距离：" + distanceXAxis + "，Y坐标距离：" + distanceYAxis);
 	}
 }

@@ -27,7 +27,7 @@ public class TaskPathMemoryDao {
 	}
 
 	public void addAPoint(HongfuAgvMsgBean msg, Long startMoveSecond) {
-		addAPoint(msg.getAGVId(), msg.getTaskid(), msg.getX(), msg.getY(), startMoveSecond, msg.getAngle(),
+		addAPoint(msg.getAgvId(), msg.getTaskid(), msg.getX(), msg.getY(), startMoveSecond, msg.getAngle(),
 				msg.getTaskStep());
 	}
 

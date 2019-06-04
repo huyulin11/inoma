@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.bean.msg.agv.IXYBean;
 import com.kaifantech.bean.msg.agv.TaskPathInfoPointBean;
-import com.kaifantech.component.service.pi.ctrl.PIMsgService;
+import com.kaifantech.component.service.pi.ctrl.HongfuPiMsgService;
 import com.kaifantech.component.service.pi.path.distance.DistanceChecker;
 import com.kaifantech.util.agv.msg.PiCommandMsg;
 import com.kaifantech.util.agv.taskpath.DistanceStatus;
@@ -27,7 +27,7 @@ public class IntersectionService {
 	private List<Intersection> intersectionList = new ArrayList<>();
 
 	@Autowired
-	private PIMsgService piMsgService;
+	private HongfuPiMsgService piMsgService;
 
 	public void init() {
 		intersectionList.clear();

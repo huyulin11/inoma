@@ -28,9 +28,9 @@ public class Intersection {
 	}
 
 	private boolean inSame(IXYBean msg, IXYBean msg2) {
-		if (this.getMapA().getAGVId().equals(msg.getAGVId())
+		if (this.getMapA().getAGVId().equals(msg.getAgvId())
 				&& this.getMapA().getTaskid().equals(msg.getTaskid())
-				&& this.getMapB().getAGVId().equals(msg2.getAGVId())
+				&& this.getMapB().getAGVId().equals(msg2.getAgvId())
 				&& this.getMapB().getTaskid().equals(msg2.getTaskid())) {
 			return true;
 		}

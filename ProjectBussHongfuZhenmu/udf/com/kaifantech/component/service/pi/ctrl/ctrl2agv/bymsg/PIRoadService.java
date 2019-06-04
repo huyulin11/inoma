@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.util.agv.msg.MsgCompare;
-import com.kaifantech.util.agv.msg.PiCommandMsg;
+import com.kaifantech.util.agv.msg.PiCommandId;
 
 @Component
 public class PIRoadService implements IPICtrlByMsgService {
@@ -18,7 +18,7 @@ public class PIRoadService implements IPICtrlByMsgService {
 	@Autowired
 	PICtrlParallelService piCtrlParallelService;
 
-	public PiCommandMsg check2AgvsByMsg(HongfuAgvMsgBean msgOne, HongfuAgvMsgBean msgAnother) {
+	public PiCommandId check2AgvsByMsg(HongfuAgvMsgBean msgOne, HongfuAgvMsgBean msgAnother) {
 		MsgCompare<HongfuAgvMsgBean> compare = new MsgCompare<HongfuAgvMsgBean>(msgOne, msgAnother);
 
 		if (msgOne.isTaskfinished() || msgAnother.isTaskfinished()) {
