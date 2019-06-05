@@ -17,7 +17,7 @@ import com.kaifantech.component.dao.taskexe.op.TaskexeOpDao;
 import com.kaifantech.component.service.alloc.info.IAllocInfoService;
 import com.kaifantech.component.service.alloc.status.IAllocStatusMgrService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
-import com.kaifantech.component.service.taskexe.dealer.ITaskexeDealer;
+import com.kaifantech.component.service.taskexe.dealer.IHongfuTaskexeDealer;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.util.constant.taskexe.TaskexeOpFlag;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
@@ -25,7 +25,7 @@ import com.kaifantech.util.msg.agv.HongfuAgvMsgGetter;
 import com.kaifantech.util.thread.ThreadTool;
 
 @Service
-public class HongfuTaskexeDealer implements ITaskexeDealer {
+public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 	@Autowired
 	protected TaskexeOpDao taskexeTaskDao;
 
@@ -48,7 +48,7 @@ public class HongfuTaskexeDealer implements ITaskexeDealer {
 	@Autowired
 	private AgvOpWmsDao agvOpWmsDao;
 
-	public void dealTaskexe(TaskexeBean taskexeBean) throws Exception {
+	public void deal(TaskexeBean taskexeBean, HongfuAgvMsgBean agvMsg) throws Exception {
 		if (TaskexeOpFlag.NEW.equals(taskexeBean.getOpflag())) {
 			startWork(taskexeBean);
 			return;

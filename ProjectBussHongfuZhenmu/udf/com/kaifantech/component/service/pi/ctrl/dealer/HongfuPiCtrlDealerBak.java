@@ -3,7 +3,6 @@ package com.kaifantech.component.service.pi.ctrl.dealer;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.iot.client.IotClientBean;
@@ -23,8 +22,7 @@ import com.kaifantech.util.constant.pi.detail.ClashArea;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
 import com.kaifantech.util.msg.agv.HongfuAgvMsgGetter;
 
-@Component
-public class HongfuPiCtrlDealer implements IFancyPiCtrlDealer {
+public class HongfuPiCtrlDealerBak implements IFancyPiCtrlDealer {
 
 	@Autowired
 	private PICtrlService piCtrlService;
