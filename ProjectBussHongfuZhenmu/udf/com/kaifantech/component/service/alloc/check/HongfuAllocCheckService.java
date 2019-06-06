@@ -42,8 +42,8 @@ public class HongfuAllocCheckService extends WmsAllocCheckService {
 		return new AppMsg(0, "任务可以下达！");
 	}
 
-	public AppMsg checkBeforeAddTask(Object obj, Integer agvId) {
-		AppMsg msg = super.checkBeforeAddTask(obj, agvId);
+	public AppMsg checkAllocBeforeAdd(Object obj, Integer agvId) {
+		AppMsg msg = super.checkAllocBeforeAdd(obj, agvId);
 		if (msg.getCode() < 0) {
 			return msg;
 		}
