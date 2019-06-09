@@ -9,12 +9,10 @@ import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
 
 public class IotClientLatestMsg {
-	private HongfuAgvMsgBean agvMsg = new HongfuAgvMsgBean();
-	private String latestMsgStr = "";
+	private HongfuAgvMsgBean agvMsg = null;
 
-	public IotClientLatestMsg(HongfuAgvMsgBean agvMsg, String latestMsgStr) {
+	public IotClientLatestMsg(HongfuAgvMsgBean agvMsg) {
 		this.agvMsg = agvMsg;
-		this.latestMsgStr = latestMsgStr;
 	}
 
 	public HongfuAgvMsgBean geAGVMsg() {
@@ -23,10 +21,6 @@ public class IotClientLatestMsg {
 
 	public void setAGVMsg(HongfuAgvMsgBean latestMsg) {
 		this.agvMsg = latestMsg;
-	}
-
-	public void setLatestMsgStr(String latestMsgStr) {
-		this.latestMsgStr = latestMsgStr;
 	}
 
 	public boolean isLatestTaskexeSuccessDone(TaskexeBean command) {
@@ -51,10 +45,10 @@ public class IotClientLatestMsg {
 
 	public boolean isLatestTaskexeSendDone() {
 		try {
-			if (AppTool.isNullStr(latestMsgStr) || latestMsgStr.indexOf("task_isfinished=") < 0
-					|| !"0".equals(latestMsgStr.substring(
-							latestMsgStr.indexOf("task_isfinished=") + "task_isfinished=".length(),
-							latestMsgStr.indexOf("task_isfinished=") + "task_isfinished=".length() + 1))) {
+			if (AppTool.isNullStr(agvMsg.getStr()) || agvMsg.getStr().indexOf("task_isfinished=") < 0
+					|| !"0".equals(agvMsg.getStr().substring(
+							agvMsg.getStr().indexOf("task_isfinished=") + "task_isfinished=".length(),
+							agvMsg.getStr().indexOf("task_isfinished=") + "task_isfinished=".length() + 1))) {
 				return false;
 			} else {
 				return true;
@@ -66,11 +60,11 @@ public class IotClientLatestMsg {
 
 	public boolean isAGVPause() {
 		try {
-			if (AppTool.isNullStr(latestMsgStr) || latestMsgStr.indexOf("pause_stat=") < 0) {
+			if (AppTool.isNullStr(agvMsg.getStr()) || agvMsg.getStr().indexOf("pause_stat=") < 0) {
 				return false;
 			}
-			if (!"0".equals(latestMsgStr.substring(latestMsgStr.indexOf("pause_stat=") + "pause_stat=".length(),
-					latestMsgStr.indexOf("pause_stat=") + "pause_stat=".length() + 1))) {
+			if (!"0".equals(agvMsg.getStr().substring(agvMsg.getStr().indexOf("pause_stat=") + "pause_stat=".length(),
+					agvMsg.getStr().indexOf("pause_stat=") + "pause_stat=".length() + 1))) {
 				return true;
 			} else {
 				return false;

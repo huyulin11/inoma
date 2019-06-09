@@ -55,7 +55,7 @@ public class AcsAgvMsgInfoModule implements IAgvMsgInfoModule {
 	public HongfuAgvMsgBean getLatestMsgBean(Integer agvId) {
 		HongfuAgvMsgBean latestMsgObj = latestMsgMap.get(agvId);
 		if (latestMsgObj == null) {
-			latestMsgMap.put(agvId, new HongfuAgvMsgBean());
+			latestMsgMap.put(agvId, new HongfuAgvMsgBean(null));
 		}
 		HongfuAgvMsgBean msg = latestMsgMap.get(agvId);
 
@@ -83,13 +83,14 @@ public class AcsAgvMsgInfoModule implements IAgvMsgInfoModule {
 			String sFromAGV = msgDao.getLatestMsg(agvId);
 
 			HongfuAgvMsgBean agvMsgBean = latestMsgMap.get(agvId);
+			agvMsgBean.setStr(sFromAGV);
 			HongfuAgvMsgBean lastAGVMsgBean = null;
 			Deque<HongfuAgvMsgBean> msgQueue = msgQueues.get(agvId);
 			if (!AppTool.isNull(agvMsgBean)) {
 				lastAGVMsgBean = (HongfuAgvMsgBean) agvMsgBean.clone();
 				lastAGVMsgBean.setLast(null);
 			}
-			agvMsgBean = HongfuAgvMsgBeanTransfer.transToBean(agvId, sFromAGV, agvMsgBean);
+			agvMsgBean = HongfuAgvMsgBeanTransfer.transToBean(agvId, sFromAGV);
 			if (!AppTool.isNull(lastAGVMsgBean) && !AppTool.isNull(lastAGVMsgBean.getAgvId())) {
 				if (AppTool.isNull(msgQueue)) {
 					msgQueue = new ArrayDeque<>();

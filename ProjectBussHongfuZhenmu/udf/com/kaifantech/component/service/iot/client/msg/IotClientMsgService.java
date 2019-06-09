@@ -28,7 +28,7 @@ public class IotClientMsgService {
 	public IotClientLatestMsg getLatestMsg(Integer agvId) {
 		IotClientLatestMsg latestMsgObj = latestMsgMap.get(agvId);
 		if (latestMsgObj == null) {
-			latestMsgMap.put(agvId, new IotClientLatestMsg(new HongfuAgvMsgBean(), ""));
+			latestMsgMap.put(agvId, new IotClientLatestMsg(new HongfuAgvMsgBean("")));
 		}
 		return latestMsgMap.get(agvId);
 	}
@@ -124,7 +124,7 @@ public class IotClientMsgService {
 				}
 			}
 
-			HongfuAgvMsgBean latestMsg = new HongfuAgvMsgBean();
+			HongfuAgvMsgBean latestMsg = new HongfuAgvMsgBean(latestMsgStr);
 			latestMsg.setTaskid(taskid);
 			latestMsg.setTaskIsfinished(finishStatus);
 			latestMsg.setBattery(battery);
@@ -135,10 +135,9 @@ public class IotClientMsgService {
 			IotClientLatestMsg latestMsgObj = latestMsgMap.get(agvObjectId);
 
 			if (latestMsgObj == null) {
-				latestMsgMap.put((Integer) agvObjectId, new IotClientLatestMsg(latestMsg, latestMsgStr));
+				latestMsgMap.put((Integer) agvObjectId, new IotClientLatestMsg(latestMsg));
 			} else {
 				latestMsgObj.setAGVMsg(latestMsg);
-				latestMsgObj.setLatestMsgStr(latestMsgStr);
 			}
 		} catch (Exception e) {
 			return;
