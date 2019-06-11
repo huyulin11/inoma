@@ -8,7 +8,7 @@ import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.info.agv.AGVBeanWithLocation;
 import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.component.dao.agv.info.AgvInfoDao;
-import com.kaifantech.component.service.pi.ctrl.HongfuPiMsgService;
+import com.kaifantech.component.service.pi.ctrl.msg.HongfuPiMsgService;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.util.agv.msg.MsgCompare;
 import com.kaifantech.util.agv.msg.PiCommandId;

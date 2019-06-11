@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.bean.msg.agv.IXYBean;
 import com.kaifantech.bean.msg.agv.TaskPathInfoPointBean;
-import com.kaifantech.component.service.pi.ctrl.HongfuPiMsgService;
+import com.kaifantech.component.service.pi.ctrl.msg.HongfuPiMsgService;
 import com.kaifantech.component.service.pi.path.distance.DistanceChecker;
 import com.kaifantech.util.agv.msg.PiCommandMsg;
 import com.kaifantech.util.agv.taskpath.DistanceStatus;

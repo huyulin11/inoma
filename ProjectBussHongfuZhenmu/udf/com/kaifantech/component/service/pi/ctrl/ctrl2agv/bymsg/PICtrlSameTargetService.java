@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.kaifantech.bean.info.agv.AGVBeanWithLocation;
 import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
-import com.kaifantech.component.service.pi.ctrl.HongfuPiMsgService;
+import com.kaifantech.component.service.pi.ctrl.msg.HongfuPiMsgService;
 import com.kaifantech.component.service.pi.path.distance.Differ;
 import com.kaifantech.util.agv.msg.Location;
 import com.kaifantech.util.agv.msg.MsgCompare;

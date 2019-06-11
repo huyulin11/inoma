@@ -1,4 +1,4 @@
-package com.kaifantech.component.service.pi.ctrl;
+package com.kaifantech.component.service.pi.ctrl.msg;
 
 import java.text.DecimalFormat;
 
