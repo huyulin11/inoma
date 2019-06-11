@@ -19,7 +19,7 @@ import com.kaifantech.component.dao.agv.info.AgvInfoDao;
 import com.kaifantech.component.dao.alloc.AllocColumnDao;
 import com.kaifantech.component.dao.alloc.AllocItemDao;
 import com.kaifantech.component.dao.led.LedDevInfoDao;
-import com.kaifantech.component.dao.singletask.SingletaskDao;
+import com.kaifantech.component.dao.singletask.SingletaskInfoDao;
 import com.kaifantech.component.service.alloc.area.IAllocAreaService;
 import com.kaifantech.component.service.lap.LapInfoService;
 import com.kaifantech.component.service.sku.SkuInfoService;
@@ -40,7 +40,7 @@ public class InomaDataInitService implements ISingleCacheWorkerGetter {
 	private LapInfoService lapInfoService;
 
 	@Autowired
-	private SingletaskDao singletaskDao;
+	private SingletaskInfoDao singletaskDao;
 
 	@Autowired
 	@Qualifier(DefaultSystemQualifier.DEFAULT_AGV_INFO_DAO)

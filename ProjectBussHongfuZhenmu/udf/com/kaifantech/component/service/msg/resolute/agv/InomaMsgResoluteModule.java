@@ -17,7 +17,7 @@ import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.bean.wms.alloc.AllocItemInfoBean;
 import com.kaifantech.component.business.msg.resolute.agv.IMsgResoluteModule;
 import com.kaifantech.component.dao.agv.info.AgvInfoDao;
-import com.kaifantech.component.dao.singletask.SingletaskDao;
+import com.kaifantech.component.dao.singletask.SingletaskInfoDao;
 import com.kaifantech.component.dao.taskexe.op.TaskexeOpDao;
 import com.kaifantech.component.log.AgvStatusDBLogger;
 import com.kaifantech.component.service.alloc.info.IAllocInfoService;
@@ -64,7 +64,7 @@ public class InomaMsgResoluteModule implements IMsgResoluteModule {
 	private IAgvMsgInfoModule msgService;
 
 	@Autowired
-	private SingletaskDao singletaskDao;
+	private SingletaskInfoDao singletaskDao;
 
 	@Autowired
 	private SingletaskGroupService singletaskGroupService;

@@ -16,7 +16,7 @@ import com.kaifantech.bean.singletask.SingletaskGroupBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.component.business.msg.resolute.agv.IMsgResoluteModule;
 import com.kaifantech.component.dao.agv.info.AgvInfoDao;
-import com.kaifantech.component.dao.singletask.SingletaskDao;
+import com.kaifantech.component.dao.singletask.SingletaskInfoDao;
 import com.kaifantech.component.dao.taskexe.op.TaskexeOpDao;
 import com.kaifantech.component.log.AgvStatusDBLogger;
 import com.kaifantech.component.service.iot.client.IIotClientService;
@@ -54,7 +54,7 @@ public class AcsMsgResoluteModule implements IMsgResoluteModule {
 	private IAgvMsgInfoModule msgService;
 
 	@Autowired
-	private SingletaskDao singletaskDao;
+	private SingletaskInfoDao singletaskDao;
 
 	@Autowired
 	private SingletaskGroupService singletaskGroupService;
