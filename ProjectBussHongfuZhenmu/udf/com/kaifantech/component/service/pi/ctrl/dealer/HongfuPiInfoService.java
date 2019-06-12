@@ -1,0 +1,98 @@
+package com.kaifantech.component.service.pi.ctrl.dealer;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+import com.calculatedfun.util.AppTool;
+import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
+import com.kaifantech.bean.taskexe.HongfuTaskexeBean;
+import com.kaifantech.bean.taskexe.TaskexeBean;
+import com.kaifantech.bean.taskexe.TaskexeDetailBean;
+import com.kaifantech.bean.tasksite.TaskSiteInfoBean;
+import com.kaifantech.component.dao.agv.info.AgvInfoDao;
+import com.kaifantech.component.service.taskexe.detail.info.ITaskexeDetailInfoService;
+import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
+import com.kaifantech.component.service.tasksite.info.HongfuTaskSiteInfoService;
+import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
+import com.kaifantech.util.msg.agv.HongfuAgvMsgGetter;
+
+@Component
+public class HongfuPiInfoService {
+	@Autowired
+	private HongfuTaskSiteInfoService taskSiteInfoService;
+
+	@Autowired
+	private TaskexeInfoService taskexeInfoService;
+
+	@Autowired
+	private ITaskexeDetailInfoService taskexeDetailService;
+
+	private Map<Integer, HongfuTaskexeBean> cache = new HashMap<>();
+
+	@Autowired
+	@Qualifier(DefaultSystemQualifier.DEFAULT_AGV_INFO_DAO)
+	private AgvInfoDao agvInfoDao;
+
+	public HongfuTaskexeBean getCache(Integer agvId) throws Exception {
+		return cache.get(agvId);
+	}
+
+	public HongfuTaskexeBean get(Integer agvId) throws Exception {
+		TaskexeBean taskexeBean = taskexeInfoService.getNextOne(agvId);
+		if (taskexeBean == null) {
+			return null;
+		}
+		HongfuTaskexeBean HongfuTaskexeBean = new HongfuTaskexeBean(taskexeBean);
+		List<TaskexeDetailBean> taskexeDetailList = taskexeDetailService.find(taskexeBean);
+		if (AppTool.isNull(taskexeDetailList)) {
+			return null;
+		}
+		return get(HongfuTaskexeBean, taskexeDetailList);
+	}
+
+	public HongfuTaskexeBean get(TaskexeBean taskexeBean, List<TaskexeDetailBean> list) {
+		HongfuTaskexeBean obj = HongfuTaskexeBean.get(taskexeBean, list);
+		HongfuAgvMsgBean HongfuAgvMsgBean = HongfuAgvMsgGetter.getFreshBean(taskexeBean.getAgvId());
+		if (AppTool.isNull(HongfuAgvMsgBean)) {
+			return null;
+		}
+		if (AppTool.isNull(list) || list.size() == 0) {
+			return null;
+		}
+		obj.msg = HongfuAgvMsgBean;
+
+		obj.agvBean = agvInfoDao.get(taskexeBean.getAgvId());
+		if (AppTool.isNull(obj.agvBean)) {
+			return null;
+		}
+
+		for (TaskexeDetailBean thisDetail : list) {
+			TaskSiteInfoBean thisSite = taskSiteInfoService.getBean(thisDetail.getSiteid());
+			if (thisDetail.isOver()) {
+				obj.currentDetail = thisDetail;
+				obj.currentSite = thisSite;
+				continue;
+			}
+			if (thisDetail.isSend()) {
+				obj.currentDetail = thisDetail;
+				obj.currentSite = thisSite;
+			}
+
+			if (AppTool.isNull(obj.currentDetail)) {
+				return null;
+			}
+
+			if (!thisDetail.isOver() && AppTool.isNull(obj.nextDetail)) {
+				obj.nextDetail = thisDetail;
+				obj.nextSite = thisSite;
+			}
+		}
+		cache.put(obj.getAgvId(), obj);
+		return obj;
+	}
+}
