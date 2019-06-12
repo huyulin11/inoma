@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.info.agv.AgvBean;
 import com.kaifantech.bean.singletask.SingletaskBean;
 import com.kaifantech.bean.taskexe.SkuInfoBean;
 import com.kaifantech.bean.wms.alloc.AllocColumnInfoBean;
 import com.kaifantech.bean.wms.alloc.AllocItemInfoBean;
 import com.kaifantech.bean.wms.alloc.AllocationAreaInfoBean;
-import com.kaifantech.cache.manager.ISingleCacheWorkerGetter;
 import com.kaifantech.component.dao.agv.info.AgvInfoDao;
 import com.kaifantech.component.dao.alloc.AllocColumnDao;
 import com.kaifantech.component.dao.alloc.AllocItemDao;
@@ -25,10 +25,9 @@ import com.kaifantech.component.service.lap.LapInfoService;
 import com.kaifantech.component.service.sku.SkuInfoService;
 import com.kaifantech.init.sys.params.SystemParameters;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
-import com.calculatedfun.util.AppTool;
 
 @Service
-public class InomaDataInitService implements ISingleCacheWorkerGetter {
+public class InomaDataInitService {
 
 	@Autowired
 	private AllocColumnDao allocColumnDao;
