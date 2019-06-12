@@ -22,7 +22,7 @@ import com.kaifantech.util.constant.pi.detail.ClashArea;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
 import com.kaifantech.util.msg.agv.HongfuAgvMsgGetter;
 
-public class HongfuPiCtrlDealerBak implements IFancyPiCtrlDealer {
+public class HongfuPiCtrlDealerBak implements IPiCtrlDealer {
 
 	@Autowired
 	private PICtrlService piCtrlService;
