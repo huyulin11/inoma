@@ -1,5 +1,7 @@
 package com.kaifantech.component.service.taskexe.deal;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import com.calculatedfun.util.msg.AppMsg;
 import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.bean.singletask.SingletaskBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
+import com.kaifantech.bean.taskexe.TaskexeDetailBean;
 import com.kaifantech.bean.wms.alloc.AllocItemInfoBean;
 import com.kaifantech.component.comm.manager.agv.HongfuAgvManager;
 import com.kaifantech.component.dao.agv.info.AgvOpChargeDao;
@@ -18,6 +21,7 @@ import com.kaifantech.component.service.alloc.info.IAllocInfoService;
 import com.kaifantech.component.service.alloc.status.IAllocStatusMgrService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.taskexe.dealer.IHongfuTaskexeDealer;
+import com.kaifantech.component.service.taskexe.detail.info.ITaskexeDetailInfoService;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.util.constant.taskexe.TaskexeOpFlag;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
@@ -26,6 +30,9 @@ import com.kaifantech.util.thread.ThreadTool;
 
 @Service
 public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
+	@Autowired
+	private ITaskexeDetailInfoService taskexeDetailService;
+
 	@Autowired
 	protected TaskexeOpDao taskexeTaskDao;
 
@@ -49,6 +56,7 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 	private AgvOpWmsDao agvOpWmsDao;
 
 	public void deal(TaskexeBean taskexeBean, HongfuAgvMsgBean agvMsg) throws Exception {
+		List<TaskexeDetailBean> taskexeDetailList = taskexeDetailService.getList(taskexeBean);
 		if (TaskexeOpFlag.NEW.equals(taskexeBean.getOpflag())) {
 			startWork(taskexeBean);
 			return;
