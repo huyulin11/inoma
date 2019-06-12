@@ -8,60 +8,45 @@ import org.springframework.stereotype.Component;
 import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.iot.client.IotClientBean;
 import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
-import com.kaifantech.bean.msg.agv.TaskPathInfoPointBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
-import com.kaifantech.component.service.pi.ctrl.ctrl2agv.byangle.PICtrlService;
-import com.kaifantech.component.service.pi.ctrl.msg.HongfuPiMsgService;
-import com.kaifantech.component.service.pi.path.info.TaskPathInfoService;
+import com.kaifantech.bean.taskexe.TaskexeDetailBean;
+import com.kaifantech.component.service.taskexe.detail.info.ITaskexeDetailInfoService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
 import com.kaifantech.util.agv.msg.PiCommandId;
 import com.kaifantech.util.msg.agv.HongfuAgvMsgGetter;
 
 @Component
 public class HongfuPiCtrlDealer implements IPiCtrlDealer {
+	@Autowired
+	private HongfuPiTaskexeDealer piTaskexeDealer;
 
 	@Autowired
-	private PICtrlService piCtrlService;
-
-	@Autowired
-	private HongfuPiMsgService piMsgService;
-
-	@Autowired
-	private TaskPathInfoService taskPathInfoService;
+	private ITaskexeDetailInfoService taskexeDetailService;
 
 	@Autowired
 	private TaskexeInfoService taskexeInfoService;
 
-	public PiCommandId check2Agvs(IotClientBean agvOne, IotClientBean agvAnother) {
+	public PiCommandId check2Agvs(IotClientBean agvOne, IotClientBean agvAnother) throws Exception {
 		TaskexeBean one = taskexeInfoService.getNextOne(agvOne.getId()),
 				another = taskexeInfoService.getNextOne(agvAnother.getId());
 		if (AppTool.isAnyNull(one, another)) {
 			return null;
 		}
-		HongfuAgvMsgBean msgOne = HongfuAgvMsgGetter.getBean(one.getAgvId());
-		HongfuAgvMsgBean msgAnother = HongfuAgvMsgGetter.getBean(another.getAgvId());
+		HongfuAgvMsgBean msgOne = HongfuAgvMsgGetter.getBean(one.getAgvId()),
+				msgAnother = HongfuAgvMsgGetter.getBean(another.getAgvId());
 		if (AppTool.isAnyNull(msgOne, msgAnother) || AppTool.isAnyNull(msgOne.getAgvId(), msgAnother.getAgvId())) {
 			return null;
 		}
 		if (AppTool.isAnyNull(msgOne.getX(), msgOne.getY(), msgAnother.getX(), msgAnother.getY())) {
 			return null;
 		}
-
-		List<TaskPathInfoPointBean> pathOne = null;
-		List<TaskPathInfoPointBean> pathAnother = null;
-		if (!AppTool.isNull(one)) {
-			pathOne = taskPathInfoService.findPathInMap(one);
+		List<TaskexeDetailBean> taskexeDetailListOne = taskexeDetailService.find(one),
+				taskexeDetailListAnother = taskexeDetailService.find(another);
+		if (AppTool.isAnyNull(taskexeDetailListOne, taskexeDetailListAnother)) {
+			return null;
 		}
-		if (!AppTool.isNull(another)) {
-			pathAnother = taskPathInfoService.findPathInMap(another);
-		}
-
-		if (!AppTool.isNull(one) || !AppTool.isNull(another)) {
-			piMsgService.printMsg(msgOne, msgAnother, !AppTool.isNull(pathOne) || !AppTool.isNull(pathAnother),
-					!AppTool.isNull(pathOne), !AppTool.isNull(pathAnother));
-		}
-
-		return piCtrlService.check2Agvs(pathOne, pathAnother, msgOne, msgAnother, one, another);
+		return piTaskexeDealer.check2Agvs(one, another, msgOne, msgAnother, taskexeDetailListOne,
+				taskexeDetailListAnother);
 	}
 
 }
