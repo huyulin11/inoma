@@ -22,15 +22,37 @@ public class HongfuPiLockService {
 	private HongfuTaskSiteInfoService taskSiteInfoService;
 
 	public void roadLocks(TaskexeBean taskexeBean, HongfuAgvMsgBean agvMsgBean, TaskexeDetailBean taskexeDetail) {
-		List<Map<String, Object>> roadLocks = AppCache.worker().getListSerachByVal(CacheKeys.ROAD_LOCKS, "%TRUE%");
+		List<Map<String, Object>> roadLockMaps = AppCache.worker().getListBy(CacheKeys.ROAD_LOCKS,
+				"`value` like '%" + AgvLockStatus.INLOCK + "%'");
 		String siteYaxisStr = taskSiteInfoService.getBean(taskexeDetail.getSiteid()).getJsonItem("yaxis");
-		if (AppTool.isNull(roadLocks)) {
-			JSONObject roadLock = new JSONObject();
-			roadLock.put("lock", "TRUE");
-			roadLock.put("status", AgvLockStatus.INLOCK);
-			roadLock.put("start", agvMsgBean.getY());
-			roadLock.put("end", siteYaxisStr);
-			AppCache.worker().hset(CacheKeys.ROAD_LOCKS, taskexeBean.getAgvId(), roadLock.toJSONString());
+		long notSelfLocks = 0;
+
+		if (!AppTool.isNull(roadLockMaps)) {
+			for (Map<String, Object> roadLockMap : roadLockMaps) {
+				if (!roadLockMap.get("key").equals(taskexeBean.getAgvId())) {
+					notSelfLocks++;
+				} else {
+					Object jsonValObj = roadLockMap.get("value");
+					JSONObject tmpJsonObj = JSONObject.parseObject(jsonValObj.toString());
+					String status = tmpJsonObj.getString("status");
+					lockOne(taskexeBean, status, agvMsgBean.getY(), siteYaxisStr);
+				}
+			}
 		}
+		if (notSelfLocks == 0) {
+			lockOne(taskexeBean, AgvLockStatus.INLOCK, agvMsgBean.getY(), siteYaxisStr);
+		}
+	}
+
+	private void lockOne(TaskexeBean taskexeBean, String status, Object startAxis, Object endAxis) {
+		lockOne(taskexeBean.getAgvId(), status, startAxis, endAxis);
+	}
+
+	private void lockOne(int agvid, String status, Object startAxis, Object endAxis) {
+		JSONObject roadLockJson = new JSONObject();
+		roadLockJson.put("status", status);
+		roadLockJson.put("start", startAxis);
+		roadLockJson.put("end", endAxis);
+		AppCache.worker().hset(CacheKeys.ROAD_LOCKS, agvid, roadLockJson.toJSONString());
 	}
 }
