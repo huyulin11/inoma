@@ -47,24 +47,25 @@ public class HongfuPiInfoService {
 		if (taskexeBean == null) {
 			return null;
 		}
-		HongfuTaskexeBean HongfuTaskexeBean = new HongfuTaskexeBean(taskexeBean);
-		List<TaskexeDetailBean> taskexeDetailList = taskexeDetailService.find(taskexeBean);
-		if (AppTool.isNull(taskexeDetailList)) {
+		HongfuTaskexeBean hongfuTaskexeBean = new HongfuTaskexeBean(taskexeBean);
+		List<TaskexeDetailBean> detailList = taskexeDetailService.find(taskexeBean);
+		if (AppTool.isNull(detailList)) {
 			return null;
 		}
-		return get(HongfuTaskexeBean, taskexeDetailList);
+		return get(hongfuTaskexeBean, detailList);
 	}
 
 	public HongfuTaskexeBean get(TaskexeBean taskexeBean, List<TaskexeDetailBean> list) {
 		HongfuTaskexeBean obj = HongfuTaskexeBean.get(taskexeBean, list);
-		HongfuAgvMsgBean HongfuAgvMsgBean = HongfuAgvMsgGetter.getFreshBean(taskexeBean.getAgvId());
-		if (AppTool.isNull(HongfuAgvMsgBean)) {
+		HongfuAgvMsgBean agvMsgBean = HongfuAgvMsgGetter.getFreshBean(taskexeBean.getAgvId());
+		if (AppTool.isNull(agvMsgBean)) {
 			return null;
 		}
-		if (AppTool.isNull(list) || list.size() == 0) {
+		if (AppTool.isAnyNull(agvMsgBean.getX(), agvMsgBean.getY())) {
 			return null;
 		}
-		obj.msg = HongfuAgvMsgBean;
+
+		obj.msg = agvMsgBean;
 
 		obj.agvBean = agvInfoDao.get(taskexeBean.getAgvId());
 		if (AppTool.isNull(obj.agvBean)) {
@@ -78,6 +79,7 @@ public class HongfuPiInfoService {
 				obj.currentSite = thisSite;
 				continue;
 			}
+
 			if (thisDetail.isSend()) {
 				obj.currentDetail = thisDetail;
 				obj.currentSite = thisSite;
