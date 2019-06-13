@@ -80,7 +80,6 @@ public class HongfuPiInfoService {
 				obj.currentSite = thisSite;
 				continue;
 			}
-			double thisYaxis = Double.parseDouble(thisSite.getJsonItem("yaxis"));
 			if (thisDetail.isSend()) {
 				obj.currentDetail = thisDetail;
 				obj.currentSite = thisSite;
@@ -90,6 +89,7 @@ public class HongfuPiInfoService {
 				return null;
 			}
 
+			double thisYaxis = Double.parseDouble(thisSite.getJsonItem("yaxis"));
 			if (AppTool.isNull(obj.nextDetail)) {
 				obj.nextDetail = thisDetail;
 				obj.nextSite = thisSite;
