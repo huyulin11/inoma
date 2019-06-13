@@ -4,6 +4,7 @@ import java.util.Collections;
 
 import org.springframework.stereotype.Component;
 
+import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.taskexe.HongfuTaskexeBean;
 import com.kaifantech.init.sys.params.SystemConfParameters;
 import com.kaifantech.util.agv.msg.PiCommandId;
@@ -25,6 +26,15 @@ public class HongfuPiTaskexeDealer {
 		if (maxAnother < minOne - SystemConfParameters.getDetaJudgeSite()) {
 			piCommandId.setPiInfo("路径计算无重叠！");
 			return piCommandId.safe(one).safe(another);
+		}
+
+		if (AppTool.inOrder(one.currentYaxis, another.currentYaxis, one.nextYaxis, another.nextYaxis)) {
+		}
+		if (AppTool.inOrder(one.currentYaxis, another.currentYaxis, one.nextYaxis, another.nextYaxis)) {
+		}
+		if (AppTool.inOrder(one.currentYaxis, another.currentYaxis, one.nextYaxis, another.nextYaxis)) {
+		}
+		if (AppTool.inOrder(one.currentYaxis, another.currentYaxis, one.nextYaxis, another.nextYaxis)) {
 		}
 
 		if (one.currentYaxis < one.nextYaxis) {
