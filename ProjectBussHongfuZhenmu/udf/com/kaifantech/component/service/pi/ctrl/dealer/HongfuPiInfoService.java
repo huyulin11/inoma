@@ -27,6 +27,9 @@ public class HongfuPiInfoService {
 	private HongfuTaskSiteInfoService taskSiteInfoService;
 
 	@Autowired
+	private HongfuPiLockService piLockService;
+
+	@Autowired
 	private TaskexeInfoService taskexeInfoService;
 
 	@Autowired
@@ -94,6 +97,7 @@ public class HongfuPiInfoService {
 				obj.nextDetail = thisDetail;
 				obj.nextSite = thisSite;
 				obj.nextYaxis = thisYaxis;
+				piLockService.roadLocks(taskexeBean, agvMsgBean, thisDetail);
 			}
 
 			obj.nextYaxisList.add(thisYaxis);
