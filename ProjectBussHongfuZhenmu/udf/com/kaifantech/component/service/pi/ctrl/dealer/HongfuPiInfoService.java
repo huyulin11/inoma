@@ -66,6 +66,7 @@ public class HongfuPiInfoService {
 		}
 
 		obj.msg = agvMsgBean;
+		obj.currentYaxis = agvMsgBean.getY();
 
 		obj.agvBean = agvInfoDao.get(taskexeBean.getAgvId());
 		if (AppTool.isNull(obj.agvBean)) {
