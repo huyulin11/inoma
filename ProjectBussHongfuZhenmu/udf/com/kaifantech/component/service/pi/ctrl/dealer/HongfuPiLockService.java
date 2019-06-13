@@ -38,7 +38,7 @@ public class HongfuPiLockService {
 			return;
 		}
 		if (AppTool.isNull(onlyLockedInfo) && !AppTool.isNull(onlySuspendInfo)) {
-			updateInfo(taskexeBean, AgvLockStatus.SUSPEND, onlySuspendInfo.get("start"), onlySuspendInfo.get("end"));
+			updateInfo(taskexeBean, AgvLockStatus.SUSPEND, onlySuspendInfo);
 			return;
 		}
 
@@ -78,6 +78,10 @@ public class HongfuPiLockService {
 			}
 		}
 		return null;
+	}
+
+	private void updateInfo(TaskexeBean taskexeBean, Object status, JSONObject json) {
+		updateInfo(taskexeBean.getAgvId(), status, json.get("start"), json.get("end"));
 	}
 
 	private void updateInfo(TaskexeBean taskexeBean, Object status, Object startAxis, Object endAxis) {

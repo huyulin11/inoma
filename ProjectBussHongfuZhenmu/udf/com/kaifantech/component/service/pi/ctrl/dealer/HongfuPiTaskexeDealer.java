@@ -26,6 +26,10 @@ public class HongfuPiTaskexeDealer {
 			piCommandId.setPiInfo("路径计算无重叠！");
 			return piCommandId.safe(one).safe(another);
 		}
+
+		if (one.currentYaxis < one.nextYaxis) {
+		}
+
 		if (one.currentYaxis <= another.currentYaxis && one.currentYaxis >= another.nextYaxis) {
 			System.out.println("STOP " + another);
 		}
