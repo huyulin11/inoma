@@ -79,17 +79,7 @@ public class HongfuPiInfoService {
 		for (TaskexeDetailBean thisDetail : list) {
 			TaskSiteInfoBean thisSite = taskSiteInfoService.getBean(thisDetail.getSiteid());
 			if (thisDetail.isOver()) {
-				obj.currentDetail = thisDetail;
-				obj.currentSite = thisSite;
 				continue;
-			}
-			if (thisDetail.isSend()) {
-				obj.currentDetail = thisDetail;
-				obj.currentSite = thisSite;
-			}
-
-			if (AppTool.isNull(obj.currentDetail)) {
-				return null;
 			}
 
 			double thisYaxis = Double.parseDouble(thisSite.getJsonItem("yaxis"));
