@@ -31,21 +31,25 @@ public class HongfuPiLockService {
 		Double siteYaxis = taskSiteInfoService.getBean(taskexeDetail.getSiteid()).getJsonItem("yaxis", Double.class);
 
 		JSONObject onlyLockedInfo = getLockInfo();
+		JSONObject onlySuspendInfo = getSuspendInfo();
 
-		if (AppTool.isNull(onlyLockedInfo)) {
-			updateInfo(taskexeBean.getAgvId(), AgvLockStatus.INLOCK, agvMsgBean.getY(), siteYaxis);
+		if (AppTool.isNull(onlyLockedInfo) && AppTool.isNull(onlySuspendInfo)) {
+			updateInfo(taskexeBean, AgvLockStatus.INLOCK, agvMsgBean.getY(), siteYaxis);
+			return;
+		}
+		if (AppTool.isNull(onlyLockedInfo) && !AppTool.isNull(onlySuspendInfo)) {
+			updateInfo(taskexeBean, AgvLockStatus.SUSPEND, onlySuspendInfo.get("start"), onlySuspendInfo.get("end"));
 			return;
 		}
 
 		String thisTargetStatus = null;
 		JSONObject thisLockInfo = getLockInfo(taskexeBean.getAgvId());
 		thisTargetStatus = thisLockInfo.getString("status");
-		/** 以下阐述有锁的情况 */
 		if (siteYaxis > onlyLockedInfo.getDoubleValue("start")) {
 			thisTargetStatus = AgvLockStatus.SUSPEND;
 		}
 		if (!AppTool.isNull(thisLockInfo)) {
-			updateInfo(taskexeBean.getAgvId(), thisTargetStatus, agvMsgBean.getY(), siteYaxis);
+			updateInfo(taskexeBean, thisTargetStatus, agvMsgBean.getY(), siteYaxis);
 		}
 	}
 
@@ -59,13 +63,25 @@ public class HongfuPiLockService {
 	}
 
 	public JSONObject getLockInfo() {
+		return getByStatus(AgvLockStatus.INLOCK);
+	}
+
+	public JSONObject getSuspendInfo() {
+		return getByStatus(AgvLockStatus.SUSPEND);
+	}
+
+	public JSONObject getByStatus(String targetStatus) {
 		for (IotClientBean agv : iotClientService.getAgvCacheList()) {
 			JSONObject tmpJsonObj = getLockInfo(agv.getId());
-			if (!AppTool.isNull(tmpJsonObj) && AgvLockStatus.INLOCK.equals(tmpJsonObj.getString("status"))) {
+			if (!AppTool.isNull(tmpJsonObj) && targetStatus.equals(tmpJsonObj.getString("status"))) {
 				return tmpJsonObj;
 			}
 		}
 		return null;
+	}
+
+	private void updateInfo(TaskexeBean taskexeBean, Object status, Object startAxis, Object endAxis) {
+		updateInfo(taskexeBean.getAgvId(), status, startAxis, endAxis);
 	}
 
 	private void updateInfo(int agvid, Object status, Object startAxis, Object endAxis) {
