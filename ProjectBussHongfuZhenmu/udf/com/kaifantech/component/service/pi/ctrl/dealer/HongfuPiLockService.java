@@ -26,40 +26,51 @@ public class HongfuPiLockService {
 	@Qualifier(DefaultSystemQualifier.DEFAULT_IOT_CLIENT_SERVICE)
 	private IIotClientService iotClientService;
 
-	public void roadLocks(TaskexeBean taskexeBean, HongfuAgvMsgBean agvMsgBean, TaskexeDetailBean taskexeDetail) {
-		String roadLockInfo = AppCache.worker().get(CacheKeys.ROAD_LOCKS, taskexeBean.getAgvId());
-		String siteYaxisStr = taskSiteInfoService.getBean(taskexeDetail.getSiteid()).getJsonItem("yaxis");
-		long notSelfLocks = 0;
+	public synchronized void roadLocks(TaskexeBean taskexeBean, HongfuAgvMsgBean agvMsgBean,
+			TaskexeDetailBean taskexeDetail) {
+		Double siteYaxis = taskSiteInfoService.getBean(taskexeDetail.getSiteid()).getJsonItem("yaxis", Double.class);
 
+		JSONObject onlyLockedInfo = getLockInfo();
+
+		if (AppTool.isNull(onlyLockedInfo)) {
+			updateInfo(taskexeBean.getAgvId(), AgvLockStatus.INLOCK, agvMsgBean.getY(), siteYaxis);
+			return;
+		}
+
+		String thisTargetStatus = null;
+		JSONObject thisLockInfo = getLockInfo(taskexeBean.getAgvId());
+		thisTargetStatus = thisLockInfo.getString("status");
+		/** 以下阐述有锁的情况 */
+		if (siteYaxis > onlyLockedInfo.getDoubleValue("start")) {
+			thisTargetStatus = AgvLockStatus.SUSPEND;
+		}
+		if (!AppTool.isNull(thisLockInfo)) {
+			updateInfo(taskexeBean.getAgvId(), thisTargetStatus, agvMsgBean.getY(), siteYaxis);
+		}
+	}
+
+	public JSONObject getLockInfo(Integer agvId) {
+		String roadLockInfo = AppCache.worker().get(CacheKeys.ROAD_LOCKS, agvId);
+		if (AppTool.isNull(roadLockInfo)) {
+			return null;
+		}
+		JSONObject tmpJsonObj = JSONObject.parseObject(roadLockInfo);
+		return tmpJsonObj;
+	}
+
+	public JSONObject getLockInfo() {
 		for (IotClientBean agv : iotClientService.getAgvCacheList()) {
-			if (!agv.getId().equals(taskexeBean.getAgvId())) {
-				String thisRoadLockInfo = AppCache.worker().get(CacheKeys.ROAD_LOCKS, agv.getId());
-				JSONObject tmpJsonObj = JSONObject.parseObject(thisRoadLockInfo);
-				if (!AppTool.isNull(tmpJsonObj) && AgvLockStatus.INLOCK.equals(tmpJsonObj.getString("status"))) {
-					notSelfLocks++;
-				}
+			JSONObject tmpJsonObj = getLockInfo(agv.getId());
+			if (!AppTool.isNull(tmpJsonObj) && AgvLockStatus.INLOCK.equals(tmpJsonObj.getString("status"))) {
+				return tmpJsonObj;
 			}
 		}
-		if (notSelfLocks == 0) {
-			lockOne(taskexeBean, AgvLockStatus.INLOCK, agvMsgBean.getY(), siteYaxisStr);
-		} else {
-			if (!AppTool.isNull(roadLockInfo))
-				updateOne(taskexeBean, agvMsgBean.getY(), siteYaxisStr, roadLockInfo);
-		}
+		return null;
 	}
 
-	private void lockOne(TaskexeBean taskexeBean, String status, Object startAxis, Object endAxis) {
-		lockOne(taskexeBean.getAgvId(), status, startAxis, endAxis);
-	}
-
-	private void updateOne(TaskexeBean taskexeBean, Object startAxis, Object endAxis, String jsonValObj) {
-		JSONObject tmpJsonObj = JSONObject.parseObject(jsonValObj);
-		String status = tmpJsonObj.getString("status");
-		lockOne(taskexeBean, status, startAxis, endAxis);
-	}
-
-	private void lockOne(int agvid, String status, Object startAxis, Object endAxis) {
+	private void updateInfo(int agvid, Object status, Object startAxis, Object endAxis) {
 		JSONObject roadLockJson = new JSONObject();
+		roadLockJson.put("agvid", agvid);
 		roadLockJson.put("status", status);
 		roadLockJson.put("start", startAxis);
 		roadLockJson.put("end", endAxis);

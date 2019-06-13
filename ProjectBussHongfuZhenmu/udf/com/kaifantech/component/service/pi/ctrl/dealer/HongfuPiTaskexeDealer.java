@@ -1,6 +1,10 @@
 package com.kaifantech.component.service.pi.ctrl.dealer;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
@@ -26,6 +30,14 @@ public class HongfuPiTaskexeDealer {
 			piCommandId.setPiInfo("路径计算无重叠！");
 			return piCommandId.safe(one).safe(another);
 		}
+		Set<Double> points = new HashSet<>();
+		points.addAll(one.nextYaxisList);
+		points.addAll(another.nextYaxisList);
+		points.add(one.currentYaxis);
+		points.add(another.currentYaxis);
+		List<Double> list = new ArrayList<>(points);
+		Collections.sort(list);
+		List<PiLine> piLines = PiLine.toLines(list);
 
 		if (one.currentYaxis <= another.currentYaxis && one.currentYaxis >= another.nextYaxis) {
 			System.out.println("STOP " + another);
