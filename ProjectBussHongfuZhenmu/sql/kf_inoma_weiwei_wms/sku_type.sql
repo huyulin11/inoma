@@ -2,7 +2,7 @@
 -- 主机:                           127.0.0.1
 -- 服务器版本:                        10.3.7-MariaDB - mariadb.org binary distribution
 -- 服务器OS:                        Win64
--- HeidiSQL 版本:                  10.1.0.5577
+-- HeidiSQL 版本:                  10.1.0.5594
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -25,8 +25,8 @@ CREATE TABLE IF NOT EXISTS `sku_type` (
 DELETE FROM `sku_type`;
 /*!40000 ALTER TABLE `sku_type` DISABLE KEYS */;
 INSERT INTO `sku_type` (`id`, `name`, `delflag`) VALUES
-	(1, '档案类目', 0),
-	(100, 'gaga', 0);
+	(1, '普通类目', 0),
+	(100, '特殊类目', 0);
 /*!40000 ALTER TABLE `sku_type` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
