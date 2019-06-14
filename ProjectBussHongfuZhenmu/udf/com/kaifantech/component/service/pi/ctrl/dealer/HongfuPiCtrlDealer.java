@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.calculatedfun.util.AppSetTool;
 import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.iot.client.IotClientBean;
 import com.kaifantech.bean.taskexe.HongfuTaskexeBean;
 import com.kaifantech.bean.taskexe.TaskexeDetailBean;
 import com.kaifantech.component.service.taskexe.detail.info.ITaskexeDetailInfoService;
 import com.kaifantech.util.agv.msg.PiCommandId;
+import com.kaifantech.util.log.AppFileLogger;
 
 @Component
 public class HongfuPiCtrlDealer implements IPiCtrlDealer {
@@ -34,7 +36,11 @@ public class HongfuPiCtrlDealer implements IPiCtrlDealer {
 		if (AppTool.isAnyNull(taskexeDetailListOne, taskexeDetailListAnother)) {
 			return null;
 		}
-		return piTaskexeDealer.check2Agvs(one, another);
+		PiCommandId command = piTaskexeDealer.check2Agvs(one, another);
+		AppFileLogger.piError("交管策略：" + "放行：" + AppSetTool.join(command.getSafeIds()) + "交管："
+				+ AppSetTool.join(command.getDangerIds()));
+		AppFileLogger.piError("附加信息：" + command.getPiInfo());
+		return command;
 	}
 
 }

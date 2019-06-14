@@ -11,78 +11,108 @@ import com.kaifantech.util.agv.msg.PiCommandId;
 
 @Component
 public class HongfuPiTaskexeDealer {
-	public PiCommandId check2Agvs(HongfuTaskexeBean one, HongfuTaskexeBean two) {
+	private static String C = "C";
+	private static String N = "N";
+
+	public PiCommandId check2Agvs(HongfuTaskexeBean a, HongfuTaskexeBean b) {
 		PiCommandId piCommandId = new PiCommandId();
 
-		double maxOne = Math.max(Collections.max(one.nextYaxisList), one.currentYaxis);
-		double minOne = Math.min(Collections.min(one.nextYaxisList), one.currentYaxis);
-		double maxAnother = Math.max(Collections.max(two.nextYaxisList), two.currentYaxis);
-		double minAnother = Math.min(Collections.min(two.nextYaxisList), two.currentYaxis);
+		double maxOne = Math.max(Collections.max(a.nextYaxisList), a.currentYaxis);
+		double minOne = Math.min(Collections.min(a.nextYaxisList), a.currentYaxis);
+		double maxAnother = Math.max(Collections.max(b.nextYaxisList), b.currentYaxis);
+		double minAnother = Math.min(Collections.min(b.nextYaxisList), b.currentYaxis);
 
 		if (maxOne < minAnother - SystemConfParameters.detaJudgeSite()) {
 			piCommandId.setPiInfo("路径计算无重叠！");
-			return piCommandId.s(one).s(two);
+			return piCommandId.s(a).s(b);
 		}
 		if (maxAnother < minOne - SystemConfParameters.detaJudgeSite()) {
 			piCommandId.setPiInfo("路径计算无重叠！");
-			return piCommandId.s(one).s(two);
+			return piCommandId.s(a).s(b);
 		}
-		double currentOne = one.currentYaxis, currentTwo = two.currentYaxis;
-		double nextOne = one.nextYaxis, nextTwo = two.nextYaxis;
-		if (AppTool.inOrder(currentOne, currentTwo, nextOne, nextTwo)) {
-			return piCommandId.d(one).s(two);
-		} else if (AppTool.inOrder(currentOne, currentTwo, nextTwo, nextOne)) {
-			return piCommandId.d(one).s(two);
-		} else if (AppTool.inOrder(currentOne, nextOne, currentTwo, nextTwo)) {
-			return piCommandId.s(one).s(two);
-		} else if (AppTool.inOrder(currentOne, nextOne, nextTwo, currentTwo)) {
-			return piCommandId.s(one).s(two);
-		} else if (AppTool.inOrder(currentOne, nextTwo, currentTwo, nextOne)) {
-			return piCommandId.d(one).s(two);
-		} else if (AppTool.inOrder(currentOne, nextTwo, nextOne, currentTwo)) {
-			return piCommandId.d(one).s(two);
+		int i = 1;
+		if (b.currentYaxis < a.currentYaxis) {
+			i = -1;
 		}
-
-		if (AppTool.inOrder(currentTwo, currentOne, nextOne, nextTwo)) {
-			return piCommandId.s(one).d(two);
-		} else if (AppTool.inOrder(currentTwo, currentOne, nextTwo, nextOne)) {
-			return piCommandId.s(one).d(two);
-		} else if (AppTool.inOrder(currentTwo, nextOne, nextTwo, currentOne)) {
-			return piCommandId.s(one).d(two);
-		} else if (AppTool.inOrder(currentTwo, nextOne, currentOne, nextTwo)) {
-			return piCommandId.s(one).d(two);
-		} else if (AppTool.inOrder(currentTwo, nextTwo, currentOne, nextOne)) {
-			return piCommandId.s(one).d(two);
-		} else if (AppTool.inOrder(currentTwo, nextTwo, nextOne, currentOne)) {
-			return piCommandId.s(one).d(two);
-		}
-
-		if (AppTool.inOrder(nextOne, currentOne, currentTwo, nextTwo)) {
-			return piCommandId.s(one).s(two);
-		} else if (AppTool.inOrder(nextOne, currentOne, nextTwo, currentTwo)) {
-			return piCommandId.s(one).s(two);
-		} else if (AppTool.inOrder(nextOne, currentTwo, currentOne, nextTwo)) {//
-		} else if (AppTool.inOrder(nextOne, currentTwo, nextTwo, currentOne)) {
-			return piCommandId.d(one).s(two);
-		} else if (AppTool.inOrder(nextOne, nextTwo, currentOne, currentTwo)) {
-			return piCommandId.s(one).d(two);
-		} else if (AppTool.inOrder(nextOne, nextTwo, currentTwo, currentOne)) {
-			return piCommandId.d(one).s(two);
+		double currentA = i * a.currentYaxis, currentB = i * b.currentYaxis;
+		double nextA = i * a.nextYaxis, nextB = i * b.nextYaxis;
+		if (AppTool.inOrder(currentA, currentB, nextA, nextB)) {
+			if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
+				return piCommandId.d(a).s(b).setPiInfo(model(a, C, b, C, a, N, b, N));
+			}
+		} else if (AppTool.inOrder(currentA, currentB, nextB, nextA)) {
+			if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
+				return piCommandId.d(a).s(b).setPiInfo(model(a, C, b, C, b, N, a, N));
+			}
+		} else if (AppTool.inOrder(currentA, nextA, currentB, nextB)) {
+			if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
+				return piCommandId.d(a).s(b).setPiInfo(model(a, C, a, N, b, C, b, N));
+			}
+			return piCommandId.s(a).s(b).setPiInfo(model(a, C, a, N, b, C, b, N));
+		} else if (AppTool.inOrder(currentA, nextA, nextB, currentB)) {
+			if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
+				return piCommandId.d(a).s(b).setPiInfo(model(a, C, a, N, b, N, b, C));
+			}
+			return piCommandId.s(a).s(b).setPiInfo(model(a, C, a, N, b, N, b, C));
+		} else if (AppTool.inOrder(currentA, nextB, currentB, nextA)) {
+			if (nextB - currentA <= SystemConfParameters.distanceWaiting()) {
+				return piCommandId.d(a).s(b).setPiInfo(model(a, C, b, N, b, C, a, N));
+			}
+			return piCommandId.s(a).s(b).setPiInfo(model(a, C, b, N, b, C, a, N));
+		} else if (AppTool.inOrder(currentA, nextB, nextA, currentB)) {//
+			if (nextB - currentA <= SystemConfParameters.distanceWaiting()
+					|| currentB - nextA <= SystemConfParameters.distanceWaiting()) {
+				if (nextA - currentA <= currentB - nextB) {
+					return piCommandId.s(a).d(b).setPiInfo(model(a, C, b, N, a, N, b, C));
+				} else if (nextA - currentA > currentB - nextB) {
+					return piCommandId.d(a).s(b).setPiInfo(model(a, C, b, N, a, N, b, C));
+				}
+			}
+			return piCommandId.s(a).s(b).setPiInfo(model(a, C, b, N, a, N, b, C));
 		}
 
-		if (AppTool.inOrder(nextTwo, currentOne, currentTwo, nextOne)) {//
-		} else if (AppTool.inOrder(nextTwo, currentOne, nextOne, currentTwo)) {
-			return piCommandId.s(one).d(two);
-		} else if (AppTool.inOrder(nextTwo, currentTwo, currentOne, nextOne)) {
-			return piCommandId.s(one).s(two);
-		} else if (AppTool.inOrder(nextTwo, currentTwo, nextOne, currentOne)) {
-			return piCommandId.s(one).s(two);
-		} else if (AppTool.inOrder(nextTwo, nextOne, currentOne, currentTwo)) {
-			return piCommandId.s(one).d(two);
-		} else if (AppTool.inOrder(nextTwo, nextOne, currentTwo, currentOne)) {
-			return piCommandId.d(one).s(two);
+		if (AppTool.inOrder(nextA, currentA, currentB, nextB)) {// √
+			return piCommandId.s(a).s(b).setPiInfo(model(a, N, a, C, b, C, b, N));
+		} else if (AppTool.inOrder(nextA, currentA, nextB, currentB)) {
+			if (nextB - currentA <= SystemConfParameters.distanceWaiting()
+					|| currentB - nextA <= SystemConfParameters.distanceWaiting()) {
+				if (nextA - currentA <= currentB - nextB) {
+					return piCommandId.s(a).d(b).setPiInfo(model(a, N, a, C, b, N, b, C));
+				} else if (nextA - currentA > currentB - nextB) {
+					return piCommandId.d(a).s(b).setPiInfo(model(a, N, a, C, b, N, b, C));
+				}
+			}
+			return piCommandId.s(a).s(b).setPiInfo(model(a, N, a, C, b, N, b, C));
+		} else if (AppTool.inOrder(nextA, nextB, currentA, currentB)) {
+			if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
+				return piCommandId.d(a).s(b).setPiInfo(model(a, N, b, N, a, C, b, C));
+			}
+			return piCommandId.s(a).d(b).setPiInfo(model(a, N, b, N, a, C, b, C));
+		} else if (AppTool.inOrder(nextB, currentA, currentB, nextA)) {// TODO
+			return piCommandId.d(a).d(b).setPiInfo(model(b, N, a, C, b, C, a, N));
+		} else if (AppTool.inOrder(nextB, currentA, nextA, currentB)) {
+			if (currentB - nextA <= SystemConfParameters.distanceWaiting()) {
+				return piCommandId.s(a).d(b).setPiInfo(model(b, N, a, C, a, N, b, C));
+			}
+			return piCommandId.s(a).d(b).setPiInfo(model(b, N, a, C, a, N, b, C));
+		} else if (AppTool.inOrder(nextB, nextA, currentA, currentB)) {
+			if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
+				return piCommandId.s(a).d(b).setPiInfo(model(b, N, a, N, a, C, b, C));
+			}
 		}
 
 		return null;
+	}
+
+	private String model(Object... objs) {
+		StringBuffer sb = new StringBuffer();
+		for (Object obj : objs) {
+			if (obj instanceof HongfuTaskexeBean) {
+				sb.append(((HongfuTaskexeBean) obj).getAgvId());
+			} else {
+				sb.append(obj + "___");
+			}
+		}
+		return sb.toString();
 	}
 }
