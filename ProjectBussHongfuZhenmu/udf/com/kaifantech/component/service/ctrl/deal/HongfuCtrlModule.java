@@ -27,12 +27,12 @@ public class HongfuCtrlModule implements IHongfuCtrlModule {
 	public void control(IotClientBean agvBean, HongfuAgvMsgBean agvMsg) {
 		if (!AgvMoveStatus.CONTINUE.equals(agvInfoDao.getMoveStatus(agvBean.getId()))) {
 			if (!agvMsg.isAGVPause()) {
-				AppCache.worker().hset(HongfuCacheKeys.pauseStat(), agvBean.getId(), "1");
+				AppCache.worker().hset(HongfuCacheKeys.pauseStat(), agvBean.getId(), 1);
 				pause(agvBean.getId());
 			}
 		} else {
 			if (agvMsg.isAGVPause()) {
-				AppCache.worker().hset(HongfuCacheKeys.pauseStat(), agvBean.getId(), "0");
+				AppCache.worker().hset(HongfuCacheKeys.pauseStat(), agvBean.getId(), 0);
 				startup(agvBean.getId());
 			}
 		}

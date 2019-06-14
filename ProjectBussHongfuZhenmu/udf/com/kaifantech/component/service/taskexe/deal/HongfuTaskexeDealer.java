@@ -94,7 +94,7 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 	}
 
 	private void watchWork(TaskexeBean taskexeBean) {
-		HongfuAgvMsgBean agvMsg = HongfuAgvMsgGetter.getBean(taskexeBean.getAgvId());
+		HongfuAgvMsgBean agvMsg = HongfuAgvMsgGetter.getFreshBean(taskexeBean.getAgvId());
 		if (!AppTool.isNull(agvMsg) && agvMsg.isTaskfinished()) {
 			if (AppTool.equals(taskexeBean.getTasktype(), AgvTaskType.RECEIPT, AgvTaskType.SHIPMENT)) {
 				AllocItemInfoBean allocItem = allocInfoService.getByTaskid(taskexeBean.getJsonItem("taskid"));
