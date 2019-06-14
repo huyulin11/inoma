@@ -41,23 +41,32 @@ public class HongfuPiTaskexeDealer {
 		}
 		double currentA = i * aa.currentYaxis, currentB = i * bb.currentYaxis;
 		double nextA = i * aa.nextYaxis, nextB = i * bb.nextYaxis;
+
 		if (AppTool.inOrder(currentA, currentB, nextA, nextB)) {
 			command.setInfo(model(aa, CURRENT, bb, CURRENT, aa, NEXT, bb, NEXT));
 			if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
 				return command.d(aa).s(bb);
 			}
-		} else if (AppTool.inOrder(currentA, currentB, nextB, nextA)) {
+			return null;
+		}
+
+		if (AppTool.inOrder(currentA, currentB, nextB, nextA)) {
 			command.setInfo(model(aa, CURRENT, bb, CURRENT, bb, NEXT, aa, NEXT));
 			if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
 				return command.d(aa).s(bb);
 			}
-		} else if (AppTool.inOrder(currentA, nextA, currentB, nextB)) {
+			return null;
+		}
+
+		if (AppTool.inOrder(currentA, nextA, currentB, nextB)) {
 			command.setInfo(model(aa, CURRENT, aa, NEXT, bb, CURRENT, bb, NEXT));
 			if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
 				return command.d(aa).s(bb);
 			}
 			return command.s(aa).s(bb);
-		} else if (AppTool.inOrder(currentA, nextA, nextB, currentB)) {
+		}
+
+		if (AppTool.inOrder(currentA, nextA, nextB, currentB)) {
 			command.setInfo(model(aa, CURRENT, aa, NEXT, bb, NEXT, bb, CURRENT));
 			if (nextB - nextA <= SystemConfParameters.distanceTarget()) {
 				if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
@@ -67,9 +76,11 @@ public class HongfuPiTaskexeDealer {
 						return command.d(aa).s(bb);
 					}
 				}
-				return command.s(aa).s(bb);
 			}
-		} else if (AppTool.inOrder(currentA, nextB, currentB, nextA)) {
+			return command.s(aa).s(bb);
+		}
+
+		if (AppTool.inOrder(currentA, nextB, currentB, nextA)) {
 			command.setInfo(model(aa, CURRENT, bb, NEXT, bb, CURRENT, aa, NEXT));
 			if (nextB - currentA <= SystemConfParameters.distanceTarget()) {
 				command.setInfo(aa + "距离" + bb + "下一目标站点位置过近，形成死锁！");
@@ -78,7 +89,9 @@ public class HongfuPiTaskexeDealer {
 				return command.d(aa).s(bb);
 			}
 			return command.s(aa).s(bb);
-		} else if (AppTool.inOrder(currentA, nextB, nextA, currentB)) {
+		}
+
+		if (AppTool.inOrder(currentA, nextB, nextA, currentB)) {
 			command.setInfo(model(aa, CURRENT, bb, NEXT, aa, NEXT, bb, CURRENT));
 			if (nextB - currentA <= SystemConfParameters.distanceWaiting()
 					|| currentB - nextA <= SystemConfParameters.distanceWaiting()) {
@@ -88,7 +101,11 @@ public class HongfuPiTaskexeDealer {
 						return command.d(aa).d(bb);
 					}
 					return command.s(aa).d(bb);
-				} else if (nextA - currentA > currentB - nextB) {
+				} else {
+					if (nextB - currentA <= SystemConfParameters.distanceTarget()) {
+						command.setInfo(aa + "距离" + bb + "下一目标站点位置过近，形成死锁！");
+						return command.d(aa).d(bb);
+					}
 					return command.d(aa).s(bb);
 				}
 			}
@@ -98,37 +115,45 @@ public class HongfuPiTaskexeDealer {
 		if (AppTool.inOrder(nextA, currentA, currentB, nextB)) {
 			command.setInfo(model(aa, NEXT, aa, CURRENT, bb, CURRENT, bb, NEXT));
 			return command.s(aa).s(bb);
-		} else if (AppTool.inOrder(nextA, currentA, nextB, currentB)) {
+		}
+
+		if (AppTool.inOrder(nextA, currentA, nextB, currentB)) {
 			command.setInfo(model(aa, NEXT, aa, CURRENT, bb, NEXT, bb, CURRENT));
-			if (nextB - currentA <= SystemConfParameters.distanceWaiting()
-					|| currentB - nextA <= SystemConfParameters.distanceWaiting()) {
-				if (nextA - currentA <= currentB - nextB) {
+			if (nextB - nextA <= SystemConfParameters.distanceTarget()) {
+				if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
 					return command.s(aa).d(bb);
-				} else if (nextA - currentA > currentB - nextB) {
-					return command.d(aa).s(bb);
 				}
 			}
 			return command.s(aa).s(bb);
-		} else if (AppTool.inOrder(nextA, nextB, currentA, currentB)) {
+		}
+
+		if (AppTool.inOrder(nextA, nextB, currentA, currentB)) {
 			command.setInfo(model(aa, NEXT, bb, NEXT, aa, CURRENT, bb, CURRENT));
 			if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
 				return command.d(aa).s(bb);
 			}
 			return command.s(aa).d(bb);
-		} else if (AppTool.inOrder(nextB, currentA, currentB, nextA)) {
+		}
+
+		if (AppTool.inOrder(nextB, currentA, currentB, nextA)) {
 			command.setInfo(model(bb, NEXT, aa, CURRENT, bb, CURRENT, aa, NEXT));
 			return command.d(aa).d(bb);
-		} else if (AppTool.inOrder(nextB, currentA, nextA, currentB)) {
+		}
+
+		if (AppTool.inOrder(nextB, currentA, nextA, currentB)) {
 			command.setInfo(model(bb, NEXT, aa, CURRENT, aa, NEXT, bb, CURRENT));
 			if (currentB - nextA <= SystemConfParameters.distanceWaiting()) {
 				return command.s(aa).d(bb);
 			}
 			return command.s(aa).d(bb);
-		} else if (AppTool.inOrder(nextB, nextA, currentA, currentB)) {
+		}
+
+		if (AppTool.inOrder(nextB, nextA, currentA, currentB)) {
 			command.setInfo(model(bb, NEXT, aa, NEXT, aa, CURRENT, bb, CURRENT));
 			if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
 				return command.s(aa).d(bb);
 			}
+			return null;
 		}
 
 		return null;
