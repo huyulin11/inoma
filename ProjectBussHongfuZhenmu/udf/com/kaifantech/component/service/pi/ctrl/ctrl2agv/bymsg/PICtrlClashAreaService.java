@@ -59,11 +59,11 @@ public class PICtrlClashAreaService implements IPICtrlByMsgService {
 			if (isOneCloseToArea && agvOne.getNextXaxis() == agvAnother.getCurrentXaxis()
 					&& agvAnother.getInCurrentXaxis() == 1
 					&& agvOne.getNextLocation() == agvAnother.getCurrentLocation()) {
-				command.dangerous(msgOne.getAgvId()).safe(msgAnother.getAgvId());
+				command.d(msgOne.getAgvId()).s(msgAnother.getAgvId());
 			}
 			if (isAnotherCloseToArea && agvAnother.getNextXaxis() == agvOne.getCurrentXaxis()
 					&& agvOne.getInCurrentXaxis() == 1 && agvAnother.getNextLocation() == agvOne.getCurrentLocation()) {
-				command.dangerous(msgAnother.getAgvId()).safe(msgOne.getAgvId());
+				command.d(msgAnother.getAgvId()).s(msgOne.getAgvId());
 			}
 
 			String info = "msgOne:" + msgOne.getAgvId() + "," + "msgAnother:" + msgAnother.getAgvId() + ","
@@ -73,8 +73,8 @@ public class PICtrlClashAreaService implements IPICtrlByMsgService {
 				AppFileLogger.piError("---危险---" + info);
 				piMsgService.dangerInClashArea(msgOne, msgAnother,
 						msgOne.isCloseToArea(clashArea) ? msgOne : msgAnother);
-				return command.dangerous(msgOne.isCloseToArea(clashArea) ? msgOne.getAgvId() : msgAnother.getAgvId())
-						.safe(!msgOne.isCloseToArea(clashArea) ? msgOne.getAgvId() : msgAnother.getAgvId());
+				return command.d(msgOne.isCloseToArea(clashArea) ? msgOne.getAgvId() : msgAnother.getAgvId())
+						.s(!msgOne.isCloseToArea(clashArea) ? msgOne.getAgvId() : msgAnother.getAgvId());
 			} else {
 				if (command.getDangerIds().size() > 0) {
 					piMsgService.dangerInClashAreaWhenSameTarger(
@@ -92,9 +92,9 @@ public class PICtrlClashAreaService implements IPICtrlByMsgService {
 					piMsgService.dangerInClashArea(msgOne, msgAnother,
 							distanceOfOneToArea > distanceOfAnotherToArea ? msgOne : msgAnother);
 					return command
-							.dangerous(distanceOfOneToArea > distanceOfAnotherToArea ? msgOne.getAgvId()
+							.d(distanceOfOneToArea > distanceOfAnotherToArea ? msgOne.getAgvId()
 									: msgAnother.getAgvId())
-							.safe(!(distanceOfOneToArea > distanceOfAnotherToArea) ? msgOne.getAgvId()
+							.s(!(distanceOfOneToArea > distanceOfAnotherToArea) ? msgOne.getAgvId()
 									: msgAnother.getAgvId());
 				} else if (isOneInTheArea && isAnotherInTheArea) {
 					AppFileLogger.piError("---同时处在易冲突区域，使用其它模式防止冲突---");
