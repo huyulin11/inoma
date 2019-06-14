@@ -8,7 +8,7 @@ import com.calculatedfun.util.AppTool;
 import com.calculatedfun.util.DateFactory;
 import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.util.agv.msg.MsgCompare;
-import com.kaifantech.util.agv.msg.PiCommandId;
+import com.kaifantech.util.agv.msg.PiCommand;
 import com.kaifantech.util.log.AppFileLogger;
 
 @Component
@@ -30,13 +30,13 @@ public class PICtrlByMsgService implements IPICtrlByMsgService {
 	// @Autowired
 	// private DifferByMsg differByMsg;
 
-	public PiCommandId check2AgvsByMsg(HongfuAgvMsgBean msgOne, HongfuAgvMsgBean msgAnother) {
+	public PiCommand check2AgvsByMsg(HongfuAgvMsgBean msgOne, HongfuAgvMsgBean msgAnother) {
 		// differByMsg.initPIParam();
 		MsgCompare<HongfuAgvMsgBean> compare = new MsgCompare<HongfuAgvMsgBean>(msgOne, msgAnother);
 
 		getTipsMsg(msgOne, msgAnother, compare);
 
-		PiCommandId command = piCtrlClashAreaService.check(msgOne, msgAnother, compare);
+		PiCommand command = piCtrlClashAreaService.check(msgOne, msgAnother, compare);
 		if (!AppTool.isNull(command)) {
 			printCurrentModel(msgOne, msgAnother, "易冲突区域控制");
 			return command;

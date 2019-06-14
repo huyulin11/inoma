@@ -7,7 +7,7 @@ import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.component.service.pi.ctrl.msg.HongfuPiMsgService;
 import com.kaifantech.util.agv.msg.Direction;
 import com.kaifantech.util.agv.msg.MsgCompare;
-import com.kaifantech.util.agv.msg.PiCommandId;
+import com.kaifantech.util.agv.msg.PiCommand;
 import com.kaifantech.util.constant.pi.PICtrlConstant;
 import com.kaifantech.util.constant.pi.detail.BASIC_INFO;
 import com.kaifantech.util.constant.pi.detail.PARALLEL_CONVERSE_IN_LINE;
@@ -19,7 +19,7 @@ public class PICtrlParallelService implements IPICtrlByMsgService {
 	@Autowired
 	private HongfuPiMsgService piMsgService;
 
-	public PiCommandId checkWhenParallel(HongfuAgvMsgBean msgOne, HongfuAgvMsgBean msgAnother,
+	public PiCommand checkWhenParallel(HongfuAgvMsgBean msgOne, HongfuAgvMsgBean msgAnother,
 			MsgCompare<HongfuAgvMsgBean> compare) {
 		double distanceInParallel = 0;
 		double distanceInOtherAxis = 0;

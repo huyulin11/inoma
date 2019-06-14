@@ -9,7 +9,7 @@ import com.kaifantech.component.service.pi.ctrl.msg.HongfuPiMsgService;
 import com.kaifantech.component.service.pi.path.distance.Differ;
 import com.kaifantech.util.agv.msg.Location;
 import com.kaifantech.util.agv.msg.MsgCompare;
-import com.kaifantech.util.agv.msg.PiCommandId;
+import com.kaifantech.util.agv.msg.PiCommand;
 import com.kaifantech.util.constant.pi.detail.BASIC_INFO;
 import com.kaifantech.util.constant.pi.detail.CLASH_AREA_INFO;
 
@@ -25,7 +25,7 @@ public class PICtrlSameTargetService implements IPICtrlByMsgService {
 	@Autowired
 	private HongfuPiMsgService piMsgService;
 
-	public PiCommandId check(HongfuAgvMsgBean msgInCurrentXOne, HongfuAgvMsgBean msgAnotherOne,
+	public PiCommand check(HongfuAgvMsgBean msgInCurrentXOne, HongfuAgvMsgBean msgAnotherOne,
 			MsgCompare<HongfuAgvMsgBean> compare) {
 		piCtrlSameTargetInitService.init(msgAnotherOne, msgInCurrentXOne);
 		boolean isInTheWarning = piCtrlSameTargetInitService.isInTheWarningArea();

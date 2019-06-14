@@ -11,7 +11,7 @@ import com.kaifantech.component.dao.agv.info.AgvInfoDao;
 import com.kaifantech.component.service.pi.ctrl.msg.HongfuPiMsgService;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.util.agv.msg.MsgCompare;
-import com.kaifantech.util.agv.msg.PiCommandId;
+import com.kaifantech.util.agv.msg.PiCommand;
 import com.kaifantech.util.constant.pi.detail.CLASH_AREA_INFO;
 import com.kaifantech.util.constant.pi.detail.ClashArea;
 import com.kaifantech.util.log.AppFileLogger;
@@ -42,9 +42,9 @@ public class PICtrlClashAreaService implements IPICtrlByMsgService {
 		this.clashArea = clashArea;
 	}
 
-	public PiCommandId check(HongfuAgvMsgBean msgOne, HongfuAgvMsgBean msgAnother,
+	public PiCommand check(HongfuAgvMsgBean msgOne, HongfuAgvMsgBean msgAnother,
 			MsgCompare<HongfuAgvMsgBean> compare) {
-		PiCommandId command = new PiCommandId();
+		PiCommand command = new PiCommand();
 		if (msgOne.isInTheXArea(clashArea) && msgAnother.isInTheXArea(clashArea)) {
 
 			agvOne = agvDao.getAGVBeanWithLocation(msgOne.getAgvId());

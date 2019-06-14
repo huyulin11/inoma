@@ -11,7 +11,7 @@ import com.kaifantech.bean.iot.client.IotClientBean;
 import com.kaifantech.bean.taskexe.HongfuTaskexeBean;
 import com.kaifantech.bean.taskexe.TaskexeDetailBean;
 import com.kaifantech.component.service.taskexe.detail.info.ITaskexeDetailInfoService;
-import com.kaifantech.util.agv.msg.PiCommandId;
+import com.kaifantech.util.agv.msg.PiCommand;
 import com.kaifantech.util.log.AppFileLogger;
 
 @Component
@@ -25,7 +25,7 @@ public class HongfuPiCtrlDealer implements IPiCtrlDealer {
 	@Autowired
 	private HongfuPiInfoService piInfoService;
 
-	public PiCommandId check2Agvs(IotClientBean agvOne, IotClientBean agvAnother) throws Exception {
+	public PiCommand check2Agvs(IotClientBean agvOne, IotClientBean agvAnother) throws Exception {
 		HongfuTaskexeBean one = piInfoService.get(agvOne.getId()), another = piInfoService.get(agvAnother.getId());
 		if (AppTool.isAnyNull(one, another)) {
 			return null;
@@ -36,10 +36,10 @@ public class HongfuPiCtrlDealer implements IPiCtrlDealer {
 		if (AppTool.isAnyNull(taskexeDetailListOne, taskexeDetailListAnother)) {
 			return null;
 		}
-		PiCommandId command = piTaskexeDealer.check2Agvs(one, another);
+		PiCommand command = piTaskexeDealer.check2Agvs(one, another);
 		AppFileLogger.piError("交管策略：" + "放行：" + AppSetTool.join(command.getSafeIds()) + "交管："
 				+ AppSetTool.join(command.getDangerIds()));
-		AppFileLogger.piError("附加信息：" + command.getPiInfo());
+		AppFileLogger.piError("附加信息：" + command.getInfo());
 		return command;
 	}
 

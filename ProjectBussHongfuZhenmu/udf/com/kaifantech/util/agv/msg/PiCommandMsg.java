@@ -7,7 +7,7 @@ import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.util.agv.taskpath.DistanceStatus;
 
-public class PiCommandMsg extends PiCommandId {
+public class PiCommandMsg extends PiCommand {
 	private DistanceStatus distanceStatus;
 
 	private List<HongfuAgvMsgBean> safeMsgs = new ArrayList<>();
@@ -30,14 +30,14 @@ public class PiCommandMsg extends PiCommandId {
 		return dangerMsgs;
 	}
 
-	public PiCommandId dangerous(HongfuAgvMsgBean msgOne) {
+	public PiCommand dangerous(HongfuAgvMsgBean msgOne) {
 		if (!AppTool.isNull(msgOne)) {
 			getDangerMsgs().add(msgOne);
 		}
 		return this;
 	}
 
-	public PiCommandId safe(HongfuAgvMsgBean msgOne) {
+	public PiCommand safe(HongfuAgvMsgBean msgOne) {
 		if (!AppTool.isNull(msgOne)) {
 			getSafeMsgs().add(msgOne);
 		}

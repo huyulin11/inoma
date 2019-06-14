@@ -10,7 +10,7 @@ import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.bean.msg.agv.TaskPathInfoPointBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.component.service.pi.ctrl.ctrl2agv.bymsg.PICtrlByMsgService;
-import com.kaifantech.util.agv.msg.PiCommandId;
+import com.kaifantech.util.agv.msg.PiCommand;
 import com.kaifantech.util.agv.msg.PiCommandMsg;
 import com.kaifantech.util.agv.taskpath.DistanceStatus;
 
@@ -29,7 +29,7 @@ public class PICtrlService {
 	@Autowired
 	private PICtrlByMsgService ctrlService;
 
-	public PiCommandId check2Agvs(List<TaskPathInfoPointBean> pathOne, List<TaskPathInfoPointBean> pathAnother,
+	public PiCommand check2Agvs(List<TaskPathInfoPointBean> pathOne, List<TaskPathInfoPointBean> pathAnother,
 			HongfuAgvMsgBean msgOne, HongfuAgvMsgBean msgAnother, TaskexeBean taskexeBeanOne,
 			TaskexeBean taskexeBeanAnother) {
 		/** --------------------------------------两台AGV都没有任务-------------------------------------- **/

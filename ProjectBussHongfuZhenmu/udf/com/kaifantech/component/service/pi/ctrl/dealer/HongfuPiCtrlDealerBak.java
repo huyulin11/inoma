@@ -16,7 +16,7 @@ import com.kaifantech.component.service.pi.ctrl.ctrl2agv.bymsg.PICtrlClashAreaSe
 import com.kaifantech.component.service.pi.ctrl.msg.HongfuPiMsgService;
 import com.kaifantech.component.service.pi.path.info.TaskPathInfoService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
-import com.kaifantech.util.agv.msg.PiCommandId;
+import com.kaifantech.util.agv.msg.PiCommand;
 import com.kaifantech.util.constant.pi.detail.CLASH_AREA_INFO;
 import com.kaifantech.util.constant.pi.detail.ClashArea;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
@@ -42,7 +42,7 @@ public class HongfuPiCtrlDealerBak implements IPiCtrlDealer {
 	@Autowired
 	private TaskexeInfoService taskexeInfoService;
 
-	public PiCommandId check2Agvs(IotClientBean agvOne, IotClientBean agvAnother) {
+	public PiCommand check2Agvs(IotClientBean agvOne, IotClientBean agvAnother) {
 		TaskexeBean one = taskexeInfoService.getNextOne(agvOne.getId()),
 				another = taskexeInfoService.getNextOne(agvAnother.getId());
 		if (AppTool.isAnyNull(one, another)) {
