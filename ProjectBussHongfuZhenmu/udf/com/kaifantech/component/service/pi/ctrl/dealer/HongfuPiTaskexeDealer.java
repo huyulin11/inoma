@@ -165,7 +165,7 @@ public class HongfuPiTaskexeDealer {
 			if (obj instanceof HongfuTaskexeBean) {
 				sb.append(((HongfuTaskexeBean) obj).getAgvId());
 			} else {
-				sb.append(obj + "___");
+				sb.append(obj + "_");
 			}
 		}
 		return sb.toString();
