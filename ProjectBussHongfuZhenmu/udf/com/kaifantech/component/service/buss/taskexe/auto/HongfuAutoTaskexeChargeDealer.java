@@ -46,14 +46,14 @@ public class HongfuAutoTaskexeChargeDealer {
 			String taskexesid = getSid();
 			if (AgvTaskType.GOTO_CHARGE.equals(tasktype)) {
 				JSONObject json = new JSONObject();
-				json.put("taskid", targetAgv.equals(1) ? -4 : -2);
+				json.put("taskid", targetAgv.getId().equals(1) ? -4 : -2);
 				taskexeTaskDao.addATask(taskexesid, targetAgv.getId(), 0, AgvTaskType.GOTO_CHARGE, json.toJSONString(),
 						2);
 				agvOpDao.goWorkToCharge(targetAgv.getId(), 0, taskexesid);
 				return new AppMsg(0, "下达充电任务，将" + targetAgv.getId() + "号AGV调度到充电站！");
 			} else if (AgvTaskType.BACK_CHARGE.equals(tasktype)) {
 				JSONObject json = new JSONObject();
-				json.put("taskid", targetAgv.equals(1) ? -4 : -2);
+				json.put("taskid", targetAgv.getId().equals(1) ? -3 : -1);
 				taskexeTaskDao.addATask(taskexesid, targetAgv.getId(), 0, AgvTaskType.BACK_CHARGE, json.toJSONString(),
 						2);
 				agvOpDao.goWorkBackCharge(targetAgv.getId(), taskexesid);

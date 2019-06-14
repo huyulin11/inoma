@@ -31,4 +31,15 @@ public class PiLine {
 		}
 		return piLines;
 	}
+
+	// public void test() {
+	// Set<Double> points = new HashSet<>();
+	// points.addAll(one.nextYaxisList);
+	// points.addAll(another.nextYaxisList);
+	// points.add(one.currentYaxis);
+	// points.add(another.currentYaxis);
+	// List<Double> list = new ArrayList<>(points);
+	// Collections.sort(list);
+	// List<PiLine> piLines = PiLine.toLines(list);
+	// }
 }
