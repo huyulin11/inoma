@@ -2,7 +2,7 @@
 -- 主机:                           127.0.0.1
 -- 服务器版本:                        10.3.7-MariaDB - mariadb.org binary distribution
 -- 服务器OS:                        Win64
--- HeidiSQL 版本:                  10.1.0.5577
+-- HeidiSQL 版本:                  10.1.0.5594
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -11,11 +11,11 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Dumping structure for table kf_inoma_weiwei_agv.taskexe_s2c_detail_jobs
+-- Dumping structure for table kf_hongfu_zhenmu_agv.taskexe_s2c_detail_jobs
 DROP TABLE IF EXISTS `taskexe_s2c_detail_jobs`;
 CREATE TABLE IF NOT EXISTS `taskexe_s2c_detail_jobs` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
-  `taskid` varchar(36) NOT NULL DEFAULT '0' COMMENT '任务ID',
+  `taskexesid` varchar(36) NOT NULL DEFAULT '0' COMMENT '任务ID',
   `tasksequence` int(11) NOT NULL DEFAULT 0 COMMENT '任务序号',
   `detailsequence` int(5) NOT NULL DEFAULT 0,
   `siteid` int(10) NOT NULL DEFAULT 0 COMMENT '站点ID',
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `taskexe_s2c_detail_jobs` (
   PRIMARY KEY (`id`)
 ) ENGINE=MEMORY DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='运输任务执行表';
 
--- Dumping data for table kf_inoma_weiwei_agv.taskexe_s2c_detail_jobs: 0 rows
+-- Dumping data for table kf_hongfu_zhenmu_agv.taskexe_s2c_detail_jobs: 0 rows
 DELETE FROM `taskexe_s2c_detail_jobs`;
 /*!40000 ALTER TABLE `taskexe_s2c_detail_jobs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `taskexe_s2c_detail_jobs` ENABLE KEYS */;
