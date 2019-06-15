@@ -17,8 +17,8 @@ public class HongfuPiTaskexeDealer {
 
 		double maxOne = AppTool.max(aa.nextYaxisList, aa.currentYaxis, aa.nextYaxis);
 		double minOne = AppTool.min(aa.nextYaxisList, aa.currentYaxis, aa.nextYaxis);
-		double maxAnother = AppTool.max(bb.nextYaxisList, bb.currentYaxis, aa.nextYaxis);
-		double minAnother = AppTool.min(bb.nextYaxisList, bb.currentYaxis, aa.nextYaxis);
+		double maxAnother = AppTool.max(bb.nextYaxisList, bb.currentYaxis, bb.nextYaxis);
+		double minAnother = AppTool.min(bb.nextYaxisList, bb.currentYaxis, bb.nextYaxis);
 
 		if (maxOne < minAnother - SystemConfParameters.detaJudgeSite()) {
 			command.setInfo("路径计算无重叠！");
