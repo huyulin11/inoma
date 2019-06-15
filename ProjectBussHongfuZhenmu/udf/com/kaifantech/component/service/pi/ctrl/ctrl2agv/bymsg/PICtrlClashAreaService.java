@@ -76,10 +76,10 @@ public class PICtrlClashAreaService implements IPICtrlByMsgService {
 				return command.d(msgOne.isCloseToArea(clashArea) ? msgOne.getAgvId() : msgAnother.getAgvId())
 						.s(!msgOne.isCloseToArea(clashArea) ? msgOne.getAgvId() : msgAnother.getAgvId());
 			} else {
-				if (command.getDangerIds().size() > 0) {
+				if (command.getDangers().size() > 0) {
 					piMsgService.dangerInClashAreaWhenSameTarger(
-							!command.getDangerIds().contains(msgOne) ? msgOne : msgAnother,
-							command.getDangerIds().contains(msgOne) ? msgOne : msgAnother);
+							!command.getDangers().contains(msgOne) ? msgOne : msgAnother,
+							command.getDangers().contains(msgOne) ? msgOne : msgAnother);
 					return command;
 				}
 

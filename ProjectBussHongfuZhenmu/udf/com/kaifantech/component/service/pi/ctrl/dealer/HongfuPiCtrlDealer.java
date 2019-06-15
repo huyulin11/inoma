@@ -26,9 +26,11 @@ public class HongfuPiCtrlDealer implements IPiCtrlDealer {
 	private HongfuPiInfoService piInfoService;
 
 	public PiCommand check2Agvs(IotClientBean agvOne, IotClientBean agvAnother) throws Exception {
+		PiCommand command = new PiCommand();
 		HongfuTaskexeBean one = piInfoService.get(agvOne.getId()), another = piInfoService.get(agvAnother.getId());
 		if (AppTool.isAnyNull(one, another)) {
-			return null;
+			command.s(one, another);
+			return command;
 		}
 
 		List<TaskexeDetailBean> taskexeDetailListOne = taskexeDetailService.find(one),
@@ -36,9 +38,9 @@ public class HongfuPiCtrlDealer implements IPiCtrlDealer {
 		if (AppTool.isAnyNull(taskexeDetailListOne, taskexeDetailListAnother)) {
 			return null;
 		}
-		PiCommand command = piTaskexeDealer.check2Agvs(one, another);
-		AppFileLogger.piError("交管策略：" + "放行：" + AppSetTool.join(command.getSafeIds()) + "交管："
-				+ AppSetTool.join(command.getDangerIds()));
+		command = piTaskexeDealer.check2Agvs(one, another);
+		AppFileLogger.piError(
+				"交管策略：" + "放行：" + AppSetTool.join(command.getSafes()) + "交管：" + AppSetTool.join(command.getDangers()));
 		AppFileLogger.piError("附加信息：" + command.getInfo());
 		return command;
 	}

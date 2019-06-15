@@ -28,7 +28,7 @@ public class HongfuPiTaskexeDealer {
 		}
 		if (maxAnother < minOne - SystemConfParameters.detaJudgeSite()) {
 			command.setInfo("路径计算无重叠！");
-			return command.s(aa).s(bb);
+			return command.s(aa, bb);
 		}
 		return calculate(aa, bb);
 	}
@@ -63,7 +63,7 @@ public class HongfuPiTaskexeDealer {
 			if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
 				return command.d(aa).s(bb);
 			}
-			return command.s(aa).s(bb);
+			return command.s(aa, bb);
 		}
 
 		if (AppTool.inOrder(currentA, nextA, nextB, currentB)) {
@@ -77,18 +77,18 @@ public class HongfuPiTaskexeDealer {
 					}
 				}
 			}
-			return command.s(aa).s(bb);
+			return command.s(aa, bb);
 		}
 
 		if (AppTool.inOrder(currentA, nextB, currentB, nextA)) {
 			command.setInfo(model(aa, CURRENT, bb, NEXT, bb, CURRENT, aa, NEXT));
 			if (nextB - currentA <= SystemConfParameters.distanceTarget()) {
 				command.setInfo(aa + "距离" + bb + "下一目标站点位置过近，形成死锁！");
-				return command.d(aa).d(bb);
+				return command.d(aa, bb);
 			} else if (nextB - currentA <= SystemConfParameters.distanceWaiting()) {
 				return command.d(aa).s(bb);
 			}
-			return command.s(aa).s(bb);
+			return command.s(aa, bb);
 		}
 
 		if (AppTool.inOrder(currentA, nextB, nextA, currentB)) {
@@ -98,23 +98,23 @@ public class HongfuPiTaskexeDealer {
 				if (nextA - currentA <= currentB - nextB) {
 					if (currentB - nextA <= SystemConfParameters.distanceTarget()) {
 						command.setInfo(bb + "距离" + aa + "下一目标站点位置过近，形成死锁！");
-						return command.d(aa).d(bb);
+						return command.d(aa, bb);
 					}
 					return command.s(aa).d(bb);
 				} else {
 					if (nextB - currentA <= SystemConfParameters.distanceTarget()) {
 						command.setInfo(aa + "距离" + bb + "下一目标站点位置过近，形成死锁！");
-						return command.d(aa).d(bb);
+						return command.d(aa, bb);
 					}
 					return command.d(aa).s(bb);
 				}
 			}
-			return command.s(aa).s(bb);
+			return command.s(aa, bb);
 		}
 
 		if (AppTool.inOrder(nextA, currentA, currentB, nextB)) {
 			command.setInfo(model(aa, NEXT, aa, CURRENT, bb, CURRENT, bb, NEXT));
-			return command.s(aa).s(bb);
+			return command.s(aa, bb);
 		}
 
 		if (AppTool.inOrder(nextA, currentA, nextB, currentB)) {
@@ -124,7 +124,7 @@ public class HongfuPiTaskexeDealer {
 					return command.s(aa).d(bb);
 				}
 			}
-			return command.s(aa).s(bb);
+			return command.s(aa, bb);
 		}
 
 		if (AppTool.inOrder(nextA, nextB, currentA, currentB)) {
@@ -137,7 +137,7 @@ public class HongfuPiTaskexeDealer {
 
 		if (AppTool.inOrder(nextB, currentA, currentB, nextA)) {
 			command.setInfo(model(bb, NEXT, aa, CURRENT, bb, CURRENT, aa, NEXT));
-			return command.d(aa).d(bb);
+			return command.d(aa, bb);
 		}
 
 		if (AppTool.inOrder(nextB, currentA, nextA, currentB)) {
@@ -150,10 +150,14 @@ public class HongfuPiTaskexeDealer {
 
 		if (AppTool.inOrder(nextB, nextA, currentA, currentB)) {
 			command.setInfo(model(bb, NEXT, aa, NEXT, aa, CURRENT, bb, CURRENT));
-			if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
-				return command.s(aa).d(bb);
+			if (AppTool.isNull(aa.nextYaxisList)
+					|| aa.nextYaxisList.get(0) - currentB > SystemConfParameters.distanceTarget()) {
+				if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
+					return command.s(aa).d(bb);
+				}
 			}
-			return null;
+			command.setInfo(aa + "完全挡住了" + bb + "的行动，停止" + bb + "！");
+			return command.s(aa).d(bb);
 		}
 
 		return null;

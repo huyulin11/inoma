@@ -84,9 +84,9 @@ public class HongfuPiInfoService {
 				obj.nextDetail = thisDetail;
 				obj.nextSite = thisSite;
 				obj.nextYaxis = thisYaxis;
+			} else {
+				obj.nextYaxisList.add(thisYaxis);
 			}
-
-			obj.nextYaxisList.add(thisYaxis);
 		}
 		cache.put(obj.getAgvId(), obj);
 		return obj;
