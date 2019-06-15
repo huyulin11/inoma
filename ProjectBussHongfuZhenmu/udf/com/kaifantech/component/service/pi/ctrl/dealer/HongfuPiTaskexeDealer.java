@@ -1,7 +1,5 @@
 package com.kaifantech.component.service.pi.ctrl.dealer;
 
-import java.util.Collections;
-
 import org.springframework.stereotype.Component;
 
 import com.calculatedfun.util.AppTool;
@@ -17,14 +15,14 @@ public class HongfuPiTaskexeDealer {
 	public PiCommand check2Agvs(HongfuTaskexeBean aa, HongfuTaskexeBean bb) {
 		PiCommand command = new PiCommand();
 
-		double maxOne = Math.max(Collections.max(aa.nextYaxisList), aa.currentYaxis);
-		double minOne = Math.min(Collections.min(aa.nextYaxisList), aa.currentYaxis);
-		double maxAnother = Math.max(Collections.max(bb.nextYaxisList), bb.currentYaxis);
-		double minAnother = Math.min(Collections.min(bb.nextYaxisList), bb.currentYaxis);
+		double maxOne = AppTool.max(aa.nextYaxisList, aa.currentYaxis, aa.nextYaxis);
+		double minOne = AppTool.min(aa.nextYaxisList, aa.currentYaxis, aa.nextYaxis);
+		double maxAnother = AppTool.max(bb.nextYaxisList, bb.currentYaxis, aa.nextYaxis);
+		double minAnother = AppTool.min(bb.nextYaxisList, bb.currentYaxis, aa.nextYaxis);
 
 		if (maxOne < minAnother - SystemConfParameters.detaJudgeSite()) {
 			command.setInfo("路径计算无重叠！");
-			return command.s(aa).s(bb);
+			return command.s(aa, bb);
 		}
 		if (maxAnother < minOne - SystemConfParameters.detaJudgeSite()) {
 			command.setInfo("路径计算无重叠！");

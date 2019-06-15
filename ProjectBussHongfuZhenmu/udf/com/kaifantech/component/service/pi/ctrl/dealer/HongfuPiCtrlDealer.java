@@ -29,7 +29,7 @@ public class HongfuPiCtrlDealer implements IPiCtrlDealer {
 		PiCommand command = new PiCommand();
 		HongfuTaskexeBean one = piInfoService.get(agvOne.getId()), another = piInfoService.get(agvAnother.getId());
 		if (AppTool.isAnyNull(one, another)) {
-			command.s(one, another);
+			command.s(agvOne, agvAnother);
 			return command;
 		}
 
