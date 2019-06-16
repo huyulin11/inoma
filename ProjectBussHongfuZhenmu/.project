@@ -55,11 +55,6 @@
 			<location>G:/work2018/src/git/ProjectBussModel/JavaSrc/IotUtil</location>
 		</link>
 		<link>
-			<name>Singletask</name>
-			<type>2</type>
-			<location>G:/work2018/src/git/ProjectBussModel/JavaSrc/Singletask</location>
-		</link>
-		<link>
 			<name>Taskexe</name>
 			<type>2</type>
 			<location>G:/work2018/src/git/ProjectBussModel/JavaSrc/Taskexe</location>

@@ -13,7 +13,6 @@
 	<classpathentry kind="src" path="BasicComponent"/>
 	<classpathentry kind="src" path="BasicUtil"/>
 	<classpathentry kind="src" path="conf"/>
-	<classpathentry kind="src" path="Singletask"/>
 	<classpathentry kind="src" path="Taskexe"/>
 	<classpathentry kind="src" path="wms"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
