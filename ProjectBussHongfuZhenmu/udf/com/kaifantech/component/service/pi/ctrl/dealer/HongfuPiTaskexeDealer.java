@@ -4,7 +4,10 @@ import org.springframework.stereotype.Component;
 
 import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.taskexe.HongfuTaskexeBean;
+import com.kaifantech.cache.manager.AppCache;
+import com.kaifantech.init.sys.params.CacheKeys;
 import com.kaifantech.init.sys.params.SystemConfParameters;
+import com.kaifantech.init.sys.params.SystemParameters;
 import com.kaifantech.util.agv.msg.PiCommand;
 
 @Component
@@ -40,9 +43,25 @@ public class HongfuPiTaskexeDealer {
 		double currentA = i * aa.currentYaxis, currentB = i * bb.currentYaxis;
 		double nextA = i * aa.nextYaxis, nextB = i * bb.nextYaxis;
 
+		boolean isAaLock = SystemParameters.flag(AppCache.worker().get(CacheKeys.ROAD_LOCKS, aa.getAgvId())),
+				isBbLock = SystemParameters.flag(AppCache.worker().get(CacheKeys.ROAD_LOCKS, bb.getAgvId()));
+
+		if (!isAaLock && !isBbLock) {
+			HongfuTaskexeBean agv2 = aa.getAgvId().equals(2) ? aa : bb;
+			HongfuTaskexeBean agv1 = aa.getAgvId().equals(2) ? bb : aa;
+			return command.d(agv2).s(agv1);
+		}
+
+		if (!isAaLock || !isBbLock) {
+			System.out.println("isAaLock:" + isAaLock + "," + "isBbLock:" + isBbLock);
+		}
+
 		if (AppTool.inOrder(currentA, currentB, nextA, nextB)) {
 			command.setInfo(model(aa, CURRENT, bb, CURRENT, aa, NEXT, bb, NEXT));
 			if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
+				if (!isBbLock) {
+					return command.s(aa).d(bb);
+				}
 				return command.d(aa).s(bb);
 			}
 			return null;
@@ -51,6 +70,12 @@ public class HongfuPiTaskexeDealer {
 		if (AppTool.inOrder(currentA, currentB, nextB, nextA)) {
 			command.setInfo(model(aa, CURRENT, bb, CURRENT, bb, NEXT, aa, NEXT));
 			if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
+				if (!isBbLock) {
+					return command.s(aa).d(bb);
+				}
+				if (!isAaLock) {
+					return command.d(aa).s(bb);
+				}
 				return command.d(aa).s(bb);
 			}
 			return null;
@@ -59,6 +84,12 @@ public class HongfuPiTaskexeDealer {
 		if (AppTool.inOrder(currentA, nextA, currentB, nextB)) {
 			command.setInfo(model(aa, CURRENT, aa, NEXT, bb, CURRENT, bb, NEXT));
 			if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
+				if (!isBbLock) {
+					return command.s(aa).d(bb);
+				}
+				if (!isAaLock) {
+					return command.d(aa).s(bb);
+				}
 				return command.d(aa).s(bb);
 			}
 			return command.s(aa, bb);
@@ -68,6 +99,12 @@ public class HongfuPiTaskexeDealer {
 			command.setInfo(model(aa, CURRENT, aa, NEXT, bb, NEXT, bb, CURRENT));
 			if (nextB - nextA <= SystemConfParameters.distanceTarget()) {
 				if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
+					if (!isBbLock) {
+						return command.s(aa).d(bb);
+					}
+					if (!isAaLock) {
+						return command.d(aa).s(bb);
+					}
 					if (currentB - nextB >= nextA - currentA) {
 						return command.d(bb).s(aa);
 					} else {
@@ -81,9 +118,21 @@ public class HongfuPiTaskexeDealer {
 		if (AppTool.inOrder(currentA, nextB, currentB, nextA)) {
 			command.setInfo(model(aa, CURRENT, bb, NEXT, bb, CURRENT, aa, NEXT));
 			if (nextB - currentA <= SystemConfParameters.distanceTarget()) {
+				if (!isBbLock) {
+					return command.s(aa).d(bb);
+				}
+				if (!isAaLock) {
+					return command.d(aa).s(bb);
+				}
 				command.setInfo(aa + "距离" + bb + "下一目标站点位置过近，形成死锁！");
 				return command.d(aa, bb);
 			} else if (nextB - currentA <= SystemConfParameters.distanceWaiting()) {
+				if (!isBbLock) {
+					return command.s(aa).d(bb);
+				}
+				if (!isAaLock) {
+					return command.d(aa).s(bb);
+				}
 				return command.d(aa).s(bb);
 			}
 			return command.s(aa, bb);
@@ -93,6 +142,12 @@ public class HongfuPiTaskexeDealer {
 			command.setInfo(model(aa, CURRENT, bb, NEXT, aa, NEXT, bb, CURRENT));
 			if (nextB - currentA <= SystemConfParameters.distanceWaiting()
 					|| currentB - nextA <= SystemConfParameters.distanceWaiting()) {
+				if (!isBbLock) {
+					return command.s(aa).d(bb);
+				}
+				if (!isAaLock) {
+					return command.d(aa).s(bb);
+				}
 				if (nextA - currentA <= currentB - nextB) {
 					if (currentB - nextA <= SystemConfParameters.distanceTarget()) {
 						command.setInfo(bb + "距离" + aa + "下一目标站点位置过近，形成死锁！");
@@ -119,6 +174,12 @@ public class HongfuPiTaskexeDealer {
 			command.setInfo(model(aa, NEXT, aa, CURRENT, bb, NEXT, bb, CURRENT));
 			if (nextB - nextA <= SystemConfParameters.distanceTarget()) {
 				if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
+					if (!isBbLock) {
+						return command.s(aa).d(bb);
+					}
+					if (!isAaLock) {
+						return command.d(aa).s(bb);
+					}
 					return command.s(aa).d(bb);
 				}
 			}
@@ -128,6 +189,12 @@ public class HongfuPiTaskexeDealer {
 		if (AppTool.inOrder(nextA, nextB, currentA, currentB)) {
 			command.setInfo(model(aa, NEXT, bb, NEXT, aa, CURRENT, bb, CURRENT));
 			if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
+				if (!isBbLock) {
+					return command.s(aa).d(bb);
+				}
+				if (!isAaLock) {
+					return command.d(aa).s(bb);
+				}
 				return command.d(aa).s(bb);
 			}
 			return command.s(aa).d(bb);
@@ -135,12 +202,24 @@ public class HongfuPiTaskexeDealer {
 
 		if (AppTool.inOrder(nextB, currentA, currentB, nextA)) {
 			command.setInfo(model(bb, NEXT, aa, CURRENT, bb, CURRENT, aa, NEXT));
+			if (!isBbLock) {
+				return command.s(aa).d(bb);
+			}
+			if (!isAaLock) {
+				return command.d(aa).s(bb);
+			}
 			return command.d(aa, bb);
 		}
 
 		if (AppTool.inOrder(nextB, currentA, nextA, currentB)) {
 			command.setInfo(model(bb, NEXT, aa, CURRENT, aa, NEXT, bb, CURRENT));
 			if (currentB - nextA <= SystemConfParameters.distanceWaiting()) {
+				if (!isBbLock) {
+					return command.s(aa).d(bb);
+				}
+				if (!isAaLock) {
+					return command.d(aa).s(bb);
+				}
 				return command.s(aa).d(bb);
 			}
 			return command.s(aa).d(bb);
@@ -151,6 +230,12 @@ public class HongfuPiTaskexeDealer {
 			if (AppTool.isNull(aa.nextYaxisList)
 					|| aa.nextYaxisList.get(0) - currentB > SystemConfParameters.distanceTarget()) {
 				if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
+					if (!isBbLock) {
+						return command.s(aa).d(bb);
+					}
+					if (!isAaLock) {
+						return command.d(aa).s(bb);
+					}
 					return command.s(aa).d(bb);
 				}
 			}
