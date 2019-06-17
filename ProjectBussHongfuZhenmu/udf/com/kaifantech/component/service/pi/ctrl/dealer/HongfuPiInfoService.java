@@ -75,7 +75,9 @@ public class HongfuPiInfoService {
 
 		for (TaskexeDetailBean thisDetail : list) {
 			TaskSiteInfoBean thisSite = taskSiteInfoService.getBean(thisDetail.getSiteid());
-			if (thisDetail.isOver()) {
+			if (!thisDetail.isNew()) {
+				obj.currentDetail = thisDetail;
+				obj.currentSite = thisSite;
 				continue;
 			}
 
