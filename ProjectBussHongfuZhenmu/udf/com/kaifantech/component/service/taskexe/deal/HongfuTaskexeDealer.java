@@ -63,10 +63,12 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 		List<TaskexeDetailBean> taskexeDetailList = taskexeDetailService.getList(taskexeBean);
 		taskexeWatchDealer.watchSingleSite(taskexeBean, agvMsg, taskexeDetailList);
 		if (TaskexeOpFlag.NEW.equals(taskexeBean.getOpflag())) {
+			System.err.println("开始任务！" + taskexeBean.getTaskexesid());
 			startWork(taskexeBean);
 			return;
 		}
 		if (TaskexeOpFlag.SEND.equals(taskexeBean.getOpflag())) {
+			System.err.println("监控任务！" + taskexeBean.getTaskexesid());
 			watchWork(taskexeBean);
 			return;
 		}
