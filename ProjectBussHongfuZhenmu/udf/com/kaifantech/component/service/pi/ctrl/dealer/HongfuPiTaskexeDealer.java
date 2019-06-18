@@ -5,8 +5,10 @@ import org.springframework.stereotype.Component;
 import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.taskexe.HongfuTaskexeBean;
 import com.kaifantech.init.sys.params.SystemConfParameters;
+import com.kaifantech.util.agv.msg.Direction;
 import com.kaifantech.util.agv.msg.PiCommand;
-import com.kaifantech.util.constant.taskexe.TaskexeOpFlag;
+import com.kaifantech.util.log.AppFileLogger;
+import com.kaifantech.util.msg.agv.HongfuAgvMsgGetter;
 
 @Component
 public class HongfuPiTaskexeDealer {
@@ -33,24 +35,42 @@ public class HongfuPiTaskexeDealer {
 		PiCommand command = new PiCommand();
 		String currentAreaAa = aa.currentArea, currentAreaBb = bb.currentArea;
 		String nextAreaAa = aa.nextArea, nextAreaBb = bb.nextArea;
+
 		if ("B".equals(currentAreaAa) && AppTool.equals(currentAreaBb, "C", "D")) {
-			if (TaskexeOpFlag.SEND.equals(aa.getOpflag())) {
+			AppFileLogger.piLogs(aa, "方向", HongfuAgvMsgGetter.getDirection(aa.getAgvId()));
+			if (Direction.Y_POS.equals(HongfuAgvMsgGetter.getDirection(aa.getAgvId()))) {
 				command.setInfo("B区车等待CD区域车");
 				return command.d(aa).s(bb);
 			}
 		}
 		if ("B".equals(currentAreaBb) && AppTool.equals(currentAreaAa, "C", "D")) {
-			if (TaskexeOpFlag.SEND.equals(bb.getOpflag())) {
+			AppFileLogger.piLogs(bb, "方向", HongfuAgvMsgGetter.getDirection(bb.getAgvId()));
+			if (Direction.Y_POS.equals(HongfuAgvMsgGetter.getDirection(bb.getAgvId()))) {
 				command.setInfo("B区车等待CD区域车");
 				return command.d(bb).s(aa);
 			}
 		}
+
 		if ("B".equals(currentAreaAa) && AppTool.equals(nextAreaBb, "C")) {
 			command.setInfo("B区车等待CD区域车");
 			return command.d(aa).s(bb);
 		}
-		if ("B".equals(currentAreaBb) && AppTool.equals(nextAreaAa, "C")) {
-			command.setInfo("B区车等待CD区域车");
+
+		if ("C".equals(currentAreaBb) && AppTool.equals(nextAreaAa, "E")) {
+			command.setInfo("C区车等待E区域车");
+			return command.d(bb).s(aa);
+		}
+		if ("C".equals(currentAreaBb) && AppTool.equals(nextAreaAa, "E")) {
+			command.setInfo("C区车等待E区域车");
+			return command.d(bb).s(aa);
+		}
+
+		if ("E".equals(currentAreaBb) && AppTool.equals(nextAreaAa, "D")) {
+			command.setInfo("E区车等待D区域车");
+			return command.d(bb).s(aa);
+		}
+		if ("E".equals(currentAreaBb) && AppTool.equals(nextAreaAa, "D")) {
+			command.setInfo("E区车等待D区域车");
 			return command.d(bb).s(aa);
 		}
 
