@@ -109,26 +109,15 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 			}
 			String currentArea = AppCache.worker().get("AREA_CURRENT", agvBean.getId());
 			String nextAreaWork = AppCache.worker().get("AREA_NEXT_WORK", taskexeBean.getAgvId());
-			if ("D".equals(currentArea)) {
-				AppFileLogger.warning("D区域有AGV", agvBean.getId(), ",", taskexeBean.getTaskKey(), "暂不发送到AGV");
+			if (AppTool.equals(currentArea, "D", "C", "B")) {
+				AppFileLogger.piLogs(currentArea, "区有AGV", agvBean.getId(), ",", taskexeBean.getTaskKey(), "暂不发送到AGV");
+				return agvBean.getId();
+			}
+			if ("A".equals(currentArea) && !"C".equals(nextAreaWork)) {
+				AppFileLogger.piLogs(currentArea, "区有AGV", agvBean.getId(), ",", taskexeBean.getTaskKey(), "暂不发送到AGV");
 				return agvBean.getId();
 			}
 			if (AgvTaskType.RECEIPT.equals(taskexeBean.getTasktype())) {
-				if ("C".equals(currentArea)) {
-					AppFileLogger.piLogs(currentArea, "区有AGV", agvBean.getId(), ",", taskexeBean.getTaskKey(),
-							"暂不发送到AGV");
-					return agvBean.getId();
-				}
-				if ("B".equals(currentArea)) {
-					AppFileLogger.piLogs(currentArea, "区有AGV", agvBean.getId(), ",", taskexeBean.getTaskKey(),
-							"暂不发送到AGV");
-					return agvBean.getId();
-				}
-				if ("A".equals(currentArea) && !"C".equals(nextAreaWork)) {
-					AppFileLogger.piLogs(currentArea, "区有AGV", agvBean.getId(), ",", taskexeBean.getTaskKey(),
-							"暂不发送到AGV");
-					return agvBean.getId();
-				}
 			}
 		}
 		return null;
