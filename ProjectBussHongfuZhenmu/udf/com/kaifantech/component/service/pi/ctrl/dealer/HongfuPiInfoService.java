@@ -16,7 +16,6 @@ import com.kaifantech.bean.taskexe.TaskexeDetailBean;
 import com.kaifantech.bean.tasksite.TaskSiteInfoBean;
 import com.kaifantech.cache.manager.AppCache;
 import com.kaifantech.component.dao.agv.info.AgvInfoDao;
-import com.kaifantech.component.service.taskexe.deal.HongfuTaskexeDealer;
 import com.kaifantech.component.service.taskexe.detail.info.ITaskexeDetailInfoService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
 import com.kaifantech.component.service.tasksite.info.HongfuTaskSiteInfoService;
@@ -39,9 +38,6 @@ public class HongfuPiInfoService {
 	@Autowired
 	@Qualifier(DefaultSystemQualifier.DEFAULT_AGV_INFO_DAO)
 	private AgvInfoDao agvInfoDao;
-
-	@Autowired
-	private HongfuTaskexeDealer taskexeDealer;
 
 	public HongfuTaskexeBean getCache(Integer agvId) throws Exception {
 		return cache.get(agvId);
@@ -92,8 +88,7 @@ public class HongfuPiInfoService {
 				obj.nextDetail = thisDetail;
 				obj.nextSite = thisSite;
 				obj.nextYaxis = thisYaxis;
-				obj.nextArea = taskexeDealer.getArea(obj.nextYaxis);
-				AppCache.worker().hset("AREA_NEXT", taskexeBean.getAgvId(), obj.nextArea);
+				obj.nextArea = AppCache.worker().get("AREA_NEXT", taskexeBean.getAgvId());
 			} else {
 				obj.nextYaxisList.add(thisYaxis);
 			}

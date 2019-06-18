@@ -12,6 +12,7 @@ import com.kaifantech.bean.taskexe.HongfuTaskexeBean;
 import com.kaifantech.bean.taskexe.TaskexeDetailBean;
 import com.kaifantech.component.service.taskexe.detail.info.ITaskexeDetailInfoService;
 import com.kaifantech.util.agv.msg.PiCommand;
+import com.kaifantech.util.constant.taskexe.TaskexeOpFlag;
 import com.kaifantech.util.log.AppFileLogger;
 
 @Component
@@ -30,6 +31,12 @@ public class HongfuPiCtrlDealer implements IPiCtrlDealer {
 		HongfuTaskexeBean one = piInfoService.get(agvOne.getId()), another = piInfoService.get(agvAnother.getId());
 		if (AppTool.isAnyNull(one, another)) {
 			command.s(agvOne, agvAnother);
+			AppFileLogger.piError("AT LEAST ONE TASK IS NULL!");
+			return command;
+		}
+		if (AppTool.ifOr(TaskexeOpFlag.NEW.equals(one.getOpflag()), TaskexeOpFlag.NEW.equals(another.getOpflag()))) {
+			command.s(agvOne, agvAnother);
+			AppFileLogger.piError("AT LEAST ONE TASK IS NEW!");
 			return command;
 		}
 

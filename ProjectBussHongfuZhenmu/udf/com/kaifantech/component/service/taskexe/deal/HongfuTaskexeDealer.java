@@ -1,6 +1,7 @@
 package com.kaifantech.component.service.taskexe.deal;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -71,39 +72,63 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 	@Autowired
 	private TaskexeInfoService taskexeInfoService;
 
+	private static ExecutorService pool = ThreadTool.getThreadPool(2);
+
 	public synchronized void deal(TaskexeBean taskexeBean, HongfuAgvMsgBean agvMsg) throws Exception {
-		AppCache.worker().hset("AREA_CURRENT", taskexeBean.getAgvId(), getArea(agvMsg.getY()));
 		List<TaskexeDetailBean> taskexeDetailList = taskexeDetailService.getList(taskexeBean);
-		taskexeWatchDealer.watchSingleSite(taskexeBean, agvMsg, taskexeDetailList);
+		pool.execute(() -> {
+			try {
+				taskexeWatchDealer.watchSingleSite(taskexeBean, agvMsg, taskexeDetailList);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
 		if (TaskexeOpFlag.NEW.equals(taskexeBean.getOpflag())) {
-			Integer exeingAgv = agvInDArea(taskexeBean.getAgvId());
+			Integer exeingAgv = agvInDArea(taskexeBean);
 			if (!AppTool.isNull(exeingAgv)) {
-				AppFileLogger.warning("D区域有AGV正在执行" + exeingAgv + "," + "该任务" + taskexeBean.getTaskKey() + "占时不发送到AGV");
 				return;
 			}
-			AppFileLogger.warning("开始任务！" + taskexeBean.getTaskexesid());
+			AppFileLogger.warning("开始任务！", taskexeBean.getTaskKey());
 			startWork(taskexeBean);
 			return;
 		}
 		if (TaskexeOpFlag.SEND.equals(taskexeBean.getOpflag())) {
-			AppFileLogger.warning("监控任务！" + taskexeBean.getTaskexesid());
 			watchWork(taskexeBean);
 			return;
 		}
 	}
 
-	private Integer agvInDArea(int agvId) {
+	private Integer agvInDArea(TaskexeBean taskexeBean) {
 		for (IotClientBean agvBean : iotClientService.getAgvCacheList()) {
-			if (agvBean.getId().equals(agvId)) {
+			if (agvBean.getId().equals(taskexeBean.getAgvId())) {
 				continue;
 			}
-			TaskexeBean taskexeBean = taskexeInfoService.getNextOne(agvBean.getId());
-			if (taskexeBean == null || !TaskexeOpFlag.SEND.equals(taskexeBean.getOpflag())) {
+			TaskexeBean taskexeBeanOther = taskexeInfoService.getNextOne(agvBean.getId());
+			if (taskexeBeanOther == null || !TaskexeOpFlag.SEND.equals(taskexeBeanOther.getOpflag())) {
 				continue;
 			}
 			String currentArea = AppCache.worker().get("AREA_CURRENT", agvBean.getId());
+			String nextAreaWork = AppCache.worker().get("AREA_NEXT_WORK", taskexeBean.getAgvId());
 			if ("D".equals(currentArea)) {
+				AppFileLogger.warning("D区域有AGV", agvBean.getId(), ",", taskexeBean.getTaskKey(), "暂不发送到AGV");
 				return agvBean.getId();
+			}
+			if (AgvTaskType.RECEIPT.equals(taskexeBean.getTasktype())) {
+				if ("C".equals(currentArea)) {
+					AppFileLogger.warning(currentArea, "区有AGV", agvBean.getId(), ",", taskexeBean.getTaskKey(),
+							"暂不发送到AGV");
+					return agvBean.getId();
+				}
+				if ("B".equals(currentArea)) {
+					AppFileLogger.warning(currentArea, "区有AGV", agvBean.getId(), ",", taskexeBean.getTaskKey(),
+							"暂不发送到AGV");
+					return agvBean.getId();
+				}
+				if ("A".equals(currentArea) && !"C".equals(nextAreaWork)) {
+					AppFileLogger.warning(currentArea, "区有AGV", agvBean.getId(), ",", taskexeBean.getTaskKey(),
+							"暂不发送到AGV");
+					return agvBean.getId();
+				}
 			}
 		}
 		return null;
@@ -126,8 +151,8 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 			}
 		}
 		taskexeTaskDao.sendATask(taskexeBean);
-		AppFileLogger.warning(taskexeBean.getAgvId() + "号AGV执行的" + taskexeBean.getTaskexesid() + "-"
-				+ taskexeBean.getTasksequence() + "发送成功，更新任务状态为SEND！");
+		AppFileLogger.warning(taskexeBean.getAgvId(), "号AGV执行的", taskexeBean.getTaskexesid(), "-",
+				taskexeBean.getTasksequence(), "发送成功，更新任务状态为SEND！");
 	}
 
 	private void watchWork(TaskexeBean taskexeBean) {
@@ -149,29 +174,8 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 				}
 			}
 			taskexeTaskDao.overASendTask(taskexeBean);
-			AppFileLogger.warning(taskexeBean.getAgvId() + "号AGV执行的" + taskexeBean.getTaskexesid() + "-"
-					+ taskexeBean.getTasksequence() + "任务所有明细任务均已执行完毕，更新任务状态为OVER！");
+			AppFileLogger.warning(taskexeBean.getAgvId(), "号AGV执行的", taskexeBean.getTaskexesid(), "-",
+					taskexeBean.getTasksequence(), "任务所有明细任务均已执行完毕，更新任务状态为OVER！");
 		}
 	}
-
-	public String getArea(double yaxis) {
-		String area = "D";
-		if (AppTool.inOrder(yaxis, AB)) {
-			area = "A";
-		} else if (AppTool.inOrder(AB, yaxis, BC)) {
-			area = "B";
-		} else if (AppTool.inOrder(BC, yaxis, CD)) {
-			area = "C";
-		} else if (AppTool.inOrder(CD, yaxis, DE)) {
-			area = "D";
-		} else if (AppTool.inOrder(DE, yaxis)) {
-			area = "E";
-		}
-		return area;
-	}
-
-	public static final double AB = 14400;
-	public static final double BC = 18700;
-	public static final double CD = 22700;
-	public static final double DE = 38000;
 }

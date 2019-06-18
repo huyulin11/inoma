@@ -73,31 +73,27 @@ public class HongfuTaskexeModule implements ITaskexeModule {
 	}
 
 	public void doDeal(IotClientBean agvBean) {
-		AppFileLogger.warning("MODULE:DODEAL1:" + agvBean.getId() + Thread.currentThread().getName());
-		TaskexeBean taskexeBean = taskexeInfoService.getNextOne(agvBean.getId());
-		if (taskexeBean == null) {
-			return;
-		}
-		AppFileLogger.warning("MODULE:DODEAL2:" + agvBean.getId() + Thread.currentThread().getName());
-		HongfuAgvMsgBean agvMsg = HongfuAgvMsgGetter.getBean(agvBean.getId());
-		if (AppTool.isNull(agvMsg)) {
-			return;
-		}
-		AppFileLogger.warning("MODULE:DODEAL3:" + agvBean.getId() + Thread.currentThread().getName());
 		try {
+			TaskexeBean taskexeBean = taskexeInfoService.getNextOne(agvBean.getId());
+			if (taskexeBean == null) {
+				return;
+			}
+			HongfuAgvMsgBean agvMsg = HongfuAgvMsgGetter.getBean(agvBean.getId());
+			if (AppTool.isNull(agvMsg)) {
+				return;
+			}
 			deal(taskexeBean, agvMsg);
+			try {
+				ctrlModule.control(agvBean, agvMsg);
+			} catch (Exception e) {
+				AppFileLogger.warning(agvBean.getId() + "号AGV综合控制时发生错误：" + e.getMessage());
+			}
 		} catch (Exception e) {
 			AppFileLogger.warning(agvBean.getId() + "号AGV解析任务时发生错误：" + e.getMessage());
-		}
-		try {
-			ctrlModule.control(agvBean, agvMsg);
-		} catch (Exception e) {
-			AppFileLogger.warning(agvBean.getId() + "号AGV综合控制时发生错误：" + e.getMessage());
 		}
 	}
 
 	private void deal(TaskexeBean taskexeBean, HongfuAgvMsgBean agvMsg) throws Exception {
-		AppFileLogger.warning("MODULE:DEAL:" + taskexeBean.getAgvId());
 		synchronized (SystemLock.charge(taskexeBean.getAgvId())) {
 			if (AgvTaskType.match(taskexeBean.getTasktype())) {
 				boolean isShutdown = SystemParameters.isShutdown(taskexeBean);
