@@ -8,6 +8,7 @@ import com.kaifantech.init.sys.params.SystemConfParameters;
 import com.kaifantech.init.sys.params.SystemParameters;
 import com.kaifantech.util.agv.msg.Direction;
 import com.kaifantech.util.agv.msg.PiCommand;
+import com.kaifantech.util.log.AppFileLogger;
 
 //@Component
 public class HongfuPiTaskexeDealerBak {
@@ -54,7 +55,7 @@ public class HongfuPiTaskexeDealerBak {
 		}
 
 		if (!isAaLock && directionAa.onXaxis() || !isBbLock && directionBb.onXaxis()) {
-			System.out.println("isAaLock:" + isAaLock + "," + "isBbLock:" + isBbLock);
+			AppFileLogger.warning("isAaLock:", isAaLock, ",", "isBbLock:", isBbLock);
 		}
 
 		if (AppTool.inOrder(currentA, currentB, nextA, nextB)) {
