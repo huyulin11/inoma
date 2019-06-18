@@ -67,6 +67,7 @@ public class HongfuPiInfoService {
 
 		obj.msg = agvMsgBean;
 		obj.currentYaxis = agvMsgBean.getY();
+		obj.currentArea = getArea(agvMsgBean.getY());
 
 		obj.agvBean = agvInfoDao.get(taskexeBean.getAgvId());
 		if (AppTool.isNull(obj.agvBean)) {
@@ -86,6 +87,7 @@ public class HongfuPiInfoService {
 				obj.nextDetail = thisDetail;
 				obj.nextSite = thisSite;
 				obj.nextYaxis = thisYaxis;
+				obj.nextArea = getArea(obj.nextYaxis);
 			} else {
 				obj.nextYaxisList.add(thisYaxis);
 			}
@@ -93,4 +95,25 @@ public class HongfuPiInfoService {
 		cache.put(obj.getAgvId(), obj);
 		return obj;
 	}
+
+	public String getArea(double yaxis) {
+		String area = "D";
+		if (AppTool.inOrder(yaxis, AB)) {
+			area = "A";
+		} else if (AppTool.inOrder(AB, yaxis, BC)) {
+			area = "B";
+		} else if (AppTool.inOrder(BC, yaxis, CD)) {
+			area = "C";
+		} else if (AppTool.inOrder(CD, yaxis, DE)) {
+			area = "D";
+		} else if (AppTool.inOrder(DE, yaxis)) {
+			area = "E";
+		}
+		return area;
+	}
+
+	public static final double AB = 14400;
+	public static final double BC = 18700;
+	public static final double CD = 22700;
+	public static final double DE = 38000;
 }
