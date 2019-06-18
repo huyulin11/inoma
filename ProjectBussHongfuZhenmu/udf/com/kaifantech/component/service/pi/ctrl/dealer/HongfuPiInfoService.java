@@ -14,7 +14,9 @@ import com.kaifantech.bean.taskexe.HongfuTaskexeBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.bean.taskexe.TaskexeDetailBean;
 import com.kaifantech.bean.tasksite.TaskSiteInfoBean;
+import com.kaifantech.cache.manager.AppCache;
 import com.kaifantech.component.dao.agv.info.AgvInfoDao;
+import com.kaifantech.component.service.taskexe.deal.HongfuTaskexeDealer;
 import com.kaifantech.component.service.taskexe.detail.info.ITaskexeDetailInfoService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
 import com.kaifantech.component.service.tasksite.info.HongfuTaskSiteInfoService;
@@ -37,6 +39,9 @@ public class HongfuPiInfoService {
 	@Autowired
 	@Qualifier(DefaultSystemQualifier.DEFAULT_AGV_INFO_DAO)
 	private AgvInfoDao agvInfoDao;
+
+	@Autowired
+	private HongfuTaskexeDealer taskexeDealer;
 
 	public HongfuTaskexeBean getCache(Integer agvId) throws Exception {
 		return cache.get(agvId);
@@ -67,7 +72,7 @@ public class HongfuPiInfoService {
 
 		obj.msg = agvMsgBean;
 		obj.currentYaxis = agvMsgBean.getY();
-		obj.currentArea = getArea(agvMsgBean.getY());
+		obj.currentArea = AppCache.worker().get("AREA_CURRENT", taskexeBean.getAgvId());
 
 		obj.agvBean = agvInfoDao.get(taskexeBean.getAgvId());
 		if (AppTool.isNull(obj.agvBean)) {
@@ -87,7 +92,8 @@ public class HongfuPiInfoService {
 				obj.nextDetail = thisDetail;
 				obj.nextSite = thisSite;
 				obj.nextYaxis = thisYaxis;
-				obj.nextArea = getArea(obj.nextYaxis);
+				obj.nextArea = taskexeDealer.getArea(obj.nextYaxis);
+				AppCache.worker().hset("AREA_NEXT", taskexeBean.getAgvId(), obj.nextArea);
 			} else {
 				obj.nextYaxisList.add(thisYaxis);
 			}
@@ -95,25 +101,4 @@ public class HongfuPiInfoService {
 		cache.put(obj.getAgvId(), obj);
 		return obj;
 	}
-
-	public String getArea(double yaxis) {
-		String area = "D";
-		if (AppTool.inOrder(yaxis, AB)) {
-			area = "A";
-		} else if (AppTool.inOrder(AB, yaxis, BC)) {
-			area = "B";
-		} else if (AppTool.inOrder(BC, yaxis, CD)) {
-			area = "C";
-		} else if (AppTool.inOrder(CD, yaxis, DE)) {
-			area = "D";
-		} else if (AppTool.inOrder(DE, yaxis)) {
-			area = "E";
-		}
-		return area;
-	}
-
-	public static final double AB = 14400;
-	public static final double BC = 18700;
-	public static final double CD = 22700;
-	public static final double DE = 38000;
 }
