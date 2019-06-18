@@ -31,12 +31,12 @@ public class HongfuPiCtrlDealer implements IPiCtrlDealer {
 		HongfuTaskexeBean one = piInfoService.get(agvOne.getId()), another = piInfoService.get(agvAnother.getId());
 		if (AppTool.isAnyNull(one, another)) {
 			command.s(agvOne, agvAnother);
-			AppFileLogger.piError("AT LEAST ONE TASK IS NULL!");
+			AppFileLogger.piLogs("AT LEAST ONE TASK IS NULL!");
 			return command;
 		}
 		if (AppTool.ifOr(TaskexeOpFlag.NEW.equals(one.getOpflag()), TaskexeOpFlag.NEW.equals(another.getOpflag()))) {
 			command.s(agvOne, agvAnother);
-			AppFileLogger.piError("AT LEAST ONE TASK IS NEW!");
+			AppFileLogger.piLogs("AT LEAST ONE TASK IS NEW!");
 			return command;
 		}
 
@@ -47,9 +47,9 @@ public class HongfuPiCtrlDealer implements IPiCtrlDealer {
 		}
 		command = piTaskexeDealer.check2Agvs(one, another);
 		if (!AppTool.isNull(command)) {
-			AppFileLogger.piError("TRAFFIC：" + "GO：" + AppSetTool.join(",", command.getSafes()) + ";" + "MGR："
-					+ AppSetTool.join(",", command.getDangers()));
-			AppFileLogger.piError("ADDED INFO：" + command.getInfo());
+			AppFileLogger.piLogs("TRAFFIC：", "GO：", AppSetTool.join(",", command.getSafes()), ";", "MGR：",
+					AppSetTool.join(",", command.getDangers()));
+			AppFileLogger.piLogs("ADDED INFO：", command.getInfo());
 		}
 		return command;
 	}

@@ -115,17 +115,17 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 			}
 			if (AgvTaskType.RECEIPT.equals(taskexeBean.getTasktype())) {
 				if ("C".equals(currentArea)) {
-					AppFileLogger.warning(currentArea, "区有AGV", agvBean.getId(), ",", taskexeBean.getTaskKey(),
+					AppFileLogger.piLogs(currentArea, "区有AGV", agvBean.getId(), ",", taskexeBean.getTaskKey(),
 							"暂不发送到AGV");
 					return agvBean.getId();
 				}
 				if ("B".equals(currentArea)) {
-					AppFileLogger.warning(currentArea, "区有AGV", agvBean.getId(), ",", taskexeBean.getTaskKey(),
+					AppFileLogger.piLogs(currentArea, "区有AGV", agvBean.getId(), ",", taskexeBean.getTaskKey(),
 							"暂不发送到AGV");
 					return agvBean.getId();
 				}
 				if ("A".equals(currentArea) && !"C".equals(nextAreaWork)) {
-					AppFileLogger.warning(currentArea, "区有AGV", agvBean.getId(), ",", taskexeBean.getTaskKey(),
+					AppFileLogger.piLogs(currentArea, "区有AGV", agvBean.getId(), ",", taskexeBean.getTaskKey(),
 							"暂不发送到AGV");
 					return agvBean.getId();
 				}
