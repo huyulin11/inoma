@@ -26,6 +26,7 @@ import com.kaifantech.component.service.taskexe.watch.HongfuTaskexeWatchDealer;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.util.constant.taskexe.TaskexeOpFlag;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
+import com.kaifantech.util.log.AppFileLogger;
 import com.kaifantech.util.msg.agv.HongfuAgvMsgGetter;
 import com.kaifantech.util.thread.ThreadTool;
 
@@ -91,7 +92,7 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 			}
 		}
 		taskexeTaskDao.sendATask(taskexeBean);
-		System.out.println(taskexeBean.getAgvId() + "号AGV执行的" + taskexeBean.getTaskexesid() + "-"
+		AppFileLogger.warning(taskexeBean.getAgvId() + "号AGV执行的" + taskexeBean.getTaskexesid() + "-"
 				+ taskexeBean.getTasksequence() + "发送成功，更新任务状态为SEND！");
 	}
 
@@ -114,7 +115,7 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 				}
 			}
 			taskexeTaskDao.overASendTask(taskexeBean);
-			System.out.println(taskexeBean.getAgvId() + "号AGV执行的" + taskexeBean.getTaskexesid() + "-"
+			AppFileLogger.warning(taskexeBean.getAgvId() + "号AGV执行的" + taskexeBean.getTaskexesid() + "-"
 					+ taskexeBean.getTasksequence() + "任务所有明细任务均已执行完毕，更新任务状态为OVER！");
 		}
 	}

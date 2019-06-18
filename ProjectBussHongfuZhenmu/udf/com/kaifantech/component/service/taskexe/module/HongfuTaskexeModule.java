@@ -23,6 +23,7 @@ import com.kaifantech.init.sys.params.SystemParameters;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.init.sys.qualifier.HongfuSystemQualifier;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
+import com.kaifantech.util.log.AppFileLogger;
 import com.kaifantech.util.msg.agv.HongfuAgvMsgGetter;
 import com.kaifantech.util.seq.ThreadID;
 import com.kaifantech.util.thread.ThreadTool;
@@ -72,27 +73,31 @@ public class HongfuTaskexeModule implements ITaskexeModule {
 	}
 
 	public void doDeal(IotClientBean agvBean) {
+		AppFileLogger.warning("MODULE:DODEAL1:" + agvBean.getId() + Thread.currentThread().getName());
 		TaskexeBean taskexeBean = taskexeInfoService.getNextOne(agvBean.getId());
 		if (taskexeBean == null) {
 			return;
 		}
+		AppFileLogger.warning("MODULE:DODEAL2:" + agvBean.getId() + Thread.currentThread().getName());
 		HongfuAgvMsgBean agvMsg = HongfuAgvMsgGetter.getBean(agvBean.getId());
 		if (AppTool.isNull(agvMsg)) {
 			return;
 		}
+		AppFileLogger.warning("MODULE:DODEAL3:" + agvBean.getId() + Thread.currentThread().getName());
 		try {
 			deal(taskexeBean, agvMsg);
 		} catch (Exception e) {
-			System.out.println(agvBean.getId() + "号AGV解析任务时发生错误：" + e.getMessage());
+			AppFileLogger.warning(agvBean.getId() + "号AGV解析任务时发生错误：" + e.getMessage());
 		}
 		try {
 			ctrlModule.control(agvBean, agvMsg);
 		} catch (Exception e) {
-			System.out.println(agvBean.getId() + "号AGV综合控制时发生错误：" + e.getMessage());
+			AppFileLogger.warning(agvBean.getId() + "号AGV综合控制时发生错误：" + e.getMessage());
 		}
 	}
 
 	private void deal(TaskexeBean taskexeBean, HongfuAgvMsgBean agvMsg) throws Exception {
+		AppFileLogger.warning("MODULE:DEAL:" + taskexeBean.getAgvId());
 		synchronized (SystemLock.charge(taskexeBean.getAgvId())) {
 			if (AgvTaskType.match(taskexeBean.getTasktype())) {
 				boolean isShutdown = SystemParameters.isShutdown(taskexeBean);
@@ -103,7 +108,7 @@ public class HongfuTaskexeModule implements ITaskexeModule {
 				}
 				return;
 			}
-			System.out.println("无法识别当前任务类型！");
+			AppFileLogger.warning("无法识别当前任务类型！" + taskexeBean.getTaskKey());
 		}
 	}
 }
