@@ -63,19 +63,23 @@ public class HongfuPiTaskexeDealer {
 			}
 		}
 		if ("C".equals(currentAreaBb) && AppTool.equals(nextAreaAa, "E")) {
-			if (Direction.Y_POS.equals(HongfuAgvMsgGetter.getDirection(aa.getAgvId()))) {
+			if (Direction.Y_POS.equals(HongfuAgvMsgGetter.getDirection(bb.getAgvId()))) {
 				command.setInfo("C区车等待E区域车");
 				return command.d(bb).s(aa);
 			}
 		}
 
 		if ("E".equals(currentAreaBb) && AppTool.equals(nextAreaAa, "D")) {
-			command.setInfo("E区车等待D区域车");
-			return command.d(bb).s(aa);
+			if (Direction.Y_POS.equals(HongfuAgvMsgGetter.getDirection(aa.getAgvId()))) {
+				command.setInfo("E区车等待D区域车");
+				return command.d(bb).s(aa);
+			}
 		}
 		if ("E".equals(currentAreaBb) && AppTool.equals(nextAreaAa, "D")) {
-			command.setInfo("E区车等待D区域车");
-			return command.d(bb).s(aa);
+			if (Direction.Y_POS.equals(HongfuAgvMsgGetter.getDirection(bb.getAgvId()))) {
+				command.setInfo("E区车等待D区域车");
+				return command.d(bb).s(aa);
+			}
 		}
 
 		return null;
