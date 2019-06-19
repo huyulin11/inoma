@@ -111,28 +111,26 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 			String nextAreaWorkOther = AppCache.worker().get("AREA_NEXT_WORK", agvBean.getId());
 			String nextAreaWorkTarget = AppCache.worker().get("AREA_NEXT_WORK", taskexeBean.getAgvId());
 			if (AppTool.equals(currentAreaOther, "D")) {
-				AppFileLogger.piLogs(currentAreaOther, "区有AGV", agvBean.getId(), ",", taskexeBean, "暂不执行");
+				AppFileLogger.piLogs(currentAreaOther, "区有AGV", agvBean.getId(), ",", taskexeBean, "阻塞");
 				return agvBean.getId();
 			}
-			if (AppTool.equals(currentAreaOther, "C", "B")) {
-				if (AppTool.equals(nextAreaWorkOther, "A")) {
-					continue;
+			if (AppTool.equals(currentAreaOther, "C", "B", "A")) {
+				if (AppTool.equals(nextAreaWorkOther, "A") && AppTool.equals(nextAreaWorkTarget, "C")) {
+				} else {
+					AppFileLogger.piLogs(currentAreaOther, "区有AGV", agvBean.getId(), ",", taskexeBean, "阻塞");
+					return agvBean.getId();
 				}
-				AppFileLogger.piLogs(currentAreaOther, "区有AGV", agvBean.getId(), ",", taskexeBean, "暂不执行");
+			} else if ("A".equals(currentAreaOther) && !"C".equals(nextAreaWorkTarget)) {
+				AppFileLogger.piLogs(currentAreaOther, "区有AGV", agvBean.getId(), ",", taskexeBean, "阻塞");
 				return agvBean.getId();
 			}
-			if ("A".equals(currentAreaOther) && !"C".equals(nextAreaWorkTarget)) {
-				AppFileLogger.piLogs(currentAreaOther, "区有AGV", agvBean.getId(), ",", taskexeBean, "暂不执行");
-				return agvBean.getId();
-			}
+
 			if (AgvTaskType.RECEIPT.equals(taskexeBean.getTasktype())) {
-			}
-			if (AgvTaskType.SHIPMENT.equals(taskexeBean.getTasktype())) {
-				// if (AppTool.equals(currentArea, "E")) {
-				// AppFileLogger.piLogs(currentArea, "区有AGV", agvBean.getId(),
-				// ",", taskexeBean.getTaskKey(), "暂不执行");
-				// return agvBean.getId();
-				// }
+			} else if (AgvTaskType.SHIPMENT.equals(taskexeBean.getTasktype())) {
+				if (!AppTool.equals(currentAreaOther, "E")) {
+					AppFileLogger.piLogs("放货任务：A(或B/C/D)区有AGV", agvBean.getId(), ",", taskexeBean.getTaskKey(), "阻塞");
+					return agvBean.getId();
+				}
 			}
 		}
 		return null;

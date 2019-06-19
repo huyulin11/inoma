@@ -35,16 +35,16 @@ public class HongfuPiTaskexeDealer {
 		PiCommand command = new PiCommand();
 		String currentAreaAa = aa.currentArea, currentAreaBb = bb.currentArea;
 		String nextAreaAa = aa.nextArea, nextAreaBb = bb.nextArea;
+		AppFileLogger.piLogs(aa, currentAreaAa, "-", HongfuAgvMsgGetter.getDirection(aa.getAgvId()));
+		AppFileLogger.piLogs(bb, currentAreaBb, "-", HongfuAgvMsgGetter.getDirection(bb.getAgvId()));
 
 		if ("B".equals(currentAreaAa) && AppTool.equals(currentAreaBb, "C", "D")) {
-			AppFileLogger.piLogs(aa, "方向", HongfuAgvMsgGetter.getDirection(aa.getAgvId()));
 			if (Direction.Y_POS.equals(HongfuAgvMsgGetter.getDirection(aa.getAgvId()))) {
 				command.setInfo("B区车等待CD区域车");
 				return command.d(aa).s(bb);
 			}
 		}
 		if ("B".equals(currentAreaBb) && AppTool.equals(currentAreaAa, "C", "D")) {
-			AppFileLogger.piLogs(bb, "方向", HongfuAgvMsgGetter.getDirection(bb.getAgvId()));
 			if (Direction.Y_POS.equals(HongfuAgvMsgGetter.getDirection(bb.getAgvId()))) {
 				command.setInfo("B区车等待CD区域车");
 				return command.d(bb).s(aa);
@@ -57,12 +57,16 @@ public class HongfuPiTaskexeDealer {
 		}
 
 		if ("C".equals(currentAreaBb) && AppTool.equals(nextAreaAa, "E")) {
-			command.setInfo("C区车等待E区域车");
-			return command.d(bb).s(aa);
+			if (Direction.Y_POS.equals(HongfuAgvMsgGetter.getDirection(aa.getAgvId()))) {
+				command.setInfo("C区车等待E区域车");
+				return command.d(bb).s(aa);
+			}
 		}
 		if ("C".equals(currentAreaBb) && AppTool.equals(nextAreaAa, "E")) {
-			command.setInfo("C区车等待E区域车");
-			return command.d(bb).s(aa);
+			if (Direction.Y_POS.equals(HongfuAgvMsgGetter.getDirection(aa.getAgvId()))) {
+				command.setInfo("C区车等待E区域车");
+				return command.d(bb).s(aa);
+			}
 		}
 
 		if ("E".equals(currentAreaBb) && AppTool.equals(nextAreaAa, "D")) {
