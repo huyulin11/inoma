@@ -2,7 +2,7 @@
 -- 主机:                           127.0.0.1
 -- 服务器版本:                        10.3.7-MariaDB - mariadb.org binary distribution
 -- 服务器OS:                        Win64
--- HeidiSQL 版本:                  10.1.0.5577
+-- HeidiSQL 版本:                  10.2.0.5599
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -11,7 +11,7 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Dumping structure for table kf_inoma_weiwei_acs.ly_user
+-- Dumping structure for table kf_hongfu_zhenmu_acs.ly_user
 DROP TABLE IF EXISTS `ly_user`;
 CREATE TABLE IF NOT EXISTS `ly_user` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -26,9 +26,9 @@ CREATE TABLE IF NOT EXISTS `ly_user` (
   `deletestatus` int(1) DEFAULT 0 COMMENT '逻辑删除状态0:存在1:删除',
   PRIMARY KEY (`id`),
   UNIQUE KEY `accountName` (`accountName`)
-) ENGINE=InnoDB AUTO_INCREMENT=9810031 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9810032 DEFAULT CHARSET=utf8;
 
--- Dumping data for table kf_inoma_weiwei_acs.ly_user: ~7 rows (大约)
+-- Dumping data for table kf_hongfu_zhenmu_acs.ly_user: ~8 rows (大约)
 DELETE FROM `ly_user`;
 /*!40000 ALTER TABLE `ly_user` DISABLE KEYS */;
 INSERT INTO `ly_user` (`id`, `userName`, `accountName`, `password`, `md5password`, `credentialsSalt`, `description`, `locked`, `createTime`, `deletestatus`) VALUES
@@ -38,7 +38,8 @@ INSERT INTO `ly_user` (`id`, `userName`, `accountName`, `password`, `md5password
 	(9810027, '丽', '13774234928', '30b14d381010e31ffd159d7e22d253cd', 'b5640eeac335c505796027cb6311e93e', 'b9d46bc924fec36aebddb8994fdd316d', NULL, '1', '2018-03-27 11:15:29', 0),
 	(9810028, '胡', '15077923697', '6ffe2cf02408dc253c2493e0eb385507', '77569fce4862ff5cc6a2bce37a80824b', '934afa7bb94a238228f305e2f628092c', NULL, '1', '2018-03-27 11:12:54', 0),
 	(9810029, 'AGV管理员', 'agv', '9773816042e395a08ade24f387f305d0', 'c4ca4238a0b923820dcc509a6f75849b', '85fcff8f7708d693b30b3a2f9546fbdf', NULL, '1', '2018-03-27 11:09:27', 0),
-	(9810030, 'yf', 'yf', 'cb81e02c385ce16dd795ecbc7ebf363a', '4e7a17a46bbf09a94af971efe37a8340', '1e38b605a5523e030c6204ecefba2f01', NULL, '1', '2018-06-04 22:17:31', 0);
+	(9810030, 'yf', 'yf', 'cb81e02c385ce16dd795ecbc7ebf363a', '4e7a17a46bbf09a94af971efe37a8340', '1e38b605a5523e030c6204ecefba2f01', NULL, '1', '2018-06-04 22:17:31', 0),
+	(9810031, '红蝠智能', 'hongfu', 'c25685cc81f9cbf95d56f535ca9cd07c', 'e10adc3949ba59abbe56e057f20f883e', '35d5a59ea05f94bf9145b3aa997e0365', NULL, '1', '2019-06-20 11:21:44', 0);
 /*!40000 ALTER TABLE `ly_user` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

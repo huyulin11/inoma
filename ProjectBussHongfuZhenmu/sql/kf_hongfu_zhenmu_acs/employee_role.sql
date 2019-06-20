@@ -2,7 +2,7 @@
 -- 主机:                           127.0.0.1
 -- 服务器版本:                        10.3.7-MariaDB - mariadb.org binary distribution
 -- 服务器OS:                        Win64
--- HeidiSQL 版本:                  10.1.0.5577
+-- HeidiSQL 版本:                  10.2.0.5599
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -11,7 +11,7 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Dumping structure for table kf_inoma_weiwei_acs.employee_role
+-- Dumping structure for table kf_hongfu_zhenmu_acs.employee_role
 DROP TABLE IF EXISTS `employee_role`;
 CREATE TABLE IF NOT EXISTS `employee_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `employee_role` (
   UNIQUE KEY `rolekey` (`roleKey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=244 DEFAULT CHARSET=utf8;
 
--- Dumping data for table kf_inoma_weiwei_acs.employee_role: ~9 rows (大约)
+-- Dumping data for table kf_hongfu_zhenmu_acs.employee_role: ~9 rows (大约)
 DELETE FROM `employee_role`;
 /*!40000 ALTER TABLE `employee_role` DISABLE KEYS */;
 INSERT INTO `employee_role` (`id`, `state`, `rolename`, `roleKey`, `description`, `delflag`) VALUES

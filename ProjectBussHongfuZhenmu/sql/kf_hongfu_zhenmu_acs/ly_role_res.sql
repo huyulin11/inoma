@@ -2,7 +2,7 @@
 -- 主机:                           127.0.0.1
 -- 服务器版本:                        10.3.7-MariaDB - mariadb.org binary distribution
 -- 服务器OS:                        Win64
--- HeidiSQL 版本:                  10.1.0.5577
+-- HeidiSQL 版本:                  10.2.0.5599
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -11,7 +11,7 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Dumping structure for table kf_inoma_weiwei_acs.ly_role_res
+-- Dumping structure for table kf_hongfu_zhenmu_acs.ly_role_res
 DROP TABLE IF EXISTS `ly_role_res`;
 CREATE TABLE IF NOT EXISTS `ly_role_res` (
   `resId` int(11) NOT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `ly_role_res` (
   PRIMARY KEY (`roleId`,`resId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table kf_inoma_weiwei_acs.ly_role_res: ~93 rows (大约)
+-- Dumping data for table kf_hongfu_zhenmu_acs.ly_role_res: ~79 rows (大约)
 DELETE FROM `ly_role_res`;
 /*!40000 ALTER TABLE `ly_role_res` DISABLE KEYS */;
 INSERT INTO `ly_role_res` (`resId`, `roleId`) VALUES
@@ -94,26 +94,12 @@ INSERT INTO `ly_role_res` (`resId`, `roleId`) VALUES
 	(224, 241),
 	(225, 241),
 	(226, 241),
-	(101, 242),
 	(204, 242),
 	(205, 242),
 	(211, 242),
 	(217, 242),
-	(218, 242),
-	(220, 242),
-	(222, 242),
-	(227, 242),
-	(228, 242),
-	(229, 242),
-	(230, 242),
-	(231, 242),
-	(232, 242),
-	(234, 242),
-	(237, 242),
-	(238, 242),
-	(239, 242),
 	(240, 242),
-	(241, 242),
+	(242, 242),
 	(204, 243),
 	(205, 243);
 /*!40000 ALTER TABLE `ly_role_res` ENABLE KEYS */;

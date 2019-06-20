@@ -2,7 +2,7 @@
 -- 主机:                           127.0.0.1
 -- 服务器版本:                        10.3.7-MariaDB - mariadb.org binary distribution
 -- 服务器OS:                        Win64
--- HeidiSQL 版本:                  10.1.0.5594
+-- HeidiSQL 版本:                  10.2.0.5599
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -31,6 +31,7 @@ INSERT INTO `conf_key` (`key`, `value`, `updatetime`) VALUES
 	('DETA_JUDGE_SITE', '500', '2019-06-14 09:54:39'),
 	('DISTANCE_TARGET', '5000', '2019-06-14 11:14:55'),
 	('DISTANCE_WAITING', '8000', '2019-06-14 11:14:55'),
+	('EXPIRE_TIME', '1568627412106', '2019-06-18 17:50:12'),
 	('IS_ALLOW_CACHE_TASK', 'TRUE', '2019-06-09 09:09:43'),
 	('IS_AUTO_CHARGE', 'FALSE', '2019-06-03 09:36:11'),
 	('IS_AUTO_TASK', 'FALSE', '2019-06-03 09:36:11'),
@@ -38,7 +39,7 @@ INSERT INTO `conf_key` (`key`, `value`, `updatetime`) VALUES
 	('IS_OPEN_PI', 'TRUE', '2019-06-01 09:18:55'),
 	('NGINX_PATH', 'G:/JavaTools/nginx-1.10.1/html/static/s/jsons/', '2019-03-11 17:14:28'),
 	('NGINX_PORT', '99', '2019-06-02 10:00:51'),
-	('PROJECT_INFO', '{"fullProjectName":"客户公司名称智能搬运AGV调度系统","corporation":{"address":"地址：安徽省合肥市经开区百鸟路石柱路5F创客空间","telephone":"电话：15077923697","fullname":"合肥凯钒信息科技有限公司","shortname":"山东省济南市档案局"},"client":{"address":"","fullname":"凯钒科技","shortname":"凯钒科技","tips":"AHYF"},"projectName":"AGV调度系统"}', '2019-05-30 15:46:06'),
+	('PROJECT_INFO', '{"fullProjectName":"无锡真木智能搬运AGV调度系统","corporation":{"address":"地址：安徽省合肥市经开区百鸟路石柱路5F创客空间","telephone":"电话：15077923697","fullname":"合肥凯钒信息科技有限公司","shortname":"山东省济南市档案局"},"client":{"address":"","fullname":"凯钒科技","shortname":"凯钒科技","tips":"AHYF"},"projectName":"AGV调度系统"}', '2019-06-20 11:23:35'),
 	('TEST_Y_AXIS', '21800', '2019-06-12 19:49:49');
 /*!40000 ALTER TABLE `conf_key` ENABLE KEYS */;
 

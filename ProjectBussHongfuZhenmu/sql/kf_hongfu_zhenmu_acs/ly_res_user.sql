@@ -2,7 +2,7 @@
 -- 主机:                           127.0.0.1
 -- 服务器版本:                        10.3.7-MariaDB - mariadb.org binary distribution
 -- 服务器OS:                        Win64
--- HeidiSQL 版本:                  10.1.0.5577
+-- HeidiSQL 版本:                  10.2.0.5599
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -11,7 +11,7 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Dumping structure for table kf_inoma_weiwei_acs.ly_res_user
+-- Dumping structure for table kf_hongfu_zhenmu_acs.ly_res_user
 DROP TABLE IF EXISTS `ly_res_user`;
 CREATE TABLE IF NOT EXISTS `ly_res_user` (
   `resId` int(11) NOT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `ly_res_user` (
   PRIMARY KEY (`userId`,`resId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table kf_inoma_weiwei_acs.ly_res_user: ~91 rows (大约)
+-- Dumping data for table kf_hongfu_zhenmu_acs.ly_res_user: ~91 rows (大约)
 DELETE FROM `ly_res_user`;
 /*!40000 ALTER TABLE `ly_res_user` DISABLE KEYS */;
 INSERT INTO `ly_res_user` (`resId`, `userId`) VALUES

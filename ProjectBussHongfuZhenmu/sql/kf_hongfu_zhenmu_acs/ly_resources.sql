@@ -2,7 +2,7 @@
 -- 主机:                           127.0.0.1
 -- 服务器版本:                        10.3.7-MariaDB - mariadb.org binary distribution
 -- 服务器OS:                        Win64
--- HeidiSQL 版本:                  10.1.0.5577
+-- HeidiSQL 版本:                  10.2.0.5599
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -11,7 +11,7 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Dumping structure for table kf_inoma_weiwei_acs.ly_resources
+-- Dumping structure for table kf_hongfu_zhenmu_acs.ly_resources
 DROP TABLE IF EXISTS `ly_resources`;
 CREATE TABLE IF NOT EXISTS `ly_resources` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '唯一编号',
@@ -27,9 +27,9 @@ CREATE TABLE IF NOT EXISTS `ly_resources` (
   `description` varchar(200) DEFAULT NULL COMMENT '描述',
   `sortflag` int(11) DEFAULT 0 COMMENT '排序',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=242 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=243 DEFAULT CHARSET=utf8;
 
--- Dumping data for table kf_inoma_weiwei_acs.ly_resources: ~64 rows (大约)
+-- Dumping data for table kf_hongfu_zhenmu_acs.ly_resources: ~64 rows (大约)
 DELETE FROM `ly_resources`;
 /*!40000 ALTER TABLE `ly_resources` DISABLE KEYS */;
 INSERT INTO `ly_resources` (`id`, `name`, `parentId`, `resKey`, `type`, `resUrl`, `level`, `icon`, `ishide`, `openType`, `description`, `sortflag`) VALUES
@@ -96,7 +96,8 @@ INSERT INTO `ly_resources` (`id`, `name`, `parentId`, `resKey`, `type`, `resUrl`
 	(238, '地图管理', 231, 'siteLogicMgr', '1', '/s/buss/agv/site/logic/h/logicMgr.html', NULL, NULL, 0, 0, NULL, 0),
 	(239, 'SKU信息管理', 101, 'sku_info', '1', '/s/buss/wms/sku/info/h/skuInfoMgr.html', NULL, NULL, 0, 0, NULL, 0),
 	(240, '库存信息查询', 211, 'stock', '1', '/s/buss/wms/alloc/stock/h/allocItemMgr.html', NULL, NULL, 0, 0, NULL, 0),
-	(241, '取货点信息管理', 101, 'lapinfo', '1', '/s/buss/agv/lap/h/lapInfoMgr.html', NULL, NULL, 0, 0, NULL, 0);
+	(241, '取货点信息管理', 101, 'lapinfo', '1', '/s/buss/agv/lap/h/lapInfoMgr.html', NULL, NULL, 0, 0, NULL, 0),
+	(242, 'AGV即时任务管理', 204, 'agvImmediateTask', '1', '/s/buss/agv/immediateTask/h/agvImmediateTaskMgr.html', NULL, NULL, 0, 0, NULL, 0);
 /*!40000 ALTER TABLE `ly_resources` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
