@@ -38,6 +38,11 @@ public class HongfuPiTaskexeDealer {
 		AppFileLogger.piLogs(aa, currentAreaAa, "-", HongfuAgvMsgGetter.getDirection(aa.getAgvId()));
 		AppFileLogger.piLogs(bb, currentAreaBb, "-", HongfuAgvMsgGetter.getDirection(bb.getAgvId()));
 
+		if (AppTool.equals(currentAreaAa, currentAreaBb)) {
+			command.setInfo("两车同时在" + currentAreaAa + "区内时同时停车！");
+			return command.d(aa).d(bb);
+		}
+
 		if ("B".equals(currentAreaAa) && AppTool.equals(currentAreaBb, "C", "D")) {
 			if (Direction.Y_POS.equals(HongfuAgvMsgGetter.getDirection(aa.getAgvId()))) {
 				command.setInfo("B区车等待CD区域车");
@@ -51,18 +56,35 @@ public class HongfuPiTaskexeDealer {
 			}
 		}
 
+		if ("C".equals(currentAreaAa) && AppTool.equals(currentAreaBb, "E", "D")) {
+			if (Direction.Y_POS.equals(HongfuAgvMsgGetter.getDirection(aa.getAgvId()))) {
+				command.setInfo("C区车等待DE区域车");
+				return command.d(aa).s(bb);
+			}
+		}
+		if ("C".equals(currentAreaBb) && AppTool.equals(currentAreaAa, "E", "D")) {
+			if (Direction.Y_POS.equals(HongfuAgvMsgGetter.getDirection(bb.getAgvId()))) {
+				command.setInfo("C区车等待DE区域车");
+				return command.d(bb).s(aa);
+			}
+		}
+
 		if ("B".equals(currentAreaAa) && AppTool.equals(nextAreaBb, "C")) {
 			command.setInfo("B区车等待CD区域车");
 			return command.d(aa).s(bb);
 		}
 
 		if ("C".equals(currentAreaBb) && AppTool.equals(nextAreaAa, "E")) {
-			command.setInfo("C区车等待E区域车");
-			return command.d(bb).s(aa);
+			if (Direction.Y_POS.equals(HongfuAgvMsgGetter.getDirection(aa.getAgvId()))) {
+				command.setInfo("C区车等待E区域车");
+				return command.d(bb).s(aa);
+			}
 		}
-		if ("C".equals(currentAreaBb) && AppTool.equals(nextAreaAa, "E")) {
-			command.setInfo("C区车等待E区域车");
-			return command.d(bb).s(aa);
+		if ("C".equals(currentAreaAa) && AppTool.equals(nextAreaBb, "E")) {
+			if (Direction.Y_POS.equals(HongfuAgvMsgGetter.getDirection(bb.getAgvId()))) {
+				command.setInfo("C区车等待E区域车");
+				return command.d(aa).s(bb);
+			}
 		}
 
 		if ("E".equals(currentAreaBb) && AppTool.equals(nextAreaAa, "D")) {
