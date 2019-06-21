@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.calculatedfun.util.AppTool;
 import com.calculatedfun.util.msg.AppMsg;
+import com.kaifantech.bean.info.agv.AgvBean;
 import com.kaifantech.bean.iot.client.IotClientBean;
 import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.bean.singletask.SingletaskBean;
@@ -84,6 +85,13 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 			}
 		});
 		if (TaskexeOpFlag.NEW.equals(taskexeBean.getOpflag())) {
+			AgvBean agvBean = agvOpWmsDao.get(taskexeBean.getAgvId());
+			if (AppTool.equals(agvBean.getTaskstatus(), AgvTaskType.GOTO_CHARGE, AgvTaskType.BACK_CHARGE)
+					&& AppTool.equals(taskexeBean.getTasktype(), AgvTaskType.SHIPMENT, AgvTaskType.RECEIPT)) {
+				AppFileLogger.warning("目标AGV正在充电，任务无法下达！", taskexeBean.getTaskKey());
+				return;
+			}
+
 			Integer exeingAgv = agvInDArea(taskexeBean);
 			if (!AppTool.isNull(exeingAgv)) {
 				return;

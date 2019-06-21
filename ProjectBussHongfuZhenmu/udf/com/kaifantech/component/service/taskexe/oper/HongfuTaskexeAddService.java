@@ -92,7 +92,7 @@ public class HongfuTaskexeAddService implements ITaskexeAddService {
 			taskexeStatusService.changeStatusWhenNew(taskid);
 			taskexeTaskDao.addATask(taskexeBean);
 			agvOpWmsDao.command(taskexeBean.getAgvId(), taskexeBean.getTasktype());
-			msg.setMsg("任务完成下达！");
+			msg.setMsg("任务完成缓存！如AGV正在充电任务将挂起，直到AGV完成充电！");
 		}
 		return msg;
 	}
