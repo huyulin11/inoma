@@ -152,6 +152,7 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 			if (!msg.isSuccess()) {
 				return;
 			}
+			agvOpWmsDao.command(taskexeBean.getAgvId(), taskexeBean.getTasktype());
 			agvOpWmsDao.goWork(taskexeBean.getAgvId(), taskexeBean.getTasktype(), taskexeBean.getTaskexesid());
 		} else if (AppTool.equals(taskexeBean.getTasktype(), AgvTaskType.GOTO_CHARGE, AgvTaskType.BACK_CHARGE)) {
 			SingletaskBean singletaskBean = singleTaskInfoService.get(taskexeBean.getJsonItem("taskid"));
