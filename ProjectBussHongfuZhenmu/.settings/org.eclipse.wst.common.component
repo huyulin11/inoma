@@ -197,6 +197,9 @@
         <dependent-module archiveName="commons-lang-2.5.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ProjectBussModel/WebContent/WEB-INF/lib/commons-lang-2.5.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="guava-28.0-jre.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ProjectBussModel/WebContent/WEB-INF/lib/guava-28.0-jre.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/ProjectBussHongfuZhenmu/WebContent/WEB-INF/classes"/>
         <property name="context-root" value="/"/>
     </wb-module>
