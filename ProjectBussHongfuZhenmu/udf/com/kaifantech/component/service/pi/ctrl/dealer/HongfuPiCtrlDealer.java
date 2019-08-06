@@ -47,9 +47,9 @@ public class HongfuPiCtrlDealer implements IPiCtrlDealer {
 		}
 		command = piTaskexeDealer.check2Agvs(one, another);
 		if (!AppTool.isNull(command)) {
-			AppFileLogger.piLogs("TRAFFIC：", "GO：", AppSetTool.join(",", command.getSafes()), ";", "MGR：",
+			AppFileLogger.setPiTips(0, "TRAFFIC：", "GO：", AppSetTool.join(",", command.getSafes()), ";", "MGR：",
 					AppSetTool.join(",", command.getDangers()));
-			AppFileLogger.piLogs("ADDED INFO：", command.getInfo());
+			AppFileLogger.setPiTips(0, "ADDED INFO：", command.getInfo());
 		}
 		return command;
 	}

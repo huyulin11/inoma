@@ -69,7 +69,7 @@ public class PICtrlClashAreaService implements IPICtrlByMsgService {
 					+ "isOneCloseToArea:" + isOneCloseToArea + "," + "isAnotherCloseToArea:" + isAnotherCloseToArea
 					+ "," + "isOneInTheArea:" + isOneInTheArea + "," + "isAnotherInTheArea:" + isAnotherInTheArea;
 			if ((isOneCloseToArea && isAnotherInTheArea) || (isAnotherCloseToArea && isOneInTheArea)) {
-				AppFileLogger.piLogs("---危险---", info);
+				AppFileLogger.setPiTips(0, "---危险---", info);
 				piMsgService.dangerInClashArea(msgOne, msgAnother,
 						msgOne.isCloseToArea(clashArea) ? msgOne : msgAnother);
 				return command.d(msgOne.isCloseToArea(clashArea) ? msgOne.getAgvId() : msgAnother.getAgvId())
@@ -87,7 +87,7 @@ public class PICtrlClashAreaService implements IPICtrlByMsgService {
 					double distanceOfAnotherToArea = msgAnother.getDistanceToArea(clashArea);
 					String s = "," + "distanceOfOneToArea:" + distanceOfOneToArea + "," + "distanceOfAnotherToArea:"
 							+ distanceOfAnotherToArea;
-					AppFileLogger.piLogs("---危险---", info, s);
+					AppFileLogger.setPiTips(0, "---危险---", info, s);
 					piMsgService.dangerInClashArea(msgOne, msgAnother,
 							distanceOfOneToArea > distanceOfAnotherToArea ? msgOne : msgAnother);
 					return command
@@ -96,10 +96,10 @@ public class PICtrlClashAreaService implements IPICtrlByMsgService {
 							.s(!(distanceOfOneToArea > distanceOfAnotherToArea) ? msgOne.getAgvId()
 									: msgAnother.getAgvId());
 				} else if (isOneInTheArea && isAnotherInTheArea) {
-					AppFileLogger.piLogs("---同时处在易冲突区域，使用其它模式防止冲突---");
+					AppFileLogger.setPiTips(0, "---同时处在易冲突区域，使用其它模式防止冲突---");
 					return null;
 				} else {
-					AppFileLogger.piLogs("---安全---" + info);
+					AppFileLogger.setPiTips(0, "---安全---" + info);
 					return null;
 				}
 			}

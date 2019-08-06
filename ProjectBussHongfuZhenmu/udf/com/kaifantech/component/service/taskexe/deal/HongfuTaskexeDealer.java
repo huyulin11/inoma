@@ -88,7 +88,7 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 			AgvBean agvBean = agvOpWmsDao.get(taskexeBean.getAgvId());
 			if (AppTool.equals(agvBean.getTaskstatus(), AgvTaskType.GOTO_CHARGE, AgvTaskType.BACK_CHARGE)
 					&& AppTool.equals(taskexeBean.getTasktype(), AgvTaskType.SHIPMENT, AgvTaskType.RECEIPT)) {
-				AppFileLogger.warning("目标AGV正在充电，任务无法下达！", taskexeBean.getTaskKey());
+				AppFileLogger.setWarningTips(taskexeBean.getAgvId(), "目标AGV正在充电，任务无法下达！", taskexeBean.getTaskKey());
 				return;
 			}
 
@@ -96,7 +96,6 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 			if (!AppTool.isNull(exeingAgv)) {
 				return;
 			}
-			AppFileLogger.warning("开始任务！", taskexeBean.getTaskKey());
 			startWork(taskexeBean);
 			return;
 		}
@@ -119,24 +118,25 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 			String nextAreaWorkOther = AppCache.worker().get("AREA_NEXT_WORK", agvBean.getId());
 			String nextAreaWorkTarget = AppCache.worker().get("AREA_NEXT_WORK", taskexeBean.getAgvId());
 			if (AppTool.equals(currentAreaOther, "D")) {
-				AppFileLogger.piLogs(currentAreaOther, "区有AGV", agvBean.getId(), ",", taskexeBean, "阻塞");
+				AppFileLogger.setPiTips(0, currentAreaOther, "区有AGV", agvBean.getId(), ",", taskexeBean, "阻塞");
 				return agvBean.getId();
 			}
 			if (AppTool.equals(currentAreaOther, "C", "B", "A")) {
 				if (AppTool.equals(nextAreaWorkOther, "A") && AppTool.equals(nextAreaWorkTarget, "C")) {
 				} else {
-					AppFileLogger.piLogs(currentAreaOther, "区有AGV", agvBean.getId(), ",", taskexeBean, "阻塞");
+					AppFileLogger.setPiTips(0, currentAreaOther, "区有AGV", agvBean.getId(), ",", taskexeBean, "阻塞");
 					return agvBean.getId();
 				}
 			} else if ("A".equals(currentAreaOther) && !"C".equals(nextAreaWorkTarget)) {
-				AppFileLogger.piLogs(currentAreaOther, "区有AGV", agvBean.getId(), ",", taskexeBean, "阻塞");
+				AppFileLogger.setPiTips(0, currentAreaOther, "区有AGV", agvBean.getId(), ",", taskexeBean, "阻塞");
 				return agvBean.getId();
 			}
 
 			if (AgvTaskType.RECEIPT.equals(taskexeBean.getTasktype())) {
 			} else if (AgvTaskType.SHIPMENT.equals(taskexeBean.getTasktype())) {
 				if (!AppTool.equals(currentAreaOther, "E")) {
-					AppFileLogger.piLogs("放货任务：A(或B/C/D)区有AGV", agvBean.getId(), ",", taskexeBean.getTaskKey(), "阻塞");
+					AppFileLogger.setPiTips(0, "放货任务：A(或B/C/D)区有AGV", agvBean.getId(), ",", taskexeBean.getTaskKey(),
+							"阻塞");
 					return agvBean.getId();
 				}
 			}
@@ -146,24 +146,23 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 
 	private void startWork(TaskexeBean taskexeBean) {
 		ThreadTool.sleep(1000);
-		if (AppTool.equals(taskexeBean.getTasktype(), AgvTaskType.RECEIPT, AgvTaskType.SHIPMENT)) {
+		if (AppTool.equals(taskexeBean.getTasktype(), AgvTaskType.RECEIPT, AgvTaskType.SHIPMENT,
+				AgvTaskType.GOTO_CHARGE, AgvTaskType.BACK_CHARGE)) {
 			SingletaskBean singletaskBean = singleTaskInfoService.get(taskexeBean.getJsonItem("taskid"));
+			AppFileLogger.setWarningTips(taskexeBean.getAgvId(), "开始任务！", taskexeBean.getTaskKey(), ",任务名：",
+					singletaskBean.getTasktext());
 			AppMsg msg = agvManager.doTask(taskexeBean.getAgvId(), singletaskBean.getTaskname());
 			if (!msg.isSuccess()) {
 				return;
 			}
-			agvOpWmsDao.command(taskexeBean.getAgvId(), taskexeBean.getTasktype());
-			agvOpWmsDao.goWork(taskexeBean.getAgvId(), taskexeBean.getTasktype(), taskexeBean.getTaskexesid());
-		} else if (AppTool.equals(taskexeBean.getTasktype(), AgvTaskType.GOTO_CHARGE, AgvTaskType.BACK_CHARGE)) {
-			SingletaskBean singletaskBean = singleTaskInfoService.get(taskexeBean.getJsonItem("taskid"));
-			AppMsg msg = agvManager.doTask(taskexeBean.getAgvId(), singletaskBean.getTaskname());
-			if (!msg.isSuccess()) {
-				return;
+			if (AppTool.equals(taskexeBean.getTasktype(), AgvTaskType.RECEIPT, AgvTaskType.SHIPMENT)) {
+				agvOpWmsDao.command(taskexeBean.getAgvId(), taskexeBean.getTasktype());
+				agvOpWmsDao.goWork(taskexeBean.getAgvId(), taskexeBean.getTasktype(), taskexeBean.getTaskexesid());
 			}
 		}
 		taskexeTaskDao.sendATask(taskexeBean);
-		AppFileLogger.warning(taskexeBean.getAgvId(), "号AGV执行的", taskexeBean.getTaskexesid(), "-",
-				taskexeBean.getTasksequence(), "发送成功，更新任务状态为SEND！");
+		AppFileLogger.setWarningTips(taskexeBean.getAgvId(), taskexeBean.getAgvId(), "号AGV执行的",
+				taskexeBean.getTaskexesid(), "-", taskexeBean.getTasksequence(), "发送成功，更新任务状态为SEND！");
 	}
 
 	private void watchWork(TaskexeBean taskexeBean) {
@@ -188,8 +187,8 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 			AppCache.worker().hset("AREA_CURRENT", taskexeBean.getAgvId(), "O");
 			AppCache.worker().hset("AREA_NEXT", taskexeBean.getAgvId(), "O");
 			AppCache.worker().hset("AREA_NEXT_WORK", taskexeBean.getAgvId(), "O");
-			AppFileLogger.warning(taskexeBean.getAgvId(), "号AGV执行的", taskexeBean.getTaskexesid(), "-",
-					taskexeBean.getTasksequence(), "任务所有明细任务均已执行完毕，更新任务状态为OVER！");
+			AppFileLogger.setWarningTips(taskexeBean.getAgvId(), taskexeBean.getAgvId(), "号AGV执行的",
+					taskexeBean.getTaskexesid(), "-", taskexeBean.getTasksequence(), "任务所有明细任务均已执行完毕，更新任务状态为OVER！");
 		}
 	}
 }
