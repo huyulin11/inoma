@@ -61,7 +61,7 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 	private IAllocInfoService allocInfoService;
 
 	@Autowired
-	private AgvOpChargeDao agvOpDao;
+	private AgvOpChargeDao agvOpChargeDao;
 
 	@Autowired
 	private AgvOpWmsDao agvOpWmsDao;
@@ -76,6 +76,7 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 	private static ExecutorService pool = ThreadTool.getThreadPool(2);
 
 	public synchronized void deal(TaskexeBean taskexeBean, HongfuAgvMsgBean agvMsg) throws Exception {
+		Integer agvId = taskexeBean.getAgvId();
 		List<TaskexeDetailBean> taskexeDetailList = taskexeDetailService.getList(taskexeBean);
 		pool.execute(() -> {
 			try {
@@ -85,10 +86,10 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 			}
 		});
 		if (TaskexeOpFlag.NEW.equals(taskexeBean.getOpflag())) {
-			AgvBean agvBean = agvOpWmsDao.get(taskexeBean.getAgvId());
+			AgvBean agvBean = agvOpWmsDao.get(agvId);
 			if (AppTool.equals(agvBean.getTaskstatus(), AgvTaskType.GOTO_CHARGE, AgvTaskType.BACK_CHARGE)
 					&& AppTool.equals(taskexeBean.getTasktype(), AgvTaskType.SHIPMENT, AgvTaskType.RECEIPT)) {
-				AppFileLogger.setWarningTips(taskexeBean.getAgvId(), "目标AGV正在充电，任务无法下达！", taskexeBean.getTaskKey());
+				AppFileLogger.setWarningTips(agvId, "目标AGV正在充电，任务无法下达！", taskexeBean.getTaskKey());
 				return;
 			}
 
@@ -106,8 +107,9 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 	}
 
 	private Integer agvInDArea(TaskexeBean taskexeBean) {
+		Integer agvId = taskexeBean.getAgvId();
 		for (IotClientBean agvBean : iotClientService.getAgvCacheList()) {
-			if (agvBean.getId().equals(taskexeBean.getAgvId())) {
+			if (agvBean.getId().equals(agvId)) {
 				continue;
 			}
 			TaskexeBean taskexeBeanOther = taskexeInfoService.getNextOne(agvBean.getId());
@@ -116,7 +118,7 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 			}
 			String currentAreaOther = AppCache.worker().get("AREA_CURRENT", agvBean.getId());
 			String nextAreaWorkOther = AppCache.worker().get("AREA_NEXT_WORK", agvBean.getId());
-			String nextAreaWorkTarget = AppCache.worker().get("AREA_NEXT_WORK", taskexeBean.getAgvId());
+			String nextAreaWorkTarget = AppCache.worker().get("AREA_NEXT_WORK", agvId);
 			if (AppTool.equals(currentAreaOther, "D")) {
 				AppFileLogger.setPiTips(0, currentAreaOther, "区有AGV", agvBean.getId(), ",", taskexeBean, "阻塞");
 				return agvBean.getId();
@@ -146,27 +148,26 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 
 	private void startWork(TaskexeBean taskexeBean) {
 		ThreadTool.sleep(1000);
-		if (AppTool.equals(taskexeBean.getTasktype(), AgvTaskType.RECEIPT, AgvTaskType.SHIPMENT,
-				AgvTaskType.GOTO_CHARGE, AgvTaskType.BACK_CHARGE)) {
-			SingletaskBean singletaskBean = singleTaskInfoService.get(taskexeBean.getJsonItem("taskid"));
-			AppFileLogger.setWarningTips(taskexeBean.getAgvId(), "开始任务！", taskexeBean.getTaskKey(), ",任务名：",
-					singletaskBean.getTasktext());
-			AppMsg msg = agvManager.doTask(taskexeBean.getAgvId(), singletaskBean.getTaskname());
-			if (!msg.isSuccess()) {
-				return;
-			}
-			if (AppTool.equals(taskexeBean.getTasktype(), AgvTaskType.RECEIPT, AgvTaskType.SHIPMENT)) {
-				agvOpWmsDao.command(taskexeBean.getAgvId(), taskexeBean.getTasktype());
-				agvOpWmsDao.goWork(taskexeBean.getAgvId(), taskexeBean.getTasktype(), taskexeBean.getTaskexesid());
-			}
+		Integer agvId = taskexeBean.getAgvId();
+		SingletaskBean singletaskBean = singleTaskInfoService.get(taskexeBean.getJsonItem("taskid"));
+		AppFileLogger.setWarningTips(agvId, "开始任务！", taskexeBean.getTaskKey(), ",任务名：", singletaskBean.getTasktext());
+		AppMsg msg = agvManager.doTask(agvId, singletaskBean.getTaskname());
+		if (!msg.isSuccess()) {
+			return;
+		}
+		if (AppTool.equals(taskexeBean.getTasktype(), AgvTaskType.RECEIPT, AgvTaskType.SHIPMENT)) {
+			agvOpWmsDao.command(agvId, taskexeBean.getTasktype());
+			agvOpWmsDao.goWork(agvId, taskexeBean.getTasktype(), taskexeBean.getTaskexesid());
 		}
 		taskexeTaskDao.sendATask(taskexeBean);
-		AppFileLogger.setWarningTips(taskexeBean.getAgvId(), taskexeBean.getAgvId(), "号AGV执行的",
-				taskexeBean.getTaskexesid(), "-", taskexeBean.getTasksequence(), "发送成功，更新任务状态为SEND！");
+		AppFileLogger.setWarningTips(agvId, agvId, "号AGV执行的", taskexeBean.getTaskexesid(), "-",
+				taskexeBean.getTasksequence(), "发送成功，更新任务状态为SEND！");
+		agvOpChargeDao.updateRemark(agvId, "" + singletaskBean.getTasktext() + "任务已发送");
 	}
 
 	private void watchWork(TaskexeBean taskexeBean) {
-		HongfuAgvMsgBean agvMsg = HongfuAgvMsgGetter.getFreshBean(taskexeBean.getAgvId());
+		Integer agvId = taskexeBean.getAgvId();
+		HongfuAgvMsgBean agvMsg = HongfuAgvMsgGetter.getFreshBean(agvId);
 		if (!AppTool.isNull(agvMsg) && agvMsg.isTaskfinished()) {
 			if (AppTool.equals(taskexeBean.getTasktype(), AgvTaskType.RECEIPT, AgvTaskType.SHIPMENT)) {
 				AllocItemInfoBean allocItem = allocInfoService.getByTaskid(taskexeBean.getJsonItem("taskid"));
@@ -175,20 +176,22 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 				if (!msg.isSuccess()) {
 					return;
 				}
-				agvOpWmsDao.workOver(taskexeBean.getAgvId(), taskexeBean.getTasktype());
+				agvOpWmsDao.workOver(agvId, taskexeBean.getTasktype());
 			} else if (AppTool.equals(taskexeBean.getTasktype(), AgvTaskType.GOTO_CHARGE, AgvTaskType.BACK_CHARGE)) {
 				if (AgvTaskType.GOTO_CHARGE.equals(taskexeBean.getTasktype())) {
-					agvOpDao.workOverGotoCharge(taskexeBean.getAgvId());
+					agvOpChargeDao.workOverGotoCharge(agvId);
 				} else if (AgvTaskType.BACK_CHARGE.equals(taskexeBean.getTasktype())) {
-					agvOpDao.workOverBackCharge(taskexeBean.getAgvId());
+					agvOpChargeDao.workOverBackCharge(agvId);
 				}
 			}
+			SingletaskBean singletaskBean = singleTaskInfoService.get(taskexeBean.getJsonItem("taskid"));
 			taskexeTaskDao.overASendTask(taskexeBean);
-			AppCache.worker().hset("AREA_CURRENT", taskexeBean.getAgvId(), "O");
-			AppCache.worker().hset("AREA_NEXT", taskexeBean.getAgvId(), "O");
-			AppCache.worker().hset("AREA_NEXT_WORK", taskexeBean.getAgvId(), "O");
-			AppFileLogger.setWarningTips(taskexeBean.getAgvId(), taskexeBean.getAgvId(), "号AGV执行的",
-					taskexeBean.getTaskexesid(), "-", taskexeBean.getTasksequence(), "任务所有明细任务均已执行完毕，更新任务状态为OVER！");
+			AppCache.worker().hset("AREA_CURRENT", agvId, "O");
+			AppCache.worker().hset("AREA_NEXT", agvId, "O");
+			AppCache.worker().hset("AREA_NEXT_WORK", agvId, "O");
+			AppFileLogger.setWarningTips(agvId, agvId, "号AGV执行的", taskexeBean.getTaskexesid(), "-",
+					taskexeBean.getTasksequence(), "任务所有明细任务均已执行完毕，更新任务状态为OVER！");
+			agvOpChargeDao.updateRemark(agvId, "" + singletaskBean.getTasktext() + "任务已结束");
 		}
 	}
 }
