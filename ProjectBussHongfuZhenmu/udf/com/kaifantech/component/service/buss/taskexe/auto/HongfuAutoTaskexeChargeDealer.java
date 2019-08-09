@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.fastjson.JSONObject;
 import com.calculatedfun.util.AppTool;
 import com.calculatedfun.util.msg.AppMsg;
-import com.kaifantech.bean.info.agv.AgvBean;
+import com.kaifantech.bean.info.agv.AgvInfoBean;
 import com.kaifantech.component.dao.ControlInfoDao;
 import com.kaifantech.component.dao.agv.info.AgvOpChargeDao;
 import com.kaifantech.component.dao.taskexe.op.TaskexeOpDao;
@@ -31,7 +31,7 @@ public class HongfuAutoTaskexeChargeDealer {
 	private ControlInfoDao controlInfoDao;
 
 	@Transactional(propagation = Propagation.REQUIRED)
-	public synchronized AppMsg newTask(AgvBean targetAgv, String tasktype) {
+	public synchronized AppMsg newTask(AgvInfoBean targetAgv, String tasktype) {
 		if (AppTool.ifAnd(
 				!(AgvSiteStatus.INIT.equals(targetAgv.getSitestatus())
 						&& AgvTaskType.GOTO_CHARGE.equals(targetAgv.getTaskstatus())),

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.calculatedfun.util.AppTool;
-import com.kaifantech.bean.info.agv.AgvBean;
+import com.kaifantech.bean.info.agv.AgvInfoBean;
 import com.kaifantech.bean.singletask.SingletaskBean;
 import com.kaifantech.bean.taskexe.SkuInfoBean;
 import com.kaifantech.bean.wms.alloc.AllocColumnInfoBean;
@@ -77,7 +77,7 @@ public class InomaDataInitService {
 			} else if (columnBean.getAllowedSkuType() > 0) {
 				skuInfoBean = skuInfoService.getSkuInfoBeanByType(columnBean.getAllowedSkuType());
 			}
-			for (AgvBean agvBean : agvDao.getList()) {
+			for (AgvInfoBean agvBean : agvDao.getList()) {
 				if (agvBean.getEnvironment() != bean.getEnvironment()) {
 					continue;
 				}

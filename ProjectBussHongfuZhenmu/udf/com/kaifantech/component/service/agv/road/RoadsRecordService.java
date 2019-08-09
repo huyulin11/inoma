@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import com.kaifantech.bean.info.agv.AgvBean;
+import com.kaifantech.bean.info.agv.AgvInfoBean;
 import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.component.dao.agv.info.AgvAxisDao;
@@ -41,7 +41,7 @@ public class RoadsRecordService {
 	public void changeTarget(TaskexeBean latestTaskexe) {
 		HongfuAgvMsgBean agvMsgBean = msgFromAGVService.getLatestMsgBean(latestTaskexe.getAgvId());
 
-		AgvBean agvBean = agvDao.get(latestTaskexe.getAgvId());
+		AgvInfoBean agvBean = agvDao.get(latestTaskexe.getAgvId());
 
 		List<VerticalRoad> roads = verticalRoadService.getRoadsMayAppear(latestTaskexe);
 		for (int i = 0; i < roads.size(); i++) {
@@ -63,12 +63,12 @@ public class RoadsRecordService {
 		doLeaveTarget(agvBean, agvMsgBean);
 	}
 
-	private void doChange(AgvBean agvBean, HongfuAgvMsgBean agvMsgBean, VerticalRoad currentRoad, VerticalRoad nextRoad) {
+	private void doChange(AgvInfoBean agvBean, HongfuAgvMsgBean agvMsgBean, VerticalRoad currentRoad, VerticalRoad nextRoad) {
 		agvOpDao.changeNextXaxis(agvBean.getId(), nextRoad.getXaxis(), nextRoad.getLocation());
 		agvOpDao.changeCurrentXaxis(agvBean.getId(), currentRoad.getXaxis(), currentRoad.getLocation());
 	}
 
-	private void doLeaveTarget(AgvBean agvBean, HongfuAgvMsgBean agvMsgBean) {
+	private void doLeaveTarget(AgvInfoBean agvBean, HongfuAgvMsgBean agvMsgBean) {
 		if (!(Direction.Y_NEG.equals(agvMsgBean.getDirection()) || Direction.Y_POS.equals(agvMsgBean.getDirection()))) {
 			agvOpDao.leaveCurrentXaxis(agvBean.getId());
 		}

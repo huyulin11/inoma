@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.calculatedfun.util.AppTool;
 import com.calculatedfun.util.msg.AppMsg;
-import com.kaifantech.bean.info.agv.AgvBean;
+import com.kaifantech.bean.info.agv.AgvInfoBean;
 import com.kaifantech.bean.singletask.SingletaskBean;
 import com.kaifantech.bean.taskexe.SkuInfoBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
@@ -89,7 +89,7 @@ public class DefauTaskexeAutoService implements ITaskexeAutoService {
 		Integer agvId = null;
 		for (Map<String, Object> agv : agvList) {
 			Integer tmpAGVId = (Integer) agv.get("agvId");
-			AgvBean agvBean = agvInfoDao.get(tmpAGVId);
+			AgvInfoBean agvBean = agvInfoDao.get(tmpAGVId);
 			if (AppTool.isNull(agvBean)) {
 				continue;
 			}
@@ -98,7 +98,7 @@ public class DefauTaskexeAutoService implements ITaskexeAutoService {
 				agvId = null;
 				continue;
 			} else {
-				AgvBean tmpAGVBean = agvInfoDao.get(tmpAGVId);
+				AgvInfoBean tmpAGVBean = agvInfoDao.get(tmpAGVId);
 				if (tmpAGVBean.isCharging()) {
 					tips += "，" + tmpAGVId + "号车正在充电！";
 					continue;
