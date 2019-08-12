@@ -22,7 +22,7 @@ public class AgvMsgResoluteTimer {
 	// @Scheduled(cron = "0/2 * * * * ?")
 	public void resolute() {
 		if (!isRunning) {
-			Thread.currentThread().setName(timerType + (ThreadID.number++));
+			Thread.currentThread().setName(timerType + ThreadID.num());
 			isRunning = true;
 			try {
 				msgResoluteMgr.resoluteMsg();

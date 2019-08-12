@@ -62,7 +62,7 @@ public class HongfuTaskexeModule implements ITaskexeModule {
 		Boolean flag = isRunning.get(agvBean.getId());
 		if (AppTool.isNull(flag) || !flag) {
 			ThreadTool.run(() -> {
-				Thread.currentThread().setName("任务处理定时器(AGV:" + agvBean.getId() + ")" + "衍生进程" + ThreadID.number++);
+				Thread.currentThread().setName("任务处理定时器(AGV:" + agvBean.getId() + ")" + "衍生进程" + ThreadID.num());
 				isRunning.put(agvBean.getId(), true);
 				while (true) {
 					ThreadTool.sleepOneSecond();
