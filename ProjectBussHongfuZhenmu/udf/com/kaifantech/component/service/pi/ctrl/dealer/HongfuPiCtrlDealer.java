@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.calculatedfun.util.AppSetTool;
+import com.calculatedfun.util.AppSet;
 import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.iot.client.IotClientBean;
 import com.kaifantech.bean.taskexe.HongfuTaskexeBean;
@@ -47,8 +47,8 @@ public class HongfuPiCtrlDealer implements IPiCtrlDealer {
 		}
 		command = piTaskexeDealer.check2Agvs(one, another);
 		if (!AppTool.isNull(command)) {
-			AppFileLogger.setPiTips(0, "TRAFFIC：", "GO：", AppSetTool.join(",", command.getSafes()), ";", "MGR：",
-					AppSetTool.join(",", command.getDangers()));
+			AppFileLogger.setPiTips(0, "TRAFFIC：", "GO：", AppSet.join(",", command.getSafes()), ";", "MGR：",
+					AppSet.join(",", command.getDangers()));
 			AppFileLogger.setPiTips(0, "ADDED INFO：", command.getInfo());
 		}
 		return command;
