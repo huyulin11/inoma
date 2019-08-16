@@ -161,7 +161,7 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 		}
 		taskexeTaskDao.sendATask(taskexeBean);
 		AppFileLogger.setWarningTips(agvId, agvId, "号AGV执行的", taskexeBean.getTaskexesid(), "-",
-				taskexeBean.getTasksequence(), "发送成功，更新任务状态为SEND！");
+				taskexeBean.getTasksequence(), ",任务名：", singletaskBean.getTasktext(), "发送成功，更新任务状态为SEND！");
 		agvOpChargeDao.updateRemark(agvId, "" + singletaskBean.getTasktext() + "任务已发送");
 	}
 
@@ -190,7 +190,8 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 			AppCache.worker().hset("AREA_NEXT", agvId, "O");
 			AppCache.worker().hset("AREA_NEXT_WORK", agvId, "O");
 			AppFileLogger.setWarningTips(agvId, agvId, "号AGV执行的", taskexeBean.getTaskexesid(), "-",
-					taskexeBean.getTasksequence(), "任务所有明细任务均已执行完毕，更新任务状态为OVER！");
+					taskexeBean.getTasksequence(), ",任务名：", singletaskBean.getTasktext(),
+					"任务所有明细任务均已执行完毕，更新任务状态为OVER！");
 			agvOpChargeDao.updateRemark(agvId, "" + singletaskBean.getTasktext() + "任务已结束");
 		}
 	}
