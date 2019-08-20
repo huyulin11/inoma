@@ -93,7 +93,7 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 				return;
 			}
 
-			Integer exeingAgv = agvInDArea(taskexeBean);
+			Integer exeingAgv = agvObstacle(taskexeBean);
 			if (!AppTool.isNull(exeingAgv)) {
 				return;
 			}
@@ -106,7 +106,7 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 		}
 	}
 
-	private Integer agvInDArea(TaskexeBean taskexeBean) {
+	private Integer agvObstacle(TaskexeBean taskexeBean) {
 		Integer agvId = taskexeBean.getAgvId();
 		for (IotClientBean agvBean : iotClientService.getAgvCacheList()) {
 			if (agvBean.getId().equals(agvId)) {
@@ -117,10 +117,11 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 				continue;
 			}
 			if (TaskexeOpFlag.NEW.equals(taskexeBeanOther.getOpflag())) {
-				if (taskexeBean.getUpdatetime().getTime() < taskexeBeanOther.getUpdatetime().getTime()) {
+				if (taskexeBean.getUpdatetime().getTime() > taskexeBeanOther.getUpdatetime().getTime()) {
 					AppFileLogger.setPiTips(0, "更早任务尚未下达,当前：", taskexeBean, ",根据", taskexeBeanOther, "判断");
-					continue;
+					return taskexeBeanOther.getAgvId();
 				}
+				continue;
 			}
 			String currentAreaOther = AppCache.worker().get("AREA_CURRENT", agvBean.getId());
 			String nextAreaWorkOther = AppCache.worker().get("AREA_NEXT_WORK", agvBean.getId());
