@@ -113,8 +113,14 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 				continue;
 			}
 			TaskexeBean taskexeBeanOther = taskexeInfoService.getNextOne(agvBean.getId());
-			if (taskexeBeanOther == null || !TaskexeOpFlag.SEND.equals(taskexeBeanOther.getOpflag())) {
+			if (taskexeBeanOther == null) {
 				continue;
+			}
+			if (TaskexeOpFlag.NEW.equals(taskexeBeanOther.getOpflag())) {
+				if (taskexeBean.getUpdatetime().getTime() < taskexeBeanOther.getUpdatetime().getTime()) {
+					AppFileLogger.setPiTips(0, "更早任务尚未下达,当前：", taskexeBean, ",根据", taskexeBeanOther, "判断");
+					continue;
+				}
 			}
 			String currentAreaOther = AppCache.worker().get("AREA_CURRENT", agvBean.getId());
 			String nextAreaWorkOther = AppCache.worker().get("AREA_NEXT_WORK", agvBean.getId());
