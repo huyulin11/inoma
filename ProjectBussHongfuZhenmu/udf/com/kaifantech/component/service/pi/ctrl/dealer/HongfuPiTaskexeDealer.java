@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 
 import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.taskexe.HongfuTaskexeBean;
-import com.kaifantech.init.sys.params.SystemConfParameters;
 import com.kaifantech.util.agv.msg.Direction;
 import com.kaifantech.util.agv.msg.PiCommand;
 import com.kaifantech.util.log.AppFileLogger;
@@ -13,32 +12,16 @@ import com.kaifantech.util.msg.agv.HongfuAgvMsgGetter;
 @Component
 public class HongfuPiTaskexeDealer {
 	public PiCommand check2Agvs(HongfuTaskexeBean aa, HongfuTaskexeBean bb) {
-		PiCommand command = new PiCommand();
-
-		double maxOne = AppTool.max(aa.nextYaxisList, aa.currentYaxis, aa.nextYaxis);
-		double minOne = AppTool.min(aa.nextYaxisList, aa.currentYaxis, aa.nextYaxis);
-		double maxAnother = AppTool.max(bb.nextYaxisList, bb.currentYaxis, bb.nextYaxis);
-		double minAnother = AppTool.min(bb.nextYaxisList, bb.currentYaxis, bb.nextYaxis);
-
-		if (maxOne < minAnother - SystemConfParameters.detaJudgeSite()) {
-			command.setInfo("TOTAL SAFE 1!");
-			return command.s(aa, bb);
-		}
-		if (maxAnother < minOne - SystemConfParameters.detaJudgeSite()) {
-			command.setInfo("TOTAL SAFE 2!");
-			return command.s(aa, bb);
-		}
 		return calculate(aa, bb);
 	}
 
 	private PiCommand calculate(HongfuTaskexeBean aa, HongfuTaskexeBean bb) {
 		PiCommand command = new PiCommand();
-		String currentAreaAa = aa.currentArea, currentAreaBb = bb.currentArea;
-		AppFileLogger.piLogs(aa, currentAreaAa, "-", HongfuAgvMsgGetter.getDirection(aa.getAgvId()));
-		AppFileLogger.piLogs(bb, currentAreaBb, "-", HongfuAgvMsgGetter.getDirection(bb.getAgvId()));
+		AppFileLogger.piLogs(aa, currentArea(aa), "-", direction(aa));
+		AppFileLogger.piLogs(bb, currentArea(bb), "-", direction(bb));
 
-		if (AppTool.equals(currentAreaAa, currentAreaBb)) {
-			command.setInfo("两车同时在" + currentAreaAa + "区内时同时停车！");
+		if (AppTool.equals(currentArea(aa), currentArea(bb))) {
+			command.setInfo("两车同时在" + currentArea(aa) + "区内时同时停车！");
 			return command.d(aa).d(bb);
 		}
 
@@ -54,44 +37,38 @@ public class HongfuPiTaskexeDealer {
 		return null;
 	}
 
+	private String currentArea(HongfuTaskexeBean o) {
+		return o.currentArea;
+	}
+
+	private String nextArea(HongfuTaskexeBean o) {
+		return o.nextArea;
+	}
+
+	private Direction direction(HongfuTaskexeBean o) {
+		return HongfuAgvMsgGetter.getDirection(o.getAgvId());
+	}
+
 	private PiCommand calculateOneSide(HongfuTaskexeBean one, HongfuTaskexeBean two) {
 		PiCommand command = new PiCommand();
 
-		String currentAreaOne = one.currentArea, currentAreaTwo = two.currentArea;
-		String nextAreaTwo = two.nextArea;
-		Direction directionOne = HongfuAgvMsgGetter.getDirection(one.getAgvId());
-
-		// if ("A".equals(currentAreaOne)) {
-		// if (AppTool.equals(currentAreaTwo, "B")) {
-		// if (Direction.Y_POS.equals(directionOne)) {
-		// command.setInfo("A区车等待B区域车");
-		// return command.d(one).s(two);
-		// }
-		// return null;
-		// }
-		// if (AppTool.equals(nextAreaTwo, "B", "C")) {
-		// command.setInfo("A区车等待目标目标BC区车");
-		// return command.d(one).s(two);
-		// }
-		// }
-
-		if ("B".equals(currentAreaOne)) {
-			if (AppTool.equals(currentAreaTwo, "C", "D")) {
-				if (Direction.Y_POS.equals(directionOne)) {
+		if ("B".equals(currentArea(one))) {
+			if (AppTool.equals(currentArea(two), "C", "D")) {
+				if (Direction.Y_POS.equals(direction(one))) {
 					command.setInfo("B区车等待CD区域车");
 					return command.d(one).s(two);
 				}
 				return null;
 			}
-			if (AppTool.equals(nextAreaTwo, "C")) {
+			if (AppTool.equals(nextArea(two), "C")) {
 				command.setInfo("B区车等待目标目标C区车");
 				return command.d(one).s(two);
 			}
 		}
 
-		if ("C".equals(currentAreaOne)) {
-			if (AppTool.equals(currentAreaTwo, "E", "D")) {
-				if (Direction.Y_POS.equals(directionOne)) {
+		if ("C".equals(currentArea(one))) {
+			if (AppTool.equals(currentArea(two), "E", "D")) {
+				if (Direction.Y_POS.equals(direction(one))) {
 					command.setInfo("C区车等待DE区域车");
 					return command.d(one).s(two);
 				}
@@ -99,16 +76,16 @@ public class HongfuPiTaskexeDealer {
 			}
 		}
 
-		if ("E".equals(currentAreaOne)) {
-			if (AppTool.equals(currentAreaTwo, "D")) {
-				if (Direction.Y_NEG.equals(directionOne)) {
+		if ("E".equals(currentArea(one))) {
+			if (AppTool.equals(currentArea(two), "D")) {
+				if (Direction.Y_NEG.equals(direction(one))) {
 					command.setInfo("E区车等待D区域车");
 					return command.d(one).s(two);
 				}
 				return null;
 			}
-			if (AppTool.equals(nextAreaTwo, "D")) {
-				if (Direction.Y_NEG.equals(directionOne)) {
+			if (AppTool.equals(currentArea(two), "C") && AppTool.equals(nextArea(two), "D")) {
+				if (Direction.Y_POS.equals(direction(two)) && Direction.Y_NEG.equals(direction(one))) {
 					command.setInfo("E区车等待目标D区域车");
 					return command.d(one).s(two);
 				}
