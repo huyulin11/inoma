@@ -120,7 +120,7 @@ public class HongfuTaskexeModule implements ITaskexeModule {
 	}
 
 	private void deal(TaskexeBean taskexeBean, HongfuAgvMsgBean agvMsg) throws Exception {
-		synchronized (SystemLock.charge(taskexeBean.getAgvId())) {
+		synchronized (SystemLock.agv(taskexeBean.getAgvId())) {
 			if (AgvTaskType.match(taskexeBean.getTasktype())) {
 				boolean isShutdown = SystemParameters.isShutdown(taskexeBean);
 				if (!isShutdown) {
