@@ -59,8 +59,7 @@ public class HongfuPiTaskexeDealer {
 
 		String currentAreaOne = one.currentArea, currentAreaTwo = two.currentArea;
 		String nextAreaTwo = two.nextArea;
-		Direction directionOne = HongfuAgvMsgGetter.getDirection(one.getAgvId()),
-				directionTwo = HongfuAgvMsgGetter.getDirection(two.getAgvId());
+		Direction directionOne = HongfuAgvMsgGetter.getDirection(one.getAgvId());
 
 		// if ("A".equals(currentAreaOne)) {
 		// if (AppTool.equals(currentAreaTwo, "B")) {
@@ -101,8 +100,15 @@ public class HongfuPiTaskexeDealer {
 		}
 
 		if ("E".equals(currentAreaOne)) {
+			if (AppTool.equals(currentAreaTwo, "D")) {
+				if (Direction.Y_NEG.equals(directionOne)) {
+					command.setInfo("E区车等待D区域车");
+					return command.d(one).s(two);
+				}
+				return null;
+			}
 			if (AppTool.equals(nextAreaTwo, "D")) {
-				if (Direction.Y_POS.equals(directionTwo)) {
+				if (Direction.Y_NEG.equals(directionOne)) {
 					command.setInfo("E区车等待目标D区域车");
 					return command.d(one).s(two);
 				}
