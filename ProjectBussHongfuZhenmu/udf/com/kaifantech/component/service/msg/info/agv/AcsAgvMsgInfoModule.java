@@ -20,7 +20,7 @@ import com.kaifantech.component.service.iot.client.IIotClientService;
 import com.kaifantech.component.service.lap.LapInfoService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
-import com.kaifantech.init.sys.params.SystemAutoParameters;
+import com.kaifantech.init.sys.params.AppAutoParameters;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.init.sys.qualifier.HongfuSystemQualifier;
 import com.kaifantech.util.agv.msg.MsgCompare;
@@ -118,7 +118,7 @@ public class AcsAgvMsgInfoModule implements IAgvMsgInfoModule {
 
 			ThreadTool.getThreadPool().execute(new Runnable() {
 				public void run() {
-					if (!SystemAutoParameters.isAutoTask()) {
+					if (!AppAutoParameters.isAutoTask()) {
 						return;
 					}
 					TaskexeBean taskBean = taskexeInfoService.getNotOverOne(msg.getTaskid());

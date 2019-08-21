@@ -23,7 +23,7 @@ import com.kaifantech.component.dao.singletask.SingletaskInfoDao;
 import com.kaifantech.component.service.alloc.area.IAllocAreaService;
 import com.kaifantech.component.service.lap.LapInfoService;
 import com.kaifantech.component.service.sku.SkuInfoService;
-import com.kaifantech.init.sys.params.SystemParameters;
+import com.kaifantech.init.sys.params.AppSysParameters;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 
 @Service
@@ -61,7 +61,7 @@ public class InomaDataInitService {
 	}
 
 	private void initTask() {
-		if (!SystemParameters.isInitTaskInfo()) {
+		if (!AppSysParameters.isInitTaskInfo()) {
 			return;
 		}
 
@@ -129,15 +129,15 @@ public class InomaDataInitService {
 			}
 		}
 
-		SystemParameters.setInitTaskInfo(false);
+		AppSysParameters.setInitTaskInfo(false);
 	}
 
 	private void initAlloc() {
-		if (!SystemParameters.isInitAllocInfo()) {
+		if (!AppSysParameters.isInitAllocInfo()) {
 			return;
 		}
 		doInitAlloc();
-		SystemParameters.setInitAllocInfo(false);
+		AppSysParameters.setInitAllocInfo(false);
 	}
 
 	private void doInitAlloc() {
@@ -181,7 +181,7 @@ public class InomaDataInitService {
 	}
 
 	private void initLedInfo() {
-		if (!SystemParameters.isInitLed()) {
+		if (!AppSysParameters.isInitLed()) {
 			return;
 		}
 
@@ -193,6 +193,6 @@ public class InomaDataInitService {
 			}
 		}
 
-		SystemParameters.setInitLed(false);
+		AppSysParameters.setInitLed(false);
 	}
 }

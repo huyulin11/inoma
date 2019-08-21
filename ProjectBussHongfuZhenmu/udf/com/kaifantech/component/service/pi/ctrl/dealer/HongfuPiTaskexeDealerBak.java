@@ -4,8 +4,8 @@ import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.taskexe.HongfuTaskexeBean;
 import com.kaifantech.cache.manager.AppCache;
 import com.kaifantech.init.sys.params.CacheKeys;
-import com.kaifantech.init.sys.params.SystemConfParameters;
-import com.kaifantech.init.sys.params.SystemParameters;
+import com.kaifantech.init.sys.params.AppConfParameters;
+import com.kaifantech.init.sys.params.AppSysParameters;
 import com.kaifantech.util.agv.msg.Direction;
 import com.kaifantech.util.agv.msg.PiCommand;
 import com.kaifantech.util.log.AppFileLogger;
@@ -23,11 +23,11 @@ public class HongfuPiTaskexeDealerBak {
 		double maxAnother = AppTool.max(bb.nextYaxisList, bb.currentYaxis, bb.nextYaxis);
 		double minAnother = AppTool.min(bb.nextYaxisList, bb.currentYaxis, bb.nextYaxis);
 
-		if (maxOne < minAnother - SystemConfParameters.detaJudgeSite()) {
+		if (maxOne < minAnother - AppConfParameters.detaJudgeSite()) {
 			command.setInfo("TOTAL SAFE 1!");
 			return command.s(aa, bb);
 		}
-		if (maxAnother < minOne - SystemConfParameters.detaJudgeSite()) {
+		if (maxAnother < minOne - AppConfParameters.detaJudgeSite()) {
 			command.setInfo("TOTAL SAFE 2!");
 			return command.s(aa, bb);
 		}
@@ -45,8 +45,8 @@ public class HongfuPiTaskexeDealerBak {
 
 		Direction directionAa = aa.msg.getDirection(), directionBb = bb.msg.getDirection();
 
-		boolean isAaLock = SystemParameters.flag(AppCache.worker().get(CacheKeys.ROAD_LOCKS, aa.getAgvId())),
-				isBbLock = SystemParameters.flag(AppCache.worker().get(CacheKeys.ROAD_LOCKS, bb.getAgvId()));
+		boolean isAaLock = AppSysParameters.flag(AppCache.worker().get(CacheKeys.ROAD_LOCKS, aa.getAgvId())),
+				isBbLock = AppSysParameters.flag(AppCache.worker().get(CacheKeys.ROAD_LOCKS, bb.getAgvId()));
 
 		if (!isAaLock && directionAa.onXaxis() && !isBbLock && directionBb.onXaxis()) {
 			HongfuTaskexeBean agv2 = aa.getAgvId().equals(2) ? aa : bb;
@@ -60,7 +60,7 @@ public class HongfuPiTaskexeDealerBak {
 
 		if (AppTool.inOrder(currentA, currentB, nextA, nextB)) {
 			command.setInfo(model(aa, CURRENT, bb, CURRENT, aa, NEXT, bb, NEXT));
-			if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
+			if (currentB - currentA <= AppConfParameters.distanceWaiting()) {
 				if (!isBbLock && directionBb.onXaxis()) {
 					return command.s(aa).d(bb);
 				}
@@ -71,7 +71,7 @@ public class HongfuPiTaskexeDealerBak {
 
 		if (AppTool.inOrder(currentA, currentB, nextB, nextA)) {
 			command.setInfo(model(aa, CURRENT, bb, CURRENT, bb, NEXT, aa, NEXT));
-			if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
+			if (currentB - currentA <= AppConfParameters.distanceWaiting()) {
 				if (!isBbLock) {
 					return command.s(aa).d(bb);
 				}
@@ -85,7 +85,7 @@ public class HongfuPiTaskexeDealerBak {
 
 		if (AppTool.inOrder(currentA, nextA, currentB, nextB)) {
 			command.setInfo(model(aa, CURRENT, aa, NEXT, bb, CURRENT, bb, NEXT));
-			if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
+			if (currentB - currentA <= AppConfParameters.distanceWaiting()) {
 				if (!isBbLock && directionBb.onXaxis()) {
 					return command.s(aa).d(bb);
 				}
@@ -100,8 +100,8 @@ public class HongfuPiTaskexeDealerBak {
 
 		if (AppTool.inOrder(currentA, nextA, nextB, currentB)) {
 			command.setInfo(model(aa, CURRENT, aa, NEXT, bb, NEXT, bb, CURRENT));
-			if (nextB - nextA <= SystemConfParameters.distanceTarget()) {
-				if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
+			if (nextB - nextA <= AppConfParameters.distanceTarget()) {
+				if (currentB - currentA <= AppConfParameters.distanceWaiting()) {
 					if (!isBbLock && directionBb.onXaxis()) {
 						return command.s(aa).d(bb);
 					}
@@ -121,7 +121,7 @@ public class HongfuPiTaskexeDealerBak {
 
 		if (AppTool.inOrder(currentA, nextB, currentB, nextA)) {
 			command.setInfo(model(aa, CURRENT, bb, NEXT, bb, CURRENT, aa, NEXT));
-			if (nextB - currentA <= SystemConfParameters.distanceTarget()) {
+			if (nextB - currentA <= AppConfParameters.distanceTarget()) {
 				if (!isBbLock && directionBb.onXaxis()) {
 					return command.s(aa).d(bb);
 				}
@@ -130,7 +130,7 @@ public class HongfuPiTaskexeDealerBak {
 				}
 				command.setInfo(aa + "TO" + bb + "TOO CLOSE,DEADLOCK!");
 				return command.d(aa, bb);
-			} else if (nextB - currentA <= SystemConfParameters.distanceWaiting()) {
+			} else if (nextB - currentA <= AppConfParameters.distanceWaiting()) {
 				if (!isBbLock && directionBb.onXaxis()) {
 					return command.s(aa).d(bb);
 				}
@@ -145,8 +145,8 @@ public class HongfuPiTaskexeDealerBak {
 
 		if (AppTool.inOrder(currentA, nextB, nextA, currentB)) {
 			command.setInfo(model(aa, CURRENT, bb, NEXT, aa, NEXT, bb, CURRENT));
-			if (nextB - currentA <= SystemConfParameters.distanceWaiting()
-					|| currentB - nextA <= SystemConfParameters.distanceWaiting()) {
+			if (nextB - currentA <= AppConfParameters.distanceWaiting()
+					|| currentB - nextA <= AppConfParameters.distanceWaiting()) {
 				if (!isBbLock && directionBb.onXaxis()) {
 					return command.s(aa).d(bb);
 				}
@@ -154,13 +154,13 @@ public class HongfuPiTaskexeDealerBak {
 					return command.d(aa).s(bb);
 				}
 				if (nextA - currentA <= currentB - nextB) {
-					if (currentB - nextA <= SystemConfParameters.distanceTarget()) {
+					if (currentB - nextA <= AppConfParameters.distanceTarget()) {
 						command.setInfo(bb + "TO" + aa + "TOO CLOSE,DEADLOCK!");
 						return command.d(aa, bb);
 					}
 					return command.s(aa).d(bb);
 				} else {
-					if (nextB - currentA <= SystemConfParameters.distanceTarget()) {
+					if (nextB - currentA <= AppConfParameters.distanceTarget()) {
 						command.setInfo(aa + "TO" + bb + "TOO CLOSE,DEADLOCK!");
 						return command.d(aa, bb);
 					}
@@ -179,8 +179,8 @@ public class HongfuPiTaskexeDealerBak {
 
 		if (AppTool.inOrder(nextA, currentA, nextB, currentB)) {
 			command.setInfo(model(aa, NEXT, aa, CURRENT, bb, NEXT, bb, CURRENT));
-			if (nextB - nextA <= SystemConfParameters.distanceTarget()) {
-				if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
+			if (nextB - nextA <= AppConfParameters.distanceTarget()) {
+				if (currentB - currentA <= AppConfParameters.distanceWaiting()) {
 					if (!isBbLock && directionBb.onXaxis()) {
 						return command.s(aa).d(bb);
 					}
@@ -196,7 +196,7 @@ public class HongfuPiTaskexeDealerBak {
 
 		if (AppTool.inOrder(nextA, nextB, currentA, currentB)) {
 			command.setInfo(model(aa, NEXT, bb, NEXT, aa, CURRENT, bb, CURRENT));
-			if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
+			if (currentB - currentA <= AppConfParameters.distanceWaiting()) {
 				if (!isBbLock && directionBb.onXaxis()) {
 					return command.s(aa).d(bb);
 				}
@@ -221,7 +221,7 @@ public class HongfuPiTaskexeDealerBak {
 
 		if (AppTool.inOrder(nextB, currentA, nextA, currentB)) {
 			command.setInfo(model(bb, NEXT, aa, CURRENT, aa, NEXT, bb, CURRENT));
-			if (currentB - nextA <= SystemConfParameters.distanceWaiting()) {
+			if (currentB - nextA <= AppConfParameters.distanceWaiting()) {
 				if (!isBbLock && directionBb.onXaxis()) {
 					return command.s(aa).d(bb);
 				}
@@ -236,8 +236,8 @@ public class HongfuPiTaskexeDealerBak {
 		if (AppTool.inOrder(nextB, nextA, currentA, currentB)) {
 			command.setInfo(model(bb, NEXT, aa, NEXT, aa, CURRENT, bb, CURRENT));
 			if (AppTool.isNull(aa.nextYaxisList)
-					|| aa.nextYaxisList.get(0) - currentB > SystemConfParameters.distanceTarget()) {
-				if (currentB - currentA <= SystemConfParameters.distanceWaiting()) {
+					|| aa.nextYaxisList.get(0) - currentB > AppConfParameters.distanceTarget()) {
+				if (currentB - currentA <= AppConfParameters.distanceWaiting()) {
 					if (!isBbLock && directionBb.onXaxis()) {
 						return command.s(aa).d(bb);
 					}

@@ -20,7 +20,7 @@ import com.kaifantech.component.service.lap.LapInfoService;
 import com.kaifantech.component.service.taskexe.auto.ITaskexeAutoService;
 import com.kaifantech.init.sys.AppBusinessInfo;
 import com.kaifantech.init.sys.BaseBusinessInfo;
-import com.kaifantech.init.sys.params.SystemAutoParameters;
+import com.kaifantech.init.sys.params.AppAutoParameters;
 import com.kaifantech.util.constant.taskexe.ctrl.IotDevType;
 import com.kaifantech.util.socket.IConnect;
 import com.kaifantech.util.socket.netty.client.hongfu.HongfuClientFactory;
@@ -85,7 +85,7 @@ public class RoboticArmWorker {
 	@SuppressWarnings("null")
 	@Async
 	private void doReceive(Integer keyId, IConnect client) {
-		if (!SystemAutoParameters.isAutoTask()) {
+		if (!AppAutoParameters.isAutoTask()) {
 			if (tipsTime++ > 20) {
 				tipsTime = 0;
 				dbLogger.warning("系统自动任务功能关闭中，请注意观察机械手实际生产情况！！！", 0, AgvStatusDBLogger.MSG_LEVEL_INFO);

@@ -22,9 +22,9 @@ import com.kaifantech.component.service.taskexe.ctrl.IHongfuCtrlModule;
 import com.kaifantech.component.service.taskexe.dealer.IHongfuTaskexeDealer;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
 import com.kaifantech.component.service.tasksite.info.HongfuTaskSiteInfoService;
-import com.kaifantech.init.sys.params.SystemConfParameters;
+import com.kaifantech.init.sys.params.AppConfParameters;
 import com.kaifantech.init.sys.params.SystemLock;
-import com.kaifantech.init.sys.params.SystemParameters;
+import com.kaifantech.init.sys.params.AppSysParameters;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.init.sys.qualifier.HongfuSystemQualifier;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
@@ -101,7 +101,7 @@ public class HongfuTaskexeModule implements ITaskexeModule {
 					site = taskSiteInfoService.getInitSite(agvId);
 				}
 				Integer yaxis = site.getJsonItem("yaxis", Integer.class);
-				if (Math.abs(agvMsg.getY() - yaxis) < SystemConfParameters.detaJudgeSite()) {
+				if (Math.abs(agvMsg.getY() - yaxis) < AppConfParameters.detaJudgeSite()) {
 					isAgvsOutOfInitPlaceWhenNoTask.put(agvId, false);
 				} else {
 					isAgvsOutOfInitPlaceWhenNoTask.put(agvId, true);
@@ -122,11 +122,11 @@ public class HongfuTaskexeModule implements ITaskexeModule {
 	private void deal(TaskexeBean taskexeBean, HongfuAgvMsgBean agvMsg) throws Exception {
 		synchronized (SystemLock.agv(taskexeBean.getAgvId())) {
 			if (AgvTaskType.match(taskexeBean.getTasktype())) {
-				boolean isShutdown = SystemParameters.isShutdown(taskexeBean);
+				boolean isShutdown = AppSysParameters.isShutdown(taskexeBean);
 				if (!isShutdown) {
 					taskexeDealer.deal(taskexeBean, agvMsg);
 				} else {
-					taskexeAddService.cancel(taskexeBean, SystemParameters.isShutdownThenToInit());
+					taskexeAddService.cancel(taskexeBean, AppSysParameters.isShutdownThenToInit());
 				}
 				return;
 			}
