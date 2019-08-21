@@ -2,22 +2,27 @@ package com.kaifantech.component.service.taskexe.module;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.calculatedfun.util.AppTool;
+import com.kaifantech.bean.info.agv.AgvInfoBean;
 import com.kaifantech.bean.iot.client.IotClientBean;
 import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
+import com.kaifantech.bean.tasksite.TaskSiteInfoBean;
 import com.kaifantech.component.comm.worker.client.IConnectWorker;
+import com.kaifantech.component.dao.agv.info.AgvInfoDao;
 import com.kaifantech.component.service.iot.client.IIotClientService;
 import com.kaifantech.component.service.taskexe.add.ITaskexeAddService;
 import com.kaifantech.component.service.taskexe.ctrl.IHongfuCtrlModule;
 import com.kaifantech.component.service.taskexe.dealer.IHongfuTaskexeDealer;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
-import com.kaifantech.component.service.taskexe.module.ITaskexeModule;
+import com.kaifantech.component.service.tasksite.info.HongfuTaskSiteInfoService;
+import com.kaifantech.init.sys.params.SystemConfParameters;
 import com.kaifantech.init.sys.params.SystemLock;
 import com.kaifantech.init.sys.params.SystemParameters;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
@@ -41,6 +46,9 @@ public class HongfuTaskexeModule implements ITaskexeModule {
 	private TaskexeInfoService taskexeInfoService;
 
 	@Autowired
+	protected HongfuTaskSiteInfoService taskSiteInfoService;
+
+	@Autowired
 	@Qualifier(DefaultSystemQualifier.DEFAULT_AGV_CLIENT_WORKER)
 	private IConnectWorker agvClientMgr;
 
@@ -55,6 +63,10 @@ public class HongfuTaskexeModule implements ITaskexeModule {
 	@Autowired
 	@Qualifier(DefaultSystemQualifier.DEFAULT_CTRL_MODULE)
 	private IHongfuCtrlModule ctrlModule;
+
+	@Autowired
+	@Qualifier(DefaultSystemQualifier.DEFAULT_AGV_INFO_DAO)
+	protected AgvInfoDao agvInfoDao;
 
 	private Map<Integer, Boolean> isRunning = new HashMap<>();
 
@@ -73,23 +85,37 @@ public class HongfuTaskexeModule implements ITaskexeModule {
 	}
 
 	public void doDeal(IotClientBean agvBean) {
+		Integer agvId = agvBean.getId();
 		try {
-			TaskexeBean taskexeBean = taskexeInfoService.getNextOne(agvBean.getId());
-			if (taskexeBean == null) {
+			TaskexeBean taskexeBean = taskexeInfoService.getNextOne(agvId);
+			HongfuAgvMsgBean agvMsg = HongfuAgvMsgGetter.getBean(agvId);
+			if (AppTool.isNull(agvMsg)) {
 				return;
 			}
-			HongfuAgvMsgBean agvMsg = HongfuAgvMsgGetter.getBean(agvBean.getId());
-			if (AppTool.isNull(agvMsg)) {
+			if (taskexeBean == null) {
+				AgvInfoBean agvInfo = agvInfoDao.get(agvId);
+				TaskSiteInfoBean site = null;
+				if (AgvTaskType.GOTO_CHARGE.equals(agvInfo.getTaskstatus())) {
+					site = taskSiteInfoService.getChargeSite(agvId);
+				} else {
+					site = taskSiteInfoService.getInitSite(agvId);
+				}
+				Integer yaxis = site.getJsonItem("yaxis", Integer.class);
+				if (Math.abs(agvMsg.getY() - yaxis) < SystemConfParameters.detaJudgeSite()) {
+					isAgvsOutOfInitPlaceWhenNoTask.put(agvId, false);
+				} else {
+					isAgvsOutOfInitPlaceWhenNoTask.put(agvId, true);
+				}
 				return;
 			}
 			deal(taskexeBean, agvMsg);
 			try {
 				ctrlModule.control(agvBean, agvMsg);
 			} catch (Exception e) {
-				AppFileLogger.warning(agvBean.getId() + "号AGV综合控制时发生错误：" + e.getMessage());
+				AppFileLogger.warning(agvId + "号AGV综合控制时发生错误：" + e.getMessage());
 			}
 		} catch (Exception e) {
-			AppFileLogger.warning(agvBean.getId() + "号AGV解析任务时发生错误：" + e.getMessage());
+			AppFileLogger.warning(agvId + "号AGV解析任务时发生错误：" + e.getMessage());
 		}
 	}
 
@@ -106,5 +132,19 @@ public class HongfuTaskexeModule implements ITaskexeModule {
 			}
 			AppFileLogger.warning("无法识别当前任务类型！" + taskexeBean.getTaskKey());
 		}
+	}
+
+	private static Map<Integer, Boolean> isAgvsOutOfInitPlaceWhenNoTask = new HashMap<>();
+
+	public static Integer anyOutOfInitPlaceWhenNoTask() {
+		if (AppTool.isNull(isAgvsOutOfInitPlaceWhenNoTask)) {
+			return null;
+		}
+		for (Entry<Integer, Boolean> flag : isAgvsOutOfInitPlaceWhenNoTask.entrySet()) {
+			if (!AppTool.isNull(flag.getValue()) && flag.getValue()) {
+				return flag.getKey();
+			}
+		}
+		return null;
 	}
 }

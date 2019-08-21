@@ -34,7 +34,6 @@ public class HongfuPiTaskexeDealer {
 	private PiCommand calculate(HongfuTaskexeBean aa, HongfuTaskexeBean bb) {
 		PiCommand command = new PiCommand();
 		String currentAreaAa = aa.currentArea, currentAreaBb = bb.currentArea;
-		String nextAreaAa = aa.nextArea, nextAreaBb = bb.nextArea;
 		AppFileLogger.piLogs(aa, currentAreaAa, "-", HongfuAgvMsgGetter.getDirection(aa.getAgvId()));
 		AppFileLogger.piLogs(bb, currentAreaBb, "-", HongfuAgvMsgGetter.getDirection(bb.getAgvId()));
 
@@ -43,60 +42,71 @@ public class HongfuPiTaskexeDealer {
 			return command.d(aa).d(bb);
 		}
 
-		if ("B".equals(currentAreaAa) && AppTool.equals(currentAreaBb, "C", "D")) {
-			if (Direction.Y_POS.equals(HongfuAgvMsgGetter.getDirection(aa.getAgvId()))) {
-				command.setInfo("B区车等待CD区域车");
-				return command.d(aa).s(bb);
-			}
+		command = calculateOneSide(aa, bb);
+		if (!AppTool.isNull(command)) {
+			return command;
 		}
-		if ("B".equals(currentAreaBb) && AppTool.equals(currentAreaAa, "C", "D")) {
-			if (Direction.Y_POS.equals(HongfuAgvMsgGetter.getDirection(bb.getAgvId()))) {
-				command.setInfo("B区车等待CD区域车");
-				return command.d(bb).s(aa);
+		command = calculateOneSide(bb, aa);
+		if (!AppTool.isNull(command)) {
+			return command;
+		}
+
+		return null;
+	}
+
+	private PiCommand calculateOneSide(HongfuTaskexeBean one, HongfuTaskexeBean two) {
+		PiCommand command = new PiCommand();
+
+		String currentAreaOne = one.currentArea, currentAreaTwo = two.currentArea;
+		String nextAreaTwo = two.nextArea;
+		Direction directionOne = HongfuAgvMsgGetter.getDirection(one.getAgvId()),
+				directionTwo = HongfuAgvMsgGetter.getDirection(two.getAgvId());
+
+		// if ("A".equals(currentAreaOne)) {
+		// if (AppTool.equals(currentAreaTwo, "B")) {
+		// if (Direction.Y_POS.equals(directionOne)) {
+		// command.setInfo("A区车等待B区域车");
+		// return command.d(one).s(two);
+		// }
+		// return null;
+		// }
+		// if (AppTool.equals(nextAreaTwo, "B", "C")) {
+		// command.setInfo("A区车等待目标目标BC区车");
+		// return command.d(one).s(two);
+		// }
+		// }
+
+		if ("B".equals(currentAreaOne)) {
+			if (AppTool.equals(currentAreaTwo, "C", "D")) {
+				if (Direction.Y_POS.equals(directionOne)) {
+					command.setInfo("B区车等待CD区域车");
+					return command.d(one).s(two);
+				}
+				return null;
+			}
+			if (AppTool.equals(nextAreaTwo, "C")) {
+				command.setInfo("B区车等待目标目标C区车");
+				return command.d(one).s(two);
 			}
 		}
 
-		if ("C".equals(currentAreaAa) && AppTool.equals(currentAreaBb, "E", "D")) {
-			if (Direction.Y_POS.equals(HongfuAgvMsgGetter.getDirection(aa.getAgvId()))) {
-				command.setInfo("C区车等待DE区域车");
-				return command.d(aa).s(bb);
-			}
-		}
-		if ("C".equals(currentAreaBb) && AppTool.equals(currentAreaAa, "E", "D")) {
-			if (Direction.Y_POS.equals(HongfuAgvMsgGetter.getDirection(bb.getAgvId()))) {
-				command.setInfo("C区车等待DE区域车");
-				return command.d(bb).s(aa);
+		if ("C".equals(currentAreaOne)) {
+			if (AppTool.equals(currentAreaTwo, "E", "D")) {
+				if (Direction.Y_POS.equals(directionOne)) {
+					command.setInfo("C区车等待DE区域车");
+					return command.d(one).s(two);
+				}
+				return null;
 			}
 		}
 
-		if ("B".equals(currentAreaAa) && AppTool.equals(nextAreaBb, "C")) {
-			command.setInfo("B区车等待CD区域车");
-			return command.d(aa).s(bb);
-		}
-
-		if ("C".equals(currentAreaBb) && AppTool.equals(nextAreaAa, "E")) {
-			if (Direction.Y_POS.equals(HongfuAgvMsgGetter.getDirection(aa.getAgvId()))) {
-				command.setInfo("C区车等待E区域车");
-				return command.d(bb).s(aa);
-			}
-		}
-		if ("C".equals(currentAreaAa) && AppTool.equals(nextAreaBb, "E")) {
-			if (Direction.Y_POS.equals(HongfuAgvMsgGetter.getDirection(bb.getAgvId()))) {
-				command.setInfo("C区车等待E区域车");
-				return command.d(aa).s(bb);
-			}
-		}
-
-		if ("E".equals(currentAreaBb) && AppTool.equals(nextAreaAa, "D")) {
-			if (Direction.Y_POS.equals(HongfuAgvMsgGetter.getDirection(aa.getAgvId()))) {
-				command.setInfo("E区车等待D区域车");
-				return command.d(bb).s(aa);
-			}
-		}
-		if ("E".equals(currentAreaBb) && AppTool.equals(nextAreaAa, "D")) {
-			if (Direction.Y_POS.equals(HongfuAgvMsgGetter.getDirection(bb.getAgvId()))) {
-				command.setInfo("E区车等待D区域车");
-				return command.d(bb).s(aa);
+		if ("E".equals(currentAreaOne)) {
+			if (AppTool.equals(nextAreaTwo, "D")) {
+				if (Direction.Y_POS.equals(directionTwo)) {
+					command.setInfo("E区车等待目标D区域车");
+					return command.d(one).s(two);
+				}
+				return null;
 			}
 		}
 

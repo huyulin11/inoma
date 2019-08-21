@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.calculatedfun.util.AppTool;
 import com.calculatedfun.util.msg.AppMsg;
 import com.kaifantech.bean.singletask.SingletaskBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
@@ -18,10 +19,12 @@ import com.kaifantech.component.service.paper.shipment.ShipmentCrudService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.taskexe.add.ITaskexeAddService;
 import com.kaifantech.component.service.taskexe.check.ITaskexeCheckService;
+import com.kaifantech.component.service.taskexe.module.HongfuTaskexeModule;
 import com.kaifantech.component.service.taskexe.status.ITaskexeStatusService;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.init.sys.qualifier.HongfuSystemQualifier;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
+import com.kaifantech.util.log.AppFileLogger;
 
 /***
  * 描述任务从用户下达到发送AGV执行前的逻辑
@@ -63,6 +66,11 @@ public class HongfuTaskexeAddService implements ITaskexeAddService {
 
 	@Override
 	public AppMsg addTask(Object obj) {
+		Integer errAgvId = HongfuTaskexeModule.anyOutOfInitPlaceWhenNoTask();
+		if (!AppTool.isNull(errAgvId)) {
+			String msg = AppFileLogger.setWarningTips(0, errAgvId, "号AGV无任务，且不处在正常的初始区域或充电，系统不再下达新任务！");
+			return new AppMsg(-1, msg);
+		}
 		TaskexeBean taskexeBean = (TaskexeBean) obj;
 		return addTask(taskexeBean);
 	}

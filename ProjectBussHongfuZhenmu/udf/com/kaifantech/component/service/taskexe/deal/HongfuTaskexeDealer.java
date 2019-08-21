@@ -125,8 +125,8 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 				continue;
 			}
 			String otherCurrentArea = AppCache.worker().get("AREA_CURRENT", otherAgvId);
-			String otherNextAreaWork = AppCache.worker().get("AREA_NEXT_WORK", otherAgvId);
-			String targetNextAreaWork = AppCache.worker().get("AREA_NEXT_WORK", targetAgvId);
+			String otherNextAreaWork = AppCache.worker().get("AREA_NEXT_ALLOC", otherAgvId);
+			String targetNextAreaWork = AppCache.worker().get("AREA_NEXT_ALLOC", targetAgvId);
 			if (AppTool.equals(otherCurrentArea, "D")) {
 				AppFileLogger.setPiTips(0, otherCurrentArea, "区有AGV", otherAgvId, ",", targetTaskexeBean, "阻塞");
 				return otherAgvId;
@@ -197,7 +197,7 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 			taskexeTaskDao.overASendTask(taskexeBean);
 			AppCache.worker().hset("AREA_CURRENT", agvId, "O");
 			AppCache.worker().hset("AREA_NEXT", agvId, "O");
-			AppCache.worker().hset("AREA_NEXT_WORK", agvId, "O");
+			AppCache.worker().hset("AREA_NEXT_ALLOC", agvId, "O");
 			AppFileLogger.setWarningTips(agvId, agvId, "号AGV执行的", taskexeBean.getTaskexesid(), "-",
 					taskexeBean.getTasksequence(), ",任务名：", singletaskBean.getTasktext(),
 					"任务所有明细任务均已执行完毕，更新任务状态为OVER！");
