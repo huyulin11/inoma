@@ -106,47 +106,49 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 		}
 	}
 
-	private Integer agvObstacle(TaskexeBean taskexeBean) {
-		Integer agvId = taskexeBean.getAgvId();
-		for (IotClientBean agvBean : iotClientService.getAgvCacheList()) {
-			if (agvBean.getId().equals(agvId)) {
+	private Integer agvObstacle(TaskexeBean targetTaskexeBean) {
+		Integer targetAgvId = targetTaskexeBean.getAgvId();
+		for (IotClientBean otherAgvBean : iotClientService.getAgvCacheList()) {
+			Integer otherAgvId = otherAgvBean.getId();
+			if (otherAgvId.equals(targetAgvId)) {
 				continue;
 			}
-			TaskexeBean taskexeBeanOther = taskexeInfoService.getNextOne(agvBean.getId());
-			if (taskexeBeanOther == null) {
+			TaskexeBean otherTaskexeBean = taskexeInfoService.getNextOne(otherAgvId);
+			if (otherTaskexeBean == null) {
 				continue;
 			}
-			if (TaskexeOpFlag.NEW.equals(taskexeBeanOther.getOpflag())) {
-				if (taskexeBean.getUpdatetime().getTime() > taskexeBeanOther.getUpdatetime().getTime()) {
-					AppFileLogger.setPiTips(0, "更早任务尚未下达,当前：", taskexeBean, ",根据", taskexeBeanOther, "判断");
-					return taskexeBeanOther.getAgvId();
+			if (TaskexeOpFlag.NEW.equals(otherTaskexeBean.getOpflag())) {
+				if (targetTaskexeBean.getUpdatetime().getTime() > otherTaskexeBean.getUpdatetime().getTime()) {
+					AppFileLogger.setPiTips(0, "更早任务尚未下达,当前：", targetTaskexeBean, ",根据", otherTaskexeBean, "判断");
+					return otherTaskexeBean.getAgvId();
 				}
 				continue;
 			}
-			String currentAreaOther = AppCache.worker().get("AREA_CURRENT", agvBean.getId());
-			String nextAreaWorkOther = AppCache.worker().get("AREA_NEXT_WORK", agvBean.getId());
-			String nextAreaWorkTarget = AppCache.worker().get("AREA_NEXT_WORK", agvId);
-			if (AppTool.equals(currentAreaOther, "D")) {
-				AppFileLogger.setPiTips(0, currentAreaOther, "区有AGV", agvBean.getId(), ",", taskexeBean, "阻塞");
-				return agvBean.getId();
+			String otherCurrentArea = AppCache.worker().get("AREA_CURRENT", otherAgvId);
+			String otherNextAreaWork = AppCache.worker().get("AREA_NEXT_WORK", otherAgvId);
+			String targetNextAreaWork = AppCache.worker().get("AREA_NEXT_WORK", targetAgvId);
+			if (AppTool.equals(otherCurrentArea, "D")) {
+				AppFileLogger.setPiTips(0, otherCurrentArea, "区有AGV", otherAgvId, ",", targetTaskexeBean, "阻塞");
+				return otherAgvId;
 			}
-			if (AppTool.equals(currentAreaOther, "C", "B", "A")) {
-				if (AppTool.equals(nextAreaWorkOther, "A") && AppTool.equals(nextAreaWorkTarget, "C")) {
+			if (AppTool.equals(otherCurrentArea, "C", "B", "A")) {
+				if ("A".equals(otherCurrentArea) && !"C".equals(targetNextAreaWork)) {
+					AppFileLogger.setPiTips(0, otherCurrentArea, "区有AGV", otherAgvId, ",", targetTaskexeBean, "阻塞");
+					return otherAgvId;
+				}
+				if (AppTool.equals(otherNextAreaWork, "A") && AppTool.equals(targetNextAreaWork, "C")) {
 				} else {
-					AppFileLogger.setPiTips(0, currentAreaOther, "区有AGV", agvBean.getId(), ",", taskexeBean, "阻塞");
-					return agvBean.getId();
+					AppFileLogger.setPiTips(0, otherCurrentArea, "区有AGV", otherAgvId, ",", targetTaskexeBean, "阻塞");
+					return otherAgvId;
 				}
-			} else if ("A".equals(currentAreaOther) && !"C".equals(nextAreaWorkTarget)) {
-				AppFileLogger.setPiTips(0, currentAreaOther, "区有AGV", agvBean.getId(), ",", taskexeBean, "阻塞");
-				return agvBean.getId();
 			}
 
-			if (AgvTaskType.RECEIPT.equals(taskexeBean.getTasktype())) {
-			} else if (AgvTaskType.SHIPMENT.equals(taskexeBean.getTasktype())) {
-				if (!AppTool.equals(currentAreaOther, "E")) {
-					AppFileLogger.setPiTips(0, "放货任务：A(或B/C/D)区有AGV", agvBean.getId(), ",", taskexeBean.getTaskKey(),
+			if (AgvTaskType.RECEIPT.equals(targetTaskexeBean.getTasktype())) {
+			} else if (AgvTaskType.SHIPMENT.equals(targetTaskexeBean.getTasktype())) {
+				if (!AppTool.equals(otherCurrentArea, "E")) {
+					AppFileLogger.setPiTips(0, "放货任务：A(或B/C/D)区有AGV", otherAgvId, ",", targetTaskexeBean.getTaskKey(),
 							"阻塞");
-					return agvBean.getId();
+					return otherAgvId;
 				}
 			}
 		}
