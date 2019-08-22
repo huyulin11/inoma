@@ -23,8 +23,8 @@ import com.kaifantech.component.service.taskexe.dealer.IHongfuTaskexeDealer;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
 import com.kaifantech.component.service.tasksite.info.HongfuTaskSiteInfoService;
 import com.kaifantech.init.sys.params.AppConfParameters;
-import com.kaifantech.init.sys.params.SystemLock;
 import com.kaifantech.init.sys.params.AppSysParameters;
+import com.kaifantech.init.sys.params.SystemLock;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
 import com.kaifantech.init.sys.qualifier.HongfuSystemQualifier;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
@@ -92,14 +92,9 @@ public class HongfuTaskexeModule implements ITaskexeModule {
 			if (AppTool.isNull(agvMsg)) {
 				return;
 			}
-			if (taskexeBean == null) {
-				AgvInfoBean agvInfo = agvInfoDao.get(agvId);
-				TaskSiteInfoBean site = null;
-				if (AgvTaskType.GOTO_CHARGE.equals(agvInfo.getTaskstatus())) {
-					site = taskSiteInfoService.getChargeSite(agvId);
-				} else {
-					site = taskSiteInfoService.getInitSite(agvId);
-				}
+			AgvInfoBean agvInfo = agvInfoDao.get(agvId);
+			if (taskexeBean == null && AgvTaskType.FREE.equals(agvInfo.getTaskstatus())) {
+				TaskSiteInfoBean site = taskSiteInfoService.getInitSite(agvId);
 				Integer yaxis = site.getJsonItem("yaxis", Integer.class);
 				if (Math.abs(agvMsg.getY() - yaxis) < AppConfParameters.detaJudgeSite()) {
 					isAgvsOutOfInitPlaceWhenNoTask.put(agvId, false);
