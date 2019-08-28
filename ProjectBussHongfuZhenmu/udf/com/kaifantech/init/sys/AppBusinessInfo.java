@@ -14,6 +14,8 @@ public class AppBusinessInfo extends BaseBusinessInfo {
 	public static final Clients CURRENT_CLIENT = Clients.HONGFU;
 	public static final Projects CURRENT_PROJECT = Projects.HONGFU_ZHENMU;
 
+	public static final String SYSTEM_INIT_DB_KEY = "kf_hongfu_zhenmu_";
+
 	public static void createStaticFile() throws IOException {
 		BaseBusinessInfo.createStaticFile();
 
