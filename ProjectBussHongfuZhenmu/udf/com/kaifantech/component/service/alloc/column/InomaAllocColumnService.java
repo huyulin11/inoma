@@ -21,6 +21,8 @@ public class InomaAllocColumnService extends AllocColumnService {
 	public AllocColumnInfoBean getBeanByTaskid(String taskid) {
 		SingletaskBean singletaskOfOne = singleTaskInfoService.get(taskid);
 		AllocItemInfoBean allocItemOfOne = allocItemDao.getAllocationInfoBean(singletaskOfOne.getAllocid());
-		return getBeanBy(allocItemOfOne.getAreaId(), allocItemOfOne.getColId());
+		Integer areaid = allocItemOfOne.getJsonItem("areaid", Integer.class);
+		Integer colid = allocItemOfOne.getJsonItem("colid", Integer.class);
+		return getBeanBy(areaid, colid);
 	}
 }

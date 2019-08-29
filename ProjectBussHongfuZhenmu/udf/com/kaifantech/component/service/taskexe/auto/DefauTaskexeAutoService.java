@@ -126,10 +126,10 @@ public class DefauTaskexeAutoService implements ITaskexeAutoService {
 
 			for (AllocColumnInfoBean column : columnList) {
 				Integer maxZId = column.getAllowedLayerHeight();
-				for (AllocItemInfoBean bean : allocDao.getAllocsBy(column.getAreaId(),
-						column.getColId())) {
+				for (AllocItemInfoBean bean : allocDao.getAllocsBy(column.getAreaId(), column.getColId())) {
 
-					if (bean.getZId() > maxZId || bean.getZId() > currentSku.getLayerHeight()) {
+					Integer zid = bean.getJsonItem("zid", Integer.class);
+					if (zid > maxZId || zid > currentSku.getLayerHeight()) {
 						continue;
 					}
 

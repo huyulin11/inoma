@@ -66,8 +66,10 @@ public class InomaDataInitService {
 		}
 
 		for (AllocItemInfoBean bean : allocItemDao.getAllocs()) {
-			AllocColumnInfoBean columnBean = allocColumnDao.getAllocationColumnInfoBeanBy(bean.getAreaId(),
-					bean.getColId());
+			Integer areaid = bean.getJsonItem("areaid", Integer.class);
+			Integer colid = bean.getJsonItem("colid", Integer.class);
+			Integer environment = bean.getJsonItem("environment", Integer.class);
+			AllocColumnInfoBean columnBean = allocColumnDao.getAllocationColumnInfoBeanBy(areaid, colid);
 			if (columnBean == null) {
 				return;
 			}
@@ -78,7 +80,7 @@ public class InomaDataInitService {
 				skuInfoBean = skuInfoService.getSkuInfoBeanByType(columnBean.getAllowedSkuType());
 			}
 			for (AgvInfoBean agvBean : agvDao.getList()) {
-				if (agvBean.getEnvironment() != bean.getEnvironment()) {
+				if (agvBean.getEnvironment() != environment) {
 					continue;
 				}
 				List<Map<String, Object>> lapAGVList = lapInfoService.getAllLapListBy(agvBean.getId());
@@ -115,13 +117,13 @@ public class InomaDataInitService {
 						} else {
 							if (taskName.indexOf("CHG") >= 0 && taskName.indexOf("GOTO") >= 0) {
 								singletaskDao.insert(taskName + ".xml", taskName + "任务", bean.getId(), 5,
-										agvBean.getId(), 0, bean.getEnvironment());
+										agvBean.getId(), 0, environment);
 							} else if (taskName.indexOf("CHG") >= 0 && taskName.indexOf("BACK") >= 0) {
 								singletaskDao.insert(taskName + ".xml", taskName + "任务", bean.getId(), 6,
-										agvBean.getId(), 0, bean.getEnvironment());
+										agvBean.getId(), 0, environment);
 							} else {
 								singletaskDao.insert(taskName + ".xml", taskName + "任务", bean.getId(), -1,
-										agvBean.getId(), lapId, bean.getEnvironment());
+										agvBean.getId(), lapId, environment);
 							}
 						}
 					}
@@ -165,7 +167,8 @@ public class InomaDataInitService {
 								}
 							}
 
-							if (!AppTool.isNull(item) && AppTool.isNull(item.getColumnId())) {
+							Integer columnid = item.getJsonItem("columnid", Integer.class);
+							if (!AppTool.isNull(item) && AppTool.isNull(columnid)) {
 								allocItemDao.updateColumnId(item.getId(), columnBean.getColumnId());
 							} else {
 								continue;
