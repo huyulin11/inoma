@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="udf"/>
+	<classpathentry kind="src" path="iotAcs"/>
 	<classpathentry kind="src" path="iotAgvHongfu"/>
 	<classpathentry kind="src" path="WebContent/WEB-INF/tag"/>
 	<classpathentry kind="src" path="WebContent/WEB-INF/jsp"/>
