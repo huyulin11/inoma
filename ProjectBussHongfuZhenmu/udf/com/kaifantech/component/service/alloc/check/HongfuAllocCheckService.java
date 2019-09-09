@@ -16,7 +16,7 @@ import com.kaifantech.init.sys.qualifier.HongfuSystemQualifier;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
 
 @Service(HongfuSystemQualifier.ALLOC_CHECK_SERVICE)
-public class HongfuAllocCheckService extends WmsAllocCheckService {
+public class HongfuAllocCheckService extends AcsAllocCheckService {
 	@Autowired
 	private SingletaskGroupService singletaskGroupService;
 
@@ -47,6 +47,12 @@ public class HongfuAllocCheckService extends WmsAllocCheckService {
 		if (msg.getCode() < 0) {
 			return msg;
 		}
+
+		msg = checkLatestTaskexe(agvId);
+		if (msg.getCode() < 0) {
+			return msg;
+		}
+
 		SingletaskBean singletaskBean = (SingletaskBean) obj;
 		AllocItemInfoBean allocationInfoBean = allocService.getByTaskid(singletaskBean.getId());
 		msg = checkAllocInfo(allocationInfoBean, singletaskBean.getTasktype());
