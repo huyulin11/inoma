@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.calculatedfun.util.DateFactory;
 import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.bean.msg.agv.TaskPathInfoPointBean;
-import com.kaifantech.init.sys.SystemInitTables;
+import com.kaifantech.init.sys.dao.AppTables;
 
 @Service
 public class TaskPathMemoryDao {
@@ -20,10 +20,10 @@ public class TaskPathMemoryDao {
 
 	public void addAPoint(Integer agvId, String taskid, double x, double y, Long startMoveSecond, Float angle,
 			Integer taskStep) {
-		jdbcTemplate.execute("insert into " + SystemInitTables.TASK_PATH_MEMORY
-				+ " (`uuid`,agvId,taskid,x,y,angle,secondToStart,taskStep ) " + "values(uuid()," + agvId
-				+ ",'" + taskid + "','" + x + "','" + y + "'," + angle + ","
-				+ (DateFactory.getCurrentUnixTime() - startMoveSecond) + "," + taskStep + ")");
+		jdbcTemplate.execute("insert into " + AppTables.TASK_PATH_MEMORY
+				+ " (`uuid`,agvId,taskid,x,y,angle,secondToStart,taskStep ) " + "values(uuid()," + agvId + ",'" + taskid
+				+ "','" + x + "','" + y + "'," + angle + "," + (DateFactory.getCurrentUnixTime() - startMoveSecond)
+				+ "," + taskStep + ")");
 	}
 
 	public void addAPoint(HongfuAgvMsgBean msg, Long startMoveSecond) {
@@ -32,26 +32,26 @@ public class TaskPathMemoryDao {
 	}
 
 	public void clearMemory(Integer agvId, String taskid) {
-		jdbcTemplate.execute("delete from " + SystemInitTables.TASK_PATH_MEMORY + "  WHERE agvId=" + agvId
-				+ " AND taskid=" + taskid + " ");
+		jdbcTemplate.execute(
+				"delete from " + AppTables.TASK_PATH_MEMORY + "  WHERE agvId=" + agvId + " AND taskid=" + taskid + " ");
 	}
 
 	public void transToInfo(Integer agvId, String taskid) {
-		jdbcTemplate.execute("insert into " + SystemInitTables.TASK_PATH_INFO
-				+ " (`uuid`,agvId,taskid,x,y,angle,secondToStart,taskStep) "
-				+ " SELECT `uuid`,agvId,taskid,x,y,angle,secondToStart,taskStep FROM  "
-				+ SystemInitTables.TASK_PATH_MEMORY + "  WHERE agvId=" + agvId + " AND taskid=" + taskid + " ");
+		jdbcTemplate.execute(
+				"insert into " + AppTables.TASK_PATH_INFO + " (`uuid`,agvId,taskid,x,y,angle,secondToStart,taskStep) "
+						+ " SELECT `uuid`,agvId,taskid,x,y,angle,secondToStart,taskStep FROM  "
+						+ AppTables.TASK_PATH_MEMORY + "  WHERE agvId=" + agvId + " AND taskid=" + taskid + " ");
 	}
 
 	public Integer getPointCount(Integer agvId, String taskid) {
-		return jdbcTemplate.queryForObject("select count(*) from " + SystemInitTables.TASK_PATH_MEMORY
-				+ " where agvId=" + agvId + " and taskid=" + taskid, Integer.class);
+		return jdbcTemplate.queryForObject("select count(*) from " + AppTables.TASK_PATH_MEMORY + " where agvId="
+				+ agvId + " and taskid=" + taskid, Integer.class);
 	}
 
 	public List<TaskPathInfoPointBean> selectPath(Integer agvId, String taskid) {
 		return (List<TaskPathInfoPointBean>) jdbcTemplate.query(
-				"select `uuid`,agvId,taskid,x,y,angle,secondToStart,taskStep from "
-						+ SystemInitTables.TASK_PATH_MEMORY + " where agvId=" + agvId + " and taskid=" + taskid,
+				"select `uuid`,agvId,taskid,x,y,angle,secondToStart,taskStep from " + AppTables.TASK_PATH_MEMORY
+						+ " where agvId=" + agvId + " and taskid=" + taskid,
 				new BeanPropertyRowMapper<TaskPathInfoPointBean>(TaskPathInfoPointBean.class));
 	}
 

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kaifantech.bean.msg.agv.IXYBean;
 import com.kaifantech.bean.msg.agv.TaskPathInfoPointBean;
-import com.kaifantech.init.sys.SystemInitTables;
+import com.kaifantech.init.sys.dao.AppTables;
 
 @Service
 public class TaskPathInfoDao {
@@ -19,21 +19,22 @@ public class TaskPathInfoDao {
 
 	public List<TaskPathInfoPointBean> selectPath(Integer agvId, String taskid) {
 		return (List<TaskPathInfoPointBean>) jdbcTemplate.query(
-				"select `uuid`,agvId,taskid,x,y,angle,secondToStart,taskStep from " + SystemInitTables.TASK_PATH_INFO
+				"select `uuid`,agvId,taskid,x,y,angle,secondToStart,taskStep from " + AppTables.TASK_PATH_INFO
 						+ " where agvId=" + agvId + " and taskid=" + taskid,
 				new BeanPropertyRowMapper<TaskPathInfoPointBean>(TaskPathInfoPointBean.class));
 	}
 
 	public Integer getPointCount(Integer agvId, String taskid) {
-		return jdbcTemplate.queryForObject("select count(*) from " + SystemInitTables.TASK_PATH_INFO + " where agvId="
-				+ agvId + " and taskid=" + taskid, Integer.class);
+		return jdbcTemplate.queryForObject(
+				"select count(*) from " + AppTables.TASK_PATH_INFO + " where agvId=" + agvId + " and taskid=" + taskid,
+				Integer.class);
 	}
 
 	public void addAPoint(Integer agvId, String taskid, double x, double y, Long startMoveSecond, Float angle,
 			Integer taskStep) {
-		jdbcTemplate.execute("insert into " + SystemInitTables.TASK_PATH_INFO
-				+ " (`uuid`,agvId,taskid,x,y,angle,secondToStart,taskStep) " + "values(uuid()," + agvId + ",'"
-				+ taskid + "','" + x + "','" + y + "'," + angle + "," + startMoveSecond + "," + taskStep + ")");
+		jdbcTemplate.execute("insert into " + AppTables.TASK_PATH_INFO
+				+ " (`uuid`,agvId,taskid,x,y,angle,secondToStart,taskStep) " + "values(uuid()," + agvId + ",'" + taskid
+				+ "','" + x + "','" + y + "'," + angle + "," + startMoveSecond + "," + taskStep + ")");
 	}
 
 	public void addAPoint(IXYBean msg, Long startMoveSecond) {
