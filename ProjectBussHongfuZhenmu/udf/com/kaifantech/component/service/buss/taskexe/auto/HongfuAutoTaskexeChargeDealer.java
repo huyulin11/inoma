@@ -12,14 +12,14 @@ import com.kaifantech.bean.info.agv.AgvInfoBean;
 import com.kaifantech.component.dao.ControlInfoDao;
 import com.kaifantech.component.dao.agv.info.AgvOpChargeDao;
 import com.kaifantech.component.dao.taskexe.op.TaskexeOpDao;
-import com.kaifantech.component.service.paper.base.WmsPaperService;
+import com.kaifantech.component.service.paper.base.PaperService;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvSiteStatus;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
 
 @Component
 public class HongfuAutoTaskexeChargeDealer {
 	@Autowired
-	protected WmsPaperService wmsPaperService;
+	protected PaperService wmsPaperService;
 
 	@Autowired
 	private AgvOpChargeDao agvOpDao;
