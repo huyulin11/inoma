@@ -14,8 +14,7 @@ import com.kaifantech.component.dao.taskexe.op.TaskexeOpDao;
 import com.kaifantech.component.service.agv.info.AgvInfoService;
 import com.kaifantech.component.service.alloc.info.IAllocInfoService;
 import com.kaifantech.component.service.alloc.status.IAllocStatusMgrService;
-import com.kaifantech.component.service.paper.receipt.ReceiptCrudService;
-import com.kaifantech.component.service.paper.shipment.ShipmentCrudService;
+import com.kaifantech.component.service.paper.base.PaperService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.taskexe.add.ITaskexeAddService;
 import com.kaifantech.component.service.taskexe.check.ITaskexeCheckService;
@@ -56,10 +55,7 @@ public class HongfuTaskexeAddService implements ITaskexeAddService {
 	private SingleTaskInfoService singleTaskInfoService;
 
 	@Autowired
-	private ReceiptCrudService receiptCrudService;
-
-	@Autowired
-	private ShipmentCrudService shipmentCrudService;
+	private PaperService paperService;
 
 	@Autowired
 	private AgvOpWmsDao agvOpWmsDao;
@@ -85,10 +81,8 @@ public class HongfuTaskexeAddService implements ITaskexeAddService {
 			String taskid = taskexeBean.getJsonItem("taskid");
 			SingletaskBean singletaskBean = singleTaskInfoService.get(taskid);
 			String taskexesid = null;
-			if (AgvTaskType.RECEIPT.equals(singletaskBean.getTasktype())) {
-				taskexesid = receiptCrudService.getPaperid();
-			} else if (AgvTaskType.SHIPMENT.equals(singletaskBean.getTasktype())) {
-				taskexesid = shipmentCrudService.getPaperid();
+			if (AppTool.equals(singletaskBean.getTasktype(), AgvTaskType.RECEIPT, AgvTaskType.SHIPMENT)) {
+				taskexesid = paperService.getCrudService(singletaskBean.getTasktype()).getPaperid();
 			} else {
 				System.err.println("无法处理的任务类型");
 				return AppMsg.fail();
