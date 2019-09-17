@@ -82,7 +82,7 @@ public class HongfuTaskexeAddService implements ITaskexeAddService {
 			SingletaskBean singletaskBean = singleTaskInfoService.get(taskid);
 			String taskexesid = null;
 			if (AppTool.equals(singletaskBean.getTasktype(), AgvTaskType.RECEIPT, AgvTaskType.SHIPMENT)) {
-				taskexesid = paperService.getCrudService(singletaskBean.getTasktype()).getPaperid();
+				taskexesid = paperService.getMainService(singletaskBean.getTasktype()).getPaperid();
 			} else {
 				System.err.println("无法处理的任务类型");
 				return AppMsg.fail();
