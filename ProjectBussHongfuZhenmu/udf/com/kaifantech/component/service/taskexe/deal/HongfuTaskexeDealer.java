@@ -180,8 +180,7 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 		if (!AppTool.isNull(agvMsg) && agvMsg.isTaskfinished()) {
 			if (AppTool.equals(taskexeBean.getTasktype(), AgvTaskType.RECEIPT, AgvTaskType.SHIPMENT)) {
 				AllocItemInfoBean allocItem = allocInfoService.getByTaskid(taskexeBean.getJsonItem("taskid"));
-				AppMsg msg = AgvTaskType.RECEIPT.equals(taskexeBean.getTasktype())
-						? allocService.transferUpDone(allocItem) : allocService.transferDownDone(allocItem);
+				AppMsg msg = allocService.transferDone(allocItem, taskexeBean.getTasktype());
 				if (!msg.isSuccess()) {
 					return;
 				}

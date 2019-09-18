@@ -82,7 +82,7 @@ public class HongfuTaskexeAddService implements ITaskexeAddService {
 			SingletaskBean singletaskBean = singleTaskInfoService.get(taskid);
 			String taskexesid = null;
 			if (AppTool.equals(singletaskBean.getTasktype(), AgvTaskType.RECEIPT, AgvTaskType.SHIPMENT)) {
-				taskexesid = paperService.getMainService(singletaskBean.getTasktype()).getPaperid();
+				taskexesid = paperService.getService(singletaskBean.getTasktype()).getPaperid();
 			} else {
 				System.err.println("无法处理的任务类型");
 				return AppMsg.fail();
@@ -90,7 +90,8 @@ public class HongfuTaskexeAddService implements ITaskexeAddService {
 			taskexeBean.setTaskexesid(taskexesid);
 			taskexeBean.setTasktype(singletaskBean.getTasktype());
 			AllocItemInfoBean allocItem = allocInfoService.getByTaskid(taskid);
-			allocService.lockTheAllocation(allocItem, taskexeBean.getSkuId(), singletaskBean.getTasktype());
+			allocItem.setSkuId(taskexeBean.getSkuId());
+			allocService.lockTheAllocation(allocItem, singletaskBean.getTasktype());
 			taskexeStatusService.changeStatusWhenNew(taskid);
 			taskexeTaskDao.addATask(taskexeBean);
 			agvOpWmsDao.command(taskexeBean.getAgvId(), taskexeBean.getTasktype());

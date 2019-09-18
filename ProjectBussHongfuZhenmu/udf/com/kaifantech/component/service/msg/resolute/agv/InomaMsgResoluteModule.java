@@ -136,8 +136,7 @@ public class InomaMsgResoluteModule implements IMsgResoluteModule {
 		}
 
 		AllocItemInfoBean allocItem = allocInfoService.getByTaskid(latestTaskexe.getTaskexesid());
-		AppMsg msg = AgvTaskType.RECEIPT.equals(singletaskBean.getTasktype()) ? allocService.transferUpDone(allocItem)
-				: allocService.transferDownDone(allocItem);
+		AppMsg msg = allocService.transferDone(allocItem, singletaskBean.getTasktype());
 		if (msg.getCode() >= 0) {
 			if (lapInfoService.getLapInUsed(latestTaskexe.getLapId())) {
 				lapInfoService.setLapInUsed(latestTaskexe.getLapId(), false);
