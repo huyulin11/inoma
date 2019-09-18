@@ -22,7 +22,7 @@ import com.kaifantech.component.dao.agv.info.AgvOpChargeDao;
 import com.kaifantech.component.dao.agv.info.AgvOpWmsDao;
 import com.kaifantech.component.dao.taskexe.op.TaskexeOpDao;
 import com.kaifantech.component.service.alloc.info.IAllocInfoService;
-import com.kaifantech.component.service.alloc.status.IAllocStatusMgrService;
+import com.kaifantech.component.service.alloc.status.IAllocStatusService;
 import com.kaifantech.component.service.iot.client.IIotClientService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.taskexe.dealer.IHongfuTaskexeDealer;
@@ -54,7 +54,7 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 	private SingleTaskInfoService singleTaskInfoService;
 
 	@Autowired
-	private IAllocStatusMgrService allocService;
+	private IAllocStatusService allocService;
 
 	@Autowired
 	@Qualifier(DefaultSystemQualifier.DEFAULT_ALLOC_INFO_SERVICE)

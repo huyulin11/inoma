@@ -13,7 +13,7 @@ import com.kaifantech.component.dao.agv.info.AgvOpWmsDao;
 import com.kaifantech.component.dao.taskexe.op.TaskexeOpDao;
 import com.kaifantech.component.service.agv.info.AgvInfoService;
 import com.kaifantech.component.service.alloc.info.IAllocInfoService;
-import com.kaifantech.component.service.alloc.status.IAllocStatusMgrService;
+import com.kaifantech.component.service.alloc.status.IAllocStatusService;
 import com.kaifantech.component.service.paper.base.PaperService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.taskexe.add.ITaskexeAddService;
@@ -49,7 +49,7 @@ public class HongfuTaskexeAddService implements ITaskexeAddService {
 	private IAllocInfoService allocInfoService;
 
 	@Autowired
-	private IAllocStatusMgrService allocService;
+	private IAllocStatusService allocService;
 
 	@Autowired
 	private SingleTaskInfoService singleTaskInfoService;
