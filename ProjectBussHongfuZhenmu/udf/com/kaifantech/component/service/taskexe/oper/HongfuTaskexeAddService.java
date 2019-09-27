@@ -91,7 +91,7 @@ public class HongfuTaskexeAddService implements ITaskexeAddService {
 			taskexeBean.setTasktype(singletaskBean.getTasktype());
 			AllocItemInfoBean allocItem = allocInfoService.getByTaskid(taskid);
 			allocItem.setSkuId(taskexeBean.getSkuId());
-			allocService.lockTheAllocation(allocItem, singletaskBean.getTasktype());
+			allocService.start(allocItem, singletaskBean.getTasktype());
 			taskexeStatusService.changeStatusWhenNew(taskid);
 			taskexeTaskDao.addATask(taskexeBean);
 			agvOpWmsDao.command(taskexeBean.getAgvId(), taskexeBean.getTasktype());
