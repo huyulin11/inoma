@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
+import com.calculatedfun.util.AppFile;
 import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.singletask.SingletaskBean;
 import com.kaifantech.component.cache.worker.AppContextStaticBeanFactory;
@@ -22,7 +23,7 @@ public class AppBusinessInfo extends BaseBusinessInfo {
 		{
 			AllocItemDao allocItemDao = AppContextStaticBeanFactory.getBean(AllocItemDao.class);
 			String info = JSONArray.toJSON(allocItemDao.getAllocs()).toString();
-			AppBusinessInfo.createFile(AppBusinessInfo.getProjJsonsPath() + "allocs/", "allocs" + ".json", info);
+			AppFile.createFile(AppBusinessInfo.getProjJsonsPath() + "allocs/", "allocs" + ".json", info);
 		}
 
 		{
@@ -30,8 +31,7 @@ public class AppBusinessInfo extends BaseBusinessInfo {
 					.getList();
 			if (!AppTool.isNull(singleTaskList)) {
 				String info = JSONArray.toJSON(singleTaskList).toString();
-				AppBusinessInfo.createFile(AppBusinessInfo.getProjJsonsPath() + "singletasks/", "singletasks" + ".json",
-						info);
+				AppFile.createFile(AppBusinessInfo.getProjJsonsPath() + "singletasks/", "singletasks" + ".json", info);
 			}
 		}
 	}
