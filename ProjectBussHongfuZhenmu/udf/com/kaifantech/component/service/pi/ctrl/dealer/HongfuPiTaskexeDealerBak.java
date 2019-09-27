@@ -1,11 +1,12 @@
 package com.kaifantech.component.service.pi.ctrl.dealer;
 
+import com.calculatedfun.util.AppNum;
 import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.taskexe.HongfuTaskexeBean;
 import com.kaifantech.cache.manager.AppCache;
-import com.kaifantech.init.sys.params.CacheKeys;
 import com.kaifantech.init.sys.params.AppConfParameters;
 import com.kaifantech.init.sys.params.AppSysParameters;
+import com.kaifantech.init.sys.params.CacheKeys;
 import com.kaifantech.util.agv.msg.Direction;
 import com.kaifantech.util.agv.msg.PiCommand;
 import com.kaifantech.util.log.AppFileLogger;
@@ -18,10 +19,10 @@ public class HongfuPiTaskexeDealerBak {
 	public PiCommand check2Agvs(HongfuTaskexeBean aa, HongfuTaskexeBean bb) {
 		PiCommand command = new PiCommand();
 
-		double maxOne = AppTool.max(aa.nextYaxisList, aa.currentYaxis, aa.nextYaxis);
-		double minOne = AppTool.min(aa.nextYaxisList, aa.currentYaxis, aa.nextYaxis);
-		double maxAnother = AppTool.max(bb.nextYaxisList, bb.currentYaxis, bb.nextYaxis);
-		double minAnother = AppTool.min(bb.nextYaxisList, bb.currentYaxis, bb.nextYaxis);
+		double maxOne = AppNum.max(aa.nextYaxisList, aa.currentYaxis, aa.nextYaxis);
+		double minOne = AppNum.min(aa.nextYaxisList, aa.currentYaxis, aa.nextYaxis);
+		double maxAnother = AppNum.max(bb.nextYaxisList, bb.currentYaxis, bb.nextYaxis);
+		double minAnother = AppNum.min(bb.nextYaxisList, bb.currentYaxis, bb.nextYaxis);
 
 		if (maxOne < minAnother - AppConfParameters.detaJudgeSite()) {
 			command.setInfo("TOTAL SAFE 1!");
