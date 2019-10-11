@@ -16,7 +16,7 @@ import com.kaifantech.component.dao.IotClientConnectMsgDao;
 import com.kaifantech.component.log.AgvStatusDBLogger;
 import com.kaifantech.component.service.iot.client.IIotClientService;
 import com.kaifantech.component.service.iot.client.msg.IotClientMsgService;
-import com.kaifantech.component.service.lap.LapInfoService;
+import com.kaifantech.component.service.lap.LapAgvInfoService;
 import com.kaifantech.component.service.taskexe.auto.ITaskexeAutoService;
 import com.kaifantech.init.sys.AppBusinessInfo;
 import com.kaifantech.init.sys.BaseBusinessInfo;
@@ -40,7 +40,7 @@ public class RoboticArmWorker {
 	private IotClientConnectMsgDao connectMsgDao;
 
 	@Autowired
-	private LapInfoService lapInfoService;
+	private LapAgvInfoService lapInfoService;
 
 	@Autowired
 	private ITaskexeAutoService taskexeAutoService;

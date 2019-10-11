@@ -21,7 +21,7 @@ import com.kaifantech.component.dao.agv.info.AgvInfoDao;
 import com.kaifantech.component.dao.alloc.AllocItemDao;
 import com.kaifantech.component.dao.iot.client.IotClientMsgDao;
 import com.kaifantech.component.service.alloc.column.IAllocColumnService;
-import com.kaifantech.component.service.lap.LapInfoService;
+import com.kaifantech.component.service.lap.LapAgvInfoService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.sku.SkuInfoService;
 import com.kaifantech.component.service.taskexe.add.ITaskexeAddService;
@@ -46,7 +46,7 @@ public class DefauTaskexeAutoService implements ITaskexeAutoService {
 	private TaskexeInfoService taskInfoService;
 
 	@Autowired
-	private LapInfoService lapInfoService;
+	private LapAgvInfoService lapInfoService;
 
 	@Autowired
 	private IAllocColumnService allocColumnService;
@@ -85,7 +85,7 @@ public class DefauTaskexeAutoService implements ITaskexeAutoService {
 
 		List<TaskexeBean> latestTaskList = taskInfoService.getNotOverList();
 
-		List<Map<String, Object>> agvList = lapInfoService.getAllAGVListBy(lapId);
+		List<Map<String, Object>> agvList = lapInfoService.getAllAgvListBy(lapId);
 		Integer agvId = null;
 		for (Map<String, Object> agv : agvList) {
 			Integer tmpAGVId = (Integer) agv.get("agvId");

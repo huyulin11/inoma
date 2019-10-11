@@ -21,7 +21,7 @@ import com.kaifantech.component.dao.alloc.AllocItemDao;
 import com.kaifantech.component.dao.led.LedDevInfoDao;
 import com.kaifantech.component.dao.singletask.SingletaskInfoDao;
 import com.kaifantech.component.service.alloc.area.IAllocAreaService;
-import com.kaifantech.component.service.lap.LapInfoService;
+import com.kaifantech.component.service.lap.LapAgvInfoService;
 import com.kaifantech.component.service.sku.SkuInfoService;
 import com.kaifantech.init.sys.params.AppSysParameters;
 import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
@@ -36,7 +36,7 @@ public class InomaDataInitService {
 	private AllocItemDao allocItemDao;
 
 	@Autowired
-	private LapInfoService lapInfoService;
+	private LapAgvInfoService lapInfoService;
 
 	@Autowired
 	private SingletaskInfoDao singletaskDao;

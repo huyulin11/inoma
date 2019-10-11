@@ -20,7 +20,7 @@ import com.kaifantech.component.dao.singletask.SingletaskInfoDao;
 import com.kaifantech.component.dao.taskexe.op.TaskexeOpDao;
 import com.kaifantech.component.log.AgvStatusDBLogger;
 import com.kaifantech.component.service.iot.client.IIotClientService;
-import com.kaifantech.component.service.lap.LapInfoService;
+import com.kaifantech.component.service.lap.LapAgvInfoService;
 import com.kaifantech.component.service.msg.info.agv.IAgvMsgInfoModule;
 import com.kaifantech.component.service.singletask.group.SingletaskGroupService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
@@ -66,7 +66,7 @@ public class AcsMsgResoluteModule implements IMsgResoluteModule {
 	private SingleTaskInfoService singleTaskInfoService;
 
 	@Autowired
-	private LapInfoService lapInfoService;
+	private LapAgvInfoService lapInfoService;
 
 	@Autowired
 	@Qualifier(DefaultSystemQualifier.DEFAULT_IOT_CLIENT_SERVICE)

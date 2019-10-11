@@ -17,7 +17,7 @@ import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.component.dao.AgvMsgDao;
 import com.kaifantech.component.dao.ControlInfoDao;
 import com.kaifantech.component.service.iot.client.IIotClientService;
-import com.kaifantech.component.service.lap.LapInfoService;
+import com.kaifantech.component.service.lap.LapAgvInfoService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
 import com.kaifantech.init.sys.params.AppAutoParameters;
@@ -38,7 +38,7 @@ public class AcsAgvMsgInfoModule implements IAgvMsgInfoModule {
 	private SingleTaskInfoService singleTaskInfoService;
 
 	@Autowired
-	private LapInfoService lapInfoService;
+	private LapAgvInfoService lapInfoService;
 
 	@Autowired
 	@Qualifier(DefaultSystemQualifier.DEFAULT_IOT_CLIENT_SERVICE)
