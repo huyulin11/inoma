@@ -2,21 +2,16 @@ package com.kaifantech.component.dao.taskexe;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.kaifantech.bean.msg.agv.IXYBean;
 import com.kaifantech.bean.msg.agv.TaskPathInfoPointBean;
 import com.kaifantech.init.sys.dao.AppTables;
+import com.kaifantech.init.sys.dao.BaseDao;
 
 @Service
-public class TaskPathInfoDao {
-
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
-
+public class TaskPathInfoDao extends BaseDao {
 	public List<TaskPathInfoPointBean> selectPath(Integer agvId, String taskid) {
 		return (List<TaskPathInfoPointBean>) jdbcTemplate.query(
 				"select `uuid`,agvId,taskid,x,y,angle,secondToStart,taskStep from " + AppTables.TASK_PATH_INFO

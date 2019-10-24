@@ -3,21 +3,16 @@ package com.kaifantech.component.dao.simulator;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.msg.agv.TaskPathInfoPointBean;
 import com.kaifantech.init.sys.SystemTestTables;
+import com.kaifantech.init.sys.dao.BaseDao;
 
 @Service
-public class TestPathDao {
-
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
-
+public class TestPathDao extends BaseDao {
 	public String getNextMsg(int c, Integer agvId) {
 		return jdbcTemplate.queryForObject(
 				"SELECT a.msg FROM " + getTableName(agvId) + " a limit " + (c % getCount(agvId)) + ",1 ", String.class);

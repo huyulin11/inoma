@@ -2,22 +2,17 @@ package com.kaifantech.component.dao.taskexe;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.calculatedfun.util.DateFactory;
 import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.bean.msg.agv.TaskPathInfoPointBean;
 import com.kaifantech.init.sys.dao.AppTables;
+import com.kaifantech.init.sys.dao.BaseDao;
 
 @Service
-public class TaskPathMemoryDao {
-
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
-
+public class TaskPathMemoryDao extends BaseDao {
 	public void addAPoint(Integer agvId, String taskid, double x, double y, Long startMoveSecond, Float angle,
 			Integer taskStep) {
 		jdbcTemplate.execute("insert into " + AppTables.TASK_PATH_MEMORY
