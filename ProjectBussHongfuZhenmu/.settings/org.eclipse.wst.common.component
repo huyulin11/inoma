@@ -106,7 +106,16 @@
         <dependent-module archiveName="commons-codec-1.5.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ProjectModel/WebContent/WEB-INF/lib/commons-codec-1.5.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="poi-ooxml-3.10-FINAL.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ProjectModel/WebContent/WEB-INF/lib/poi-ooxml-3.10-FINAL.jar">
+        <dependent-module archiveName="poi-ooxml-3.17.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ProjectModel/WebContent/WEB-INF/lib/poi-ooxml-3.17.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="poi-ooxml-schemas-3.17.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ProjectModel/WebContent/WEB-INF/lib/poi-ooxml-schemas-3.17.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xmlbeans-2.6.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ProjectModel/WebContent/WEB-INF/lib/xmlbeans-2.6.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="poi-3.17.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ProjectModel/WebContent/WEB-INF/lib/poi-3.17.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="jackson-core-2.1.4.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ProjectModel/WebContent/WEB-INF/lib/jackson-core-2.1.4.jar">
@@ -152,6 +161,9 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="commons-collections-3.2.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ProjectModel/WebContent/WEB-INF/lib/commons-collections-3.2.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-collections4-4.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ProjectModel/WebContent/WEB-INF/lib/commons-collections4-4.1.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="commons-io-2.4.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ProjectModel/WebContent/WEB-INF/lib/commons-io-2.4.jar">
