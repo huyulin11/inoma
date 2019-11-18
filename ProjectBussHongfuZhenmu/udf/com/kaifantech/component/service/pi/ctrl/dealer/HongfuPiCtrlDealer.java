@@ -34,7 +34,7 @@ public class HongfuPiCtrlDealer implements IPiCtrlDealer {
 			AppFileLogger.piLogs("AT LEAST ONE TASK IS NULL!");
 			return command;
 		}
-		if (AppTool.ifOr(TaskexeOpFlag.NEW.equals(one.getOpflag()), TaskexeOpFlag.NEW.equals(another.getOpflag()))) {
+		if (AppTool.or(TaskexeOpFlag.NEW.equals(one.getOpflag()), TaskexeOpFlag.NEW.equals(another.getOpflag()))) {
 			command.s(agvOne, agvAnother);
 			AppFileLogger.piLogs("AT LEAST ONE TASK IS NEW!");
 			return command;

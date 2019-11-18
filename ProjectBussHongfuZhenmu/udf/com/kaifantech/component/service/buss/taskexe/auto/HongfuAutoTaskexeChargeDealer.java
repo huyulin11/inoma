@@ -32,7 +32,7 @@ public class HongfuAutoTaskexeChargeDealer {
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public synchronized AppMsg newTask(AgvInfoBean targetAgv, String tasktype) {
-		if (AppTool.ifAnd(
+		if (AppTool.and(
 				!(AgvSiteStatus.INIT.equals(targetAgv.getSitestatus())
 						&& AgvTaskType.GOTO_CHARGE.equals(targetAgv.getTaskstatus())),
 				!(AgvSiteStatus.CHARGING.equals(targetAgv.getSitestatus())
