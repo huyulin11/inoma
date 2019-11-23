@@ -13,21 +13,21 @@ import com.kaifantech.init.sys.dao.BaseDao;
 @Service
 public class TaskPathInfoDao extends BaseDao {
 	public List<TaskPathInfoPointBean> selectPath(Integer agvId, String taskid) {
-		return (List<TaskPathInfoPointBean>) jdbcTemplate.query(
+		return (List<TaskPathInfoPointBean>) jdbcTemplate().query(
 				"select `uuid`,agvId,taskid,x,y,angle,secondToStart,taskStep from " + AppTables.TASK_PATH_INFO
 						+ " where agvId=" + agvId + " and taskid=" + taskid,
 				new BeanPropertyRowMapper<TaskPathInfoPointBean>(TaskPathInfoPointBean.class));
 	}
 
 	public Integer getPointCount(Integer agvId, String taskid) {
-		return jdbcTemplate.queryForObject(
+		return jdbcTemplate().queryForObject(
 				"select count(*) from " + AppTables.TASK_PATH_INFO + " where agvId=" + agvId + " and taskid=" + taskid,
 				Integer.class);
 	}
 
 	public void addAPoint(Integer agvId, String taskid, double x, double y, Long startMoveSecond, Float angle,
 			Integer taskStep) {
-		jdbcTemplate.execute("insert into " + AppTables.TASK_PATH_INFO
+		jdbcTemplate().execute("insert into " + AppTables.TASK_PATH_INFO
 				+ " (`uuid`,agvId,taskid,x,y,angle,secondToStart,taskStep) " + "values(uuid()," + agvId + ",'" + taskid
 				+ "','" + x + "','" + y + "'," + angle + "," + startMoveSecond + "," + taskStep + ")");
 	}

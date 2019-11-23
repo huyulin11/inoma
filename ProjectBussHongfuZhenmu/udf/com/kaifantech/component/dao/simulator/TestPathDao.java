@@ -14,16 +14,16 @@ import com.kaifantech.init.sys.dao.BaseDao;
 @Service
 public class TestPathDao extends BaseDao {
 	public String getNextMsg(int c, Integer agvId) {
-		return jdbcTemplate.queryForObject(
+		return jdbcTemplate().queryForObject(
 				"SELECT a.msg FROM " + getTableName(agvId) + " a limit " + (c % getCount(agvId)) + ",1 ", String.class);
 	}
 
 	public Integer getCount(Integer agvId) {
-		return jdbcTemplate.queryForObject("SELECT count(1) FROM " + getTableName(agvId) + " a  ", Integer.class);
+		return jdbcTemplate().queryForObject("SELECT count(1) FROM " + getTableName(agvId) + " a  ", Integer.class);
 	}
 
 	public List<TaskPathInfoPointBean> selectPath(Integer taskid) {
-		return (List<TaskPathInfoPointBean>) jdbcTemplate.query(
+		return (List<TaskPathInfoPointBean>) jdbcTemplate().query(
 				"select `uuid`,agvId,taskid,x,y,angle,secondToStart,taskStep from "
 						+ SystemTestTables.TASK_PATH_INFO_DATASOURCE + " where taskid=" + taskid
 						+ "  ORDER BY secondToStart ",
@@ -49,22 +49,22 @@ public class TestPathDao extends BaseDao {
 	}
 
 	public List<Map<String, Object>> getYufengTestData() {
-		return jdbcTemplate.queryForList(sql_yufeng);
+		return jdbcTemplate().queryForList(sql_yufeng);
 	}
 
 	public List<Map<String, Object>> getNextMsgFromSQL() {
-		return jdbcTemplate.queryForList(sql);
+		return jdbcTemplate().queryForList(sql);
 	}
 
 	public List<Map<String, Object>> getNextMsgFromSQL(String taskName) {
 		if (!AppTool.isNull(taskName)) {
-			return jdbcTemplate.queryForList(sql.replace("AAAAAAAAAA", taskName));
+			return jdbcTemplate().queryForList(sql.replace("AAAAAAAAAA", taskName));
 		}
-		return jdbcTemplate.queryForList(sql.replace("AAAAAAAAAA", "2-D-4-1-1-114.xml"));
+		return jdbcTemplate().queryForList(sql.replace("AAAAAAAAAA", "2-D-4-1-1-114.xml"));
 	}
 
 	public Integer getCountFromSQL() {
-		return jdbcTemplate.queryForObject("SELECT count(1) FROM (" + sql + ") a  ", Integer.class);
+		return jdbcTemplate().queryForObject("SELECT count(1) FROM (" + sql + ") a  ", Integer.class);
 	}
 
 }
