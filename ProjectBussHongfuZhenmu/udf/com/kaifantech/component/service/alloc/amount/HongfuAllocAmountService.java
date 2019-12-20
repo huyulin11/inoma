@@ -13,10 +13,10 @@ import com.kaifantech.component.dao.agv.info.AgvOpInitDao;
 import com.kaifantech.component.dao.taskexe.op.TaskexeOpDao;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
-import com.kaifantech.init.sys.qualifier.HongfuSystemQualifier;
+import com.kaifantech.init.sys.qualifier.HongfuQualifier;
 import com.kaifantech.util.constant.taskexe.TaskexeOpFlag;
 
-@Service(HongfuSystemQualifier.ALLOC_AMOUNT_SERVICE)
+@Service(HongfuQualifier.ALLOC_AMOUNT_SERVICE)
 public class HongfuAllocAmountService extends AcsAllocAmountService {
 	@Autowired
 	private TaskexeInfoService taskexeInfoService;

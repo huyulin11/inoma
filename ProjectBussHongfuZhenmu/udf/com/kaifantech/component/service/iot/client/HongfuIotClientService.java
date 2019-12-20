@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.iot.client.IotClientBean;
-import com.kaifantech.init.sys.qualifier.HongfuSystemQualifier;
+import com.kaifantech.init.sys.qualifier.HongfuQualifier;
 import com.kaifantech.util.constant.taskexe.ctrl.IotDevType;
 
-@Service(HongfuSystemQualifier.IOT_CLIENT_SERVICE)
+@Service(HongfuQualifier.IOT_CLIENT_SERVICE)
 public class HongfuIotClientService extends AcsIotClientService {
 	private List<IotClientBean> agvCacheList = new ArrayList<>();
 

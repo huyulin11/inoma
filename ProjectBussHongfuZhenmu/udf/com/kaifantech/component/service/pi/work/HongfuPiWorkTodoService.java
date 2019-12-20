@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.iot.client.IotClientBean;
 import com.kaifantech.component.service.taskexe.module.HongfuTaskexeModule;
-import com.kaifantech.init.sys.qualifier.HongfuSystemQualifier;
+import com.kaifantech.init.sys.qualifier.HongfuQualifier;
 import com.kaifantech.util.log.AppFileLogger;
 
-@Service(HongfuSystemQualifier.PI_WORK_TODO_SERVICE)
+@Service(HongfuQualifier.PI_WORK_TODO_SERVICE)
 public class HongfuPiWorkTodoService extends AcsPiWorkTodoService {
 	public void doControl() {
 		List<IotClientBean> agvs = iotClientService.getAgvCacheList();

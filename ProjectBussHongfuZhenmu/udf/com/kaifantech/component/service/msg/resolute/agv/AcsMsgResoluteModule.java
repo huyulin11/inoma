@@ -27,14 +27,14 @@ import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.taskexe.add.ITaskexeAddService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
 import com.kaifantech.component.service.taskexe.status.ITaskexeStatusService;
-import com.kaifantech.init.sys.qualifier.AcsSystemQualifier;
-import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
+import com.kaifantech.init.sys.qualifier.AcsQualifier;
+import com.kaifantech.init.sys.qualifier.DefaultQualifier;
 import com.kaifantech.util.constant.taskexe.TaskexeOpFlag;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvMoveStatus;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
 import com.kaifantech.util.thread.ThreadTool;
 
-@Service(AcsSystemQualifier.AGV_MSG_RESOLUTE_MODULE)
+@Service(AcsQualifier.AGV_MSG_RESOLUTE_MODULE)
 public class AcsMsgResoluteModule implements IMsgResoluteModule {
 
 	@Autowired
@@ -44,7 +44,7 @@ public class AcsMsgResoluteModule implements IMsgResoluteModule {
 	private TaskexeInfoService taskInfoService;
 
 	@Autowired
-	@Qualifier(DefaultSystemQualifier.DEFAULT_TASKEXE_ADD_SERVICE)
+	@Qualifier(DefaultQualifier.DEFAULT_TASKEXE_ADD_SERVICE)
 	private ITaskexeAddService taskexeService;
 
 	@Autowired
@@ -69,11 +69,11 @@ public class AcsMsgResoluteModule implements IMsgResoluteModule {
 	private LapAgvInfoService lapInfoService;
 
 	@Autowired
-	@Qualifier(DefaultSystemQualifier.DEFAULT_IOT_CLIENT_SERVICE)
+	@Qualifier(DefaultQualifier.DEFAULT_IOT_CLIENT_SERVICE)
 	private IIotClientService iotClientService;
 
 	@Autowired
-	@Qualifier(DefaultSystemQualifier.DEFAULT_AGV_INFO_DAO)
+	@Qualifier(DefaultQualifier.DEFAULT_AGV_INFO_DAO)
 	private AgvInfoDao agvInfoDao;
 
 	@Transactional(propagation = Propagation.REQUIRED)

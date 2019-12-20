@@ -24,7 +24,7 @@ import com.kaifantech.component.service.alloc.area.IAllocAreaService;
 import com.kaifantech.component.service.lap.LapAgvInfoService;
 import com.kaifantech.component.service.sku.SkuInfoService;
 import com.kaifantech.init.sys.params.AppSysParameters;
-import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
+import com.kaifantech.init.sys.qualifier.DefaultQualifier;
 
 @Service
 public class InomaDataInitService {
@@ -42,7 +42,7 @@ public class InomaDataInitService {
 	private SingletaskInfoDao singletaskDao;
 
 	@Autowired
-	@Qualifier(DefaultSystemQualifier.DEFAULT_AGV_INFO_DAO)
+	@Qualifier(DefaultQualifier.DEFAULT_AGV_INFO_DAO)
 	private AgvInfoDao agvDao;
 
 	@Autowired

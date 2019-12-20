@@ -20,15 +20,15 @@ import com.kaifantech.component.service.taskexe.add.ITaskexeAddService;
 import com.kaifantech.component.service.taskexe.check.ITaskexeCheckService;
 import com.kaifantech.component.service.taskexe.module.HongfuTaskexeModule;
 import com.kaifantech.component.service.taskexe.status.ITaskexeStatusService;
-import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
-import com.kaifantech.init.sys.qualifier.HongfuSystemQualifier;
+import com.kaifantech.init.sys.qualifier.DefaultQualifier;
+import com.kaifantech.init.sys.qualifier.HongfuQualifier;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
 import com.kaifantech.util.log.AppFileLogger;
 
 /***
  * 描述任务从用户下达到发送AGV执行前的逻辑
  ***/
-@Service(HongfuSystemQualifier.TASKEXE_ADD_SERVICE)
+@Service(HongfuQualifier.TASKEXE_ADD_SERVICE)
 public class HongfuTaskexeAddService implements ITaskexeAddService {
 
 	@Autowired
@@ -41,11 +41,11 @@ public class HongfuTaskexeAddService implements ITaskexeAddService {
 	private ITaskexeStatusService taskexeStatusService;
 
 	@Autowired
-	@Qualifier(DefaultSystemQualifier.DEFAULT_TASKEXE_CHECK_SERVICE)
+	@Qualifier(DefaultQualifier.DEFAULT_TASKEXE_CHECK_SERVICE)
 	private ITaskexeCheckService taskexeCheckService;
 
 	@Autowired
-	@Qualifier(DefaultSystemQualifier.DEFAULT_ALLOC_INFO_SERVICE)
+	@Qualifier(DefaultQualifier.DEFAULT_ALLOC_INFO_SERVICE)
 	private IAllocInfoService allocInfoService;
 
 	@Autowired

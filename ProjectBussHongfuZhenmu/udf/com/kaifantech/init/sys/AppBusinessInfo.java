@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.calculatedfun.util.AppFile;
 import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.singletask.SingletaskBean;
-import com.kaifantech.component.cache.worker.AppContextStaticBeanFactory;
+import com.kaifantech.component.cache.worker.AppBeanFactory;
 import com.kaifantech.component.dao.alloc.AllocItemDao;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 
@@ -21,14 +21,13 @@ public class AppBusinessInfo extends BaseBusinessInfo {
 		BaseBusinessInfo.createStaticFile();
 
 		{
-			AllocItemDao allocItemDao = AppContextStaticBeanFactory.getBean(AllocItemDao.class);
+			AllocItemDao allocItemDao = AppBeanFactory.get(AllocItemDao.class);
 			String info = JSONArray.toJSON(allocItemDao.getAllocs()).toString();
 			AppFile.createFile(AppBusinessInfo.getProjJsonsPath() + "allocs/", "allocs" + ".json", info);
 		}
 
 		{
-			List<SingletaskBean> singleTaskList = AppContextStaticBeanFactory.getBean(SingleTaskInfoService.class)
-					.getList();
+			List<SingletaskBean> singleTaskList = AppBeanFactory.get(SingleTaskInfoService.class).getList();
 			if (!AppTool.isNull(singleTaskList)) {
 				String info = JSONArray.toJSON(singleTaskList).toString();
 				AppFile.createFile(AppBusinessInfo.getProjJsonsPath() + "singletasks/", "singletasks" + ".json", info);

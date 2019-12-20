@@ -25,8 +25,8 @@ import com.kaifantech.component.service.tasksite.info.HongfuTaskSiteInfoService;
 import com.kaifantech.init.sys.params.AppConfParameters;
 import com.kaifantech.init.sys.params.AppSysParameters;
 import com.kaifantech.init.sys.params.SystemLock;
-import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
-import com.kaifantech.init.sys.qualifier.HongfuSystemQualifier;
+import com.kaifantech.init.sys.qualifier.DefaultQualifier;
+import com.kaifantech.init.sys.qualifier.HongfuQualifier;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
 import com.kaifantech.util.log.AppFileLogger;
 import com.kaifantech.util.msg.agv.HongfuAgvMsgGetter;
@@ -36,7 +36,7 @@ import com.kaifantech.util.thread.ThreadTool;
 /***
  * 描述任务从用户下达到发送AGV执行前的逻辑
  ***/
-@Service(HongfuSystemQualifier.TASKEXE_MODULE)
+@Service(HongfuQualifier.TASKEXE_MODULE)
 public class HongfuTaskexeModule implements ITaskexeModule {
 
 	@Autowired
@@ -49,23 +49,23 @@ public class HongfuTaskexeModule implements ITaskexeModule {
 	protected HongfuTaskSiteInfoService taskSiteInfoService;
 
 	@Autowired
-	@Qualifier(DefaultSystemQualifier.DEFAULT_AGV_CLIENT_WORKER)
+	@Qualifier(DefaultQualifier.DEFAULT_AGV_CLIENT_WORKER)
 	private IConnectWorker agvClientMgr;
 
 	@Autowired
-	@Qualifier(DefaultSystemQualifier.DEFAULT_TASKEXE_ADD_SERVICE)
+	@Qualifier(DefaultQualifier.DEFAULT_TASKEXE_ADD_SERVICE)
 	private ITaskexeAddService taskexeAddService;
 
 	@Autowired
-	@Qualifier(DefaultSystemQualifier.DEFAULT_IOT_CLIENT_SERVICE)
+	@Qualifier(DefaultQualifier.DEFAULT_IOT_CLIENT_SERVICE)
 	private IIotClientService iotClientService;
 
 	@Autowired
-	@Qualifier(DefaultSystemQualifier.DEFAULT_CTRL_MODULE)
+	@Qualifier(DefaultQualifier.DEFAULT_CTRL_MODULE)
 	private IHongfuCtrlModule ctrlModule;
 
 	@Autowired
-	@Qualifier(DefaultSystemQualifier.DEFAULT_AGV_INFO_DAO)
+	@Qualifier(DefaultQualifier.DEFAULT_AGV_INFO_DAO)
 	protected AgvInfoDao agvInfoDao;
 
 	public void startControl(IotClientBean agvBean) {

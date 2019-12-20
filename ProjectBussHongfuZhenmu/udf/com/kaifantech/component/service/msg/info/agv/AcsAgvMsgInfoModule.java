@@ -21,13 +21,13 @@ import com.kaifantech.component.service.lap.LapAgvInfoService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
 import com.kaifantech.init.sys.params.AppAutoParameters;
-import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
-import com.kaifantech.init.sys.qualifier.HongfuSystemQualifier;
+import com.kaifantech.init.sys.qualifier.DefaultQualifier;
+import com.kaifantech.init.sys.qualifier.HongfuQualifier;
 import com.kaifantech.util.agv.msg.MsgCompare;
 import com.kaifantech.util.socket.iot.client.RoboticArmMsgStr;
 import com.kaifantech.util.thread.ThreadTool;
 
-@Service(HongfuSystemQualifier.AGV_MSG_INFO_MODULE)
+@Service(HongfuQualifier.AGV_MSG_INFO_MODULE)
 public class AcsAgvMsgInfoModule implements IAgvMsgInfoModule {
 	private Map<Integer, HongfuAgvMsgBean> latestMsgMap = new HashMap<>();
 
@@ -41,7 +41,7 @@ public class AcsAgvMsgInfoModule implements IAgvMsgInfoModule {
 	private LapAgvInfoService lapInfoService;
 
 	@Autowired
-	@Qualifier(DefaultSystemQualifier.DEFAULT_IOT_CLIENT_SERVICE)
+	@Qualifier(DefaultQualifier.DEFAULT_IOT_CLIENT_SERVICE)
 	private IIotClientService iotClientService;
 
 	@Autowired

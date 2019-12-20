@@ -12,7 +12,7 @@ import com.kaifantech.bean.iot.client.IotClientBean;
 import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.component.dao.AgvMsgDao;
 import com.kaifantech.component.service.iot.client.IIotClientService;
-import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
+import com.kaifantech.init.sys.qualifier.DefaultQualifier;
 
 @Service
 public class IotClientMsgService {
@@ -22,7 +22,7 @@ public class IotClientMsgService {
 	private AgvMsgDao msgDao;
 
 	@Autowired
-	@Qualifier(DefaultSystemQualifier.DEFAULT_IOT_CLIENT_SERVICE)
+	@Qualifier(DefaultQualifier.DEFAULT_IOT_CLIENT_SERVICE)
 	private IIotClientService iotClientService;
 
 	public IotClientLatestMsg getLatestMsg(Integer agvId) {

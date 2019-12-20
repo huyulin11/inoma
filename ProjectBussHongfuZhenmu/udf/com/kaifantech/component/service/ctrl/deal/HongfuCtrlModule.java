@@ -11,17 +11,17 @@ import com.kaifantech.component.comm.manager.agv.IAgvManager;
 import com.kaifantech.component.dao.agv.info.AgvInfoDao;
 import com.kaifantech.component.service.taskexe.ctrl.IHongfuCtrlModule;
 import com.kaifantech.init.sys.params.HongfuCacheKeys;
-import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
-import com.kaifantech.init.sys.qualifier.HongfuSystemQualifier;
+import com.kaifantech.init.sys.qualifier.DefaultQualifier;
+import com.kaifantech.init.sys.qualifier.HongfuQualifier;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvMoveStatus;
 
-@Service(HongfuSystemQualifier.CTRL_MODULE)
+@Service(HongfuQualifier.CTRL_MODULE)
 public class HongfuCtrlModule implements IHongfuCtrlModule {
 	@Autowired
 	private IAgvManager agvManager;
 
 	@Autowired
-	@Qualifier(DefaultSystemQualifier.DEFAULT_AGV_INFO_DAO)
+	@Qualifier(DefaultQualifier.DEFAULT_AGV_INFO_DAO)
 	private AgvInfoDao agvInfoDao;
 
 	public void control(IotClientBean agvBean, HongfuAgvMsgBean agvMsg) {

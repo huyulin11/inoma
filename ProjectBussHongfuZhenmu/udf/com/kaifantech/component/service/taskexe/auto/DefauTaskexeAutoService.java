@@ -26,7 +26,7 @@ import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.sku.SkuInfoService;
 import com.kaifantech.component.service.taskexe.add.ITaskexeAddService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
-import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
+import com.kaifantech.init.sys.qualifier.DefaultQualifier;
 import com.kaifantech.util.constant.taskexe.alloc.AllocationStatus;
 
 @Service("defauTaskexeAutoService")
@@ -36,7 +36,7 @@ public class DefauTaskexeAutoService implements ITaskexeAutoService {
 	private AllocItemDao allocDao;
 
 	@Autowired
-	@Qualifier(DefaultSystemQualifier.DEFAULT_TASKEXE_ADD_SERVICE)
+	@Qualifier(DefaultQualifier.DEFAULT_TASKEXE_ADD_SERVICE)
 	private ITaskexeAddService taskexeService;
 
 	@Autowired
@@ -58,7 +58,7 @@ public class DefauTaskexeAutoService implements ITaskexeAutoService {
 	private IotClientMsgDao connectMsgRoboticArmDao;
 
 	@Autowired
-	@Qualifier(DefaultSystemQualifier.DEFAULT_AGV_INFO_DAO)
+	@Qualifier(DefaultQualifier.DEFAULT_AGV_INFO_DAO)
 	private AgvInfoDao agvInfoDao;
 
 	@Transactional(propagation = Propagation.REQUIRED)

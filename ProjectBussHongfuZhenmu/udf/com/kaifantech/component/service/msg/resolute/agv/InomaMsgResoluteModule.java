@@ -30,14 +30,14 @@ import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.taskexe.add.ITaskexeAddService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
 import com.kaifantech.component.service.taskexe.status.ITaskexeStatusService;
-import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
-import com.kaifantech.init.sys.qualifier.HongfuSystemQualifier;
+import com.kaifantech.init.sys.qualifier.DefaultQualifier;
+import com.kaifantech.init.sys.qualifier.HongfuQualifier;
 import com.kaifantech.util.constant.taskexe.TaskexeOpFlag;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvMoveStatus;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
 import com.kaifantech.util.thread.ThreadTool;
 
-@Service(HongfuSystemQualifier.AGV_MSG_RESOLUTE_MODULE)
+@Service(HongfuQualifier.AGV_MSG_RESOLUTE_MODULE)
 public class InomaMsgResoluteModule implements IMsgResoluteModule {
 
 	@Autowired
@@ -47,14 +47,14 @@ public class InomaMsgResoluteModule implements IMsgResoluteModule {
 	private TaskexeInfoService taskInfoService;
 
 	@Autowired
-	@Qualifier(DefaultSystemQualifier.DEFAULT_ALLOC_INFO_SERVICE)
+	@Qualifier(DefaultQualifier.DEFAULT_ALLOC_INFO_SERVICE)
 	private IAllocInfoService allocInfoService;
 
 	@Autowired
 	private IAllocStatusService allocService;
 
 	@Autowired
-	@Qualifier(DefaultSystemQualifier.DEFAULT_TASKEXE_ADD_SERVICE)
+	@Qualifier(DefaultQualifier.DEFAULT_TASKEXE_ADD_SERVICE)
 	private ITaskexeAddService taskexeService;
 
 	@Autowired
@@ -79,11 +79,11 @@ public class InomaMsgResoluteModule implements IMsgResoluteModule {
 	private LapAgvInfoService lapInfoService;
 
 	@Autowired
-	@Qualifier(DefaultSystemQualifier.DEFAULT_AGV_INFO_DAO)
+	@Qualifier(DefaultQualifier.DEFAULT_AGV_INFO_DAO)
 	private AgvInfoDao agvInfoDao;
 
 	@Autowired
-	@Qualifier(DefaultSystemQualifier.DEFAULT_IOT_CLIENT_SERVICE)
+	@Qualifier(DefaultQualifier.DEFAULT_IOT_CLIENT_SERVICE)
 	private IIotClientService iotClientService;
 
 	@Transactional(propagation = Propagation.REQUIRED)

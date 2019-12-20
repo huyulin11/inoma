@@ -12,7 +12,7 @@ import com.calculatedfun.util.msg.AppMsg;
 import com.kaifantech.bean.info.agv.AgvInfoBean;
 import com.kaifantech.component.dao.agv.info.AgvInfoDao;
 import com.kaifantech.component.service.taskexe.auto.IAutoTaskexeModule;
-import com.kaifantech.init.sys.qualifier.DefaultSystemQualifier;
+import com.kaifantech.init.sys.qualifier.DefaultQualifier;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvSiteStatus;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
 import com.kaifantech.util.log.AppFileLogger;
@@ -21,7 +21,7 @@ import com.kaifantech.util.log.AppFileLogger;
 @Lazy(false)
 public class HongfuAutoTaskexeModule implements IAutoTaskexeModule {
 	@Autowired
-	@Qualifier(DefaultSystemQualifier.DEFAULT_AGV_INFO_DAO)
+	@Qualifier(DefaultQualifier.DEFAULT_AGV_INFO_DAO)
 	private AgvInfoDao agvInfoDao;
 
 	@Autowired
