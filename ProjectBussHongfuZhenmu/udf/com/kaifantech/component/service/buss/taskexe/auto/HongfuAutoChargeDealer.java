@@ -17,7 +17,7 @@ import com.kaifantech.util.constant.taskexe.ctrl.AgvSiteStatus;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
 
 @Component
-public class HongfuAutoTaskexeChargeDealer {
+public class HongfuAutoChargeDealer {
 	@Autowired
 	protected PaperService wmsPaperService;
 
