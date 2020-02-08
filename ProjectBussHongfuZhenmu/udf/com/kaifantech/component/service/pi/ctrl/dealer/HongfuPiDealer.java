@@ -10,7 +10,7 @@ import com.kaifantech.util.log.AppFileLogger;
 import com.kaifantech.util.msg.agv.HongfuAgvMsgGetter;
 
 @Component
-public class HongfuPiTaskexeDealer {
+public class HongfuPiDealer {
 	public PiCommand check2Agvs(HongfuTaskexeBean aa, HongfuTaskexeBean bb) {
 		return calculate(aa, bb);
 	}

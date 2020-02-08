@@ -30,7 +30,7 @@ import com.kaifantech.init.sys.qualifier.DefaultQualifier;
 import com.kaifantech.util.constant.taskexe.alloc.AllocationStatus;
 
 @Service("defauTaskexeAutoService")
-public class DefauTaskexeAutoService implements ITaskexeAutoService {
+public class HongfuAutoService implements IAutoService {
 
 	@Autowired
 	private AllocItemDao allocDao;

@@ -12,7 +12,7 @@ import com.kaifantech.util.agv.msg.PiCommand;
 import com.kaifantech.util.log.AppFileLogger;
 
 //@Component
-public class HongfuPiTaskexeDealerBak {
+public class HongfuPiDealerBak {
 	private static String CURRENT = "CURRENT";
 	private static String NEXT = "NEXT";
 

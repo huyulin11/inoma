@@ -18,7 +18,7 @@ import com.kaifantech.util.log.AppFileLogger;
 @Component
 public class HongfuPiCtrlDealer implements IPiCtrlDealer {
 	@Autowired
-	private HongfuPiTaskexeDealer piTaskexeDealer;
+	private HongfuPiDealer piDealer;
 
 	@Autowired
 	private ITaskexeDetailInfoService taskexeDetailService;
@@ -45,7 +45,7 @@ public class HongfuPiCtrlDealer implements IPiCtrlDealer {
 		if (AppTool.isAnyNull(taskexeDetailListOne, taskexeDetailListAnother)) {
 			return null;
 		}
-		command = piTaskexeDealer.check2Agvs(one, another);
+		command = piDealer.check2Agvs(one, another);
 		if (!AppTool.isNull(command)) {
 			AppFileLogger.setPiTips(0, "TRAFFIC：", "GO：", AppSet.join(",", command.getSafes()), ";", "MGR：",
 					AppSet.join(",", command.getDangers()));

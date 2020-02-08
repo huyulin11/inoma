@@ -2,7 +2,6 @@
 
 import com.calculatedfun.util.msg.AppMsg;
 
-public interface ITaskexeAutoService {
-
+public interface IAutoService {
 	public AppMsg addTask(Integer lapId, int autoflag);
 }

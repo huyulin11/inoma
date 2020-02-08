@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONArray;
 import com.calculatedfun.util.AppTool;
 import com.calculatedfun.util.msg.AppMsg;
-import com.kaifantech.component.service.taskexe.auto.ITaskexeAutoService;
+import com.kaifantech.component.service.taskexe.auto.IAutoService;
 
 @Controller
 @RequestMapping("/json/op/")
-public class AcsTaskexeAutoController {
+public class AcsAutoController {
 	@Autowired
-	private ITaskexeAutoService taskexeAutoService;
+	private IAutoService taskexeAutoService;
 
 	@RequestMapping("addATaskBySystem")
 	@ResponseBody
