@@ -18,7 +18,7 @@ import com.kaifantech.component.service.iot.client.IIotClientService;
 import com.kaifantech.component.service.iot.client.msg.IotClientMsgService;
 import com.kaifantech.component.service.lap.LapAgvInfoService;
 import com.kaifantech.component.service.taskexe.auto.IAutoService;
-import com.kaifantech.init.sys.AppBusinessInfo;
+import com.kaifantech.init.sys.UdfBusinessInfo;
 import com.kaifantech.init.sys.BaseBusinessInfo;
 import com.kaifantech.init.sys.params.AppAutoParameters;
 import com.kaifantech.util.constant.taskexe.ctrl.IotDevType;
@@ -57,7 +57,7 @@ public class RoboticArmWorker {
 	public Map<Integer, IConnect> getClientMap() {
 		if (clientMap == null || clientMap.size() <= 0) {
 			for (IotClientBean bean : socketdevService.getList()) {
-				if (BaseBusinessInfo.Projects.CSY_DAJ.equals(AppBusinessInfo.CURRENT_PROJECT)
+				if (BaseBusinessInfo.Projects.CSY_DAJ.equals(UdfBusinessInfo.CURRENT_PROJECT)
 						&& bean.getDevtype().equals(IotDevType.ROBOT_GOODS_FROM)) {
 					try {
 						IConnect client;

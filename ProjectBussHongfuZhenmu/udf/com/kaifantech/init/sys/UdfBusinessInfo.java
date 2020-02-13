@@ -11,7 +11,7 @@ import com.kaifantech.component.cache.worker.AppBeanFactory;
 import com.kaifantech.component.dao.alloc.AllocItemDao;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 
-public class AppBusinessInfo extends BaseBusinessInfo {
+public class UdfBusinessInfo extends BaseBusinessInfo {
 	public static final Clients CURRENT_CLIENT = Clients.HONGFU;
 	public static final Projects CURRENT_PROJECT = Projects.HONGFU_ZHENMU;
 
@@ -23,14 +23,14 @@ public class AppBusinessInfo extends BaseBusinessInfo {
 		{
 			AllocItemDao allocItemDao = AppBeanFactory.get(AllocItemDao.class);
 			String info = JSONArray.toJSON(allocItemDao.getAllocs()).toString();
-			AppFile.createFile(AppBusinessInfo.getProjJsonsPath() + "allocs/", "allocs" + ".json", info);
+			AppFile.createFile(UdfBusinessInfo.getProjJsonsPath() + "allocs/", "allocs" + ".json", info);
 		}
 
 		{
 			List<SingletaskBean> singleTaskList = AppBeanFactory.get(SingleTaskInfoService.class).getList();
 			if (!AppTool.isNull(singleTaskList)) {
 				String info = JSONArray.toJSON(singleTaskList).toString();
-				AppFile.createFile(AppBusinessInfo.getProjJsonsPath() + "singletasks/", "singletasks" + ".json", info);
+				AppFile.createFile(UdfBusinessInfo.getProjJsonsPath() + "singletasks/", "singletasks" + ".json", info);
 			}
 		}
 	}
