@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.iot.client.IotClientBean;
-import com.kaifantech.component.dao.IotClientConnectMsgDao;
+import com.kaifantech.component.dao.acs.IotClientConnectMsgDao;
 import com.kaifantech.component.log.AgvStatusDBLogger;
 import com.kaifantech.component.service.iot.client.IIotClientService;
 import com.kaifantech.component.service.iot.client.msg.IotClientMsgService;

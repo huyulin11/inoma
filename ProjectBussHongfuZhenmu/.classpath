@@ -5,13 +5,8 @@
 	<classpathentry kind="src" path="iotAgvHongfu"/>
 	<classpathentry kind="src" path="WebContent/WEB-INF/tag"/>
 	<classpathentry kind="src" path="WebContent/WEB-INF/jsp"/>
-	<classpathentry kind="src" path="dataCache"/>
 	<classpathentry kind="src" path="dataExchange"/>
-	<classpathentry kind="src" path="IotCommunication"/>
-	<classpathentry kind="src" path="IotInfo"/>
-	<classpathentry kind="src" path="iotTraffic"/>
 	<classpathentry kind="src" path="IotUtil"/>
-	<classpathentry kind="src" path="BasicComponent"/>
 	<classpathentry kind="src" path="BasicUtil"/>
 	<classpathentry kind="src" path="conf"/>
 	<classpathentry kind="src" path="Taskexe"/>

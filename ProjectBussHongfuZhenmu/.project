@@ -30,24 +30,9 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>BasicComponent</name>
-			<type>2</type>
-			<location>G:/work2018/src/git/ProjectModel/JavaSrc/BasicComponent</location>
-		</link>
-		<link>
 			<name>BasicUtil</name>
 			<type>2</type>
 			<location>G:/work2018/src/git/ProjectModel/JavaSrc/BasicUtil</location>
-		</link>
-		<link>
-			<name>IotCommunication</name>
-			<type>2</type>
-			<location>G:/work2018/src/git/ProjectModel/JavaSrc/IotCommunication</location>
-		</link>
-		<link>
-			<name>IotInfo</name>
-			<type>2</type>
-			<location>G:/work2018/src/git/ProjectModel/JavaSrc/IotInfo</location>
 		</link>
 		<link>
 			<name>IotUtil</name>
@@ -63,11 +48,6 @@
 			<name>conf</name>
 			<type>2</type>
 			<location>G:/work2018/src/git/ProjectModel/JavaSrc/conf</location>
-		</link>
-		<link>
-			<name>dataCache</name>
-			<type>2</type>
-			<location>G:/work2018/src/git/ProjectModel/JavaSrc/dataCache</location>
 		</link>
 		<link>
 			<name>dataExchange</name>

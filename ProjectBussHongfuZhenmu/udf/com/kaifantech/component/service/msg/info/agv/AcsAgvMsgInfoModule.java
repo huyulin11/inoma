@@ -14,7 +14,7 @@ import com.kaifantech.bean.iot.client.IotClientBean;
 import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
 import com.kaifantech.bean.msg.agv.HongfuAgvMsgBeanTransfer;
 import com.kaifantech.bean.taskexe.TaskexeBean;
-import com.kaifantech.component.dao.AgvMsgDao;
+import com.kaifantech.component.dao.acs.AgvMsgDao;
 import com.kaifantech.component.dao.ControlInfoDao;
 import com.kaifantech.component.service.iot.client.IIotClientService;
 import com.kaifantech.component.service.lap.LapAgvInfoService;

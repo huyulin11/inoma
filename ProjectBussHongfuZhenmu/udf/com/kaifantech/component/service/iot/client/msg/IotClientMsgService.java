@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.iot.client.IotClientBean;
 import com.kaifantech.bean.msg.agv.HongfuAgvMsgBean;
-import com.kaifantech.component.dao.AgvMsgDao;
+import com.kaifantech.component.dao.acs.AgvMsgDao;
 import com.kaifantech.component.service.iot.client.IIotClientService;
 import com.kaifantech.init.sys.qualifier.DefaultQualifier;
 
