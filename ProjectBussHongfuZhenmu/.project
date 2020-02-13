@@ -35,9 +35,9 @@
 			<location>G:/work2018/src/git/ProjectModel/JavaSrc/BasicUtil</location>
 		</link>
 		<link>
-			<name>IotUtil</name>
+			<name>iotBase</name>
 			<type>2</type>
-			<location>G:/work2018/src/git/ProjectModel/JavaSrc/IotUtil</location>
+			<location>G:/work2018/src/git/ProjectModel/JavaSrc/iotBase</location>
 		</link>
 		<link>
 			<name>Taskexe</name>
