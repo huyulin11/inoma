@@ -19,7 +19,7 @@ import com.kaifantech.component.dao.agv.info.AgvInfoDao;
 import com.kaifantech.component.service.taskexe.detail.info.ITaskexeDetailInfoService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
 import com.kaifantech.component.service.tasksite.info.HongfuTaskSiteInfoService;
-import com.kaifantech.init.sys.qualifier.DefaultQualifier;
+import com.kaifantech.init.sys.qualifier.UdfQualifier;
 import com.kaifantech.util.msg.agv.HongfuAgvMsgGetter;
 
 @Component
@@ -36,7 +36,7 @@ public class HongfuPiInfoService {
 	private Map<Integer, HongfuTaskexeBean> cache = new HashMap<>();
 
 	@Autowired
-	@Qualifier(DefaultQualifier.DEFAULT_AGV_INFO_DAO)
+	@Qualifier(UdfQualifier.DEFAULT_AGV_INFO_DAO)
 	private AgvInfoDao agvInfoDao;
 
 	public HongfuTaskexeBean getCache(Integer agvId) throws Exception {

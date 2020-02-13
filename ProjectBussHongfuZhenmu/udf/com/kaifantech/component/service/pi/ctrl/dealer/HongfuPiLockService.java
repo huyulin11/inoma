@@ -14,7 +14,7 @@ import com.kaifantech.cache.manager.AppCache;
 import com.kaifantech.component.service.iot.client.IIotClientService;
 import com.kaifantech.component.service.tasksite.info.HongfuTaskSiteInfoService;
 import com.kaifantech.init.sys.params.CacheKeys;
-import com.kaifantech.init.sys.qualifier.DefaultQualifier;
+import com.kaifantech.init.sys.qualifier.UdfQualifier;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvLockStatus;
 
 @Component
@@ -23,7 +23,7 @@ public class HongfuPiLockService {
 	private HongfuTaskSiteInfoService taskSiteInfoService;
 
 	@Autowired
-	@Qualifier(DefaultQualifier.DEFAULT_IOT_CLIENT_SERVICE)
+	@Qualifier(UdfQualifier.DEFAULT_IOT_CLIENT_SERVICE)
 	private IIotClientService iotClientService;
 
 	public synchronized void roadLocks(TaskexeBean taskexeBean, HongfuAgvMsgBean agvMsgBean,

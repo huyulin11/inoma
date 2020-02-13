@@ -50,11 +50,6 @@
 			<location>G:/work2018/src/git/ProjectModel/JavaSrc/conf</location>
 		</link>
 		<link>
-			<name>dataExchange</name>
-			<type>2</type>
-			<location>G:/work2018/src/git/ProjectModel/JavaSrc/dataExchange</location>
-		</link>
-		<link>
 			<name>iotAcs</name>
 			<type>2</type>
 			<location>G:/work2018/src/git/ProjectModel/JavaSrc/iotAcs</location>

@@ -14,7 +14,7 @@ import com.kaifantech.component.dao.agv.info.AgvAxisDao;
 import com.kaifantech.component.dao.agv.info.AgvInfoDao;
 import com.kaifantech.component.service.msg.info.agv.IAgvMsgInfoModule;
 import com.kaifantech.component.service.pi.path.distance.Differ;
-import com.kaifantech.init.sys.qualifier.DefaultQualifier;
+import com.kaifantech.init.sys.qualifier.UdfQualifier;
 import com.kaifantech.util.agv.msg.Direction;
 import com.kaifantech.util.constant.pi.detail.CLASH_AREA_INFO;
 
@@ -22,7 +22,7 @@ import com.kaifantech.util.constant.pi.detail.CLASH_AREA_INFO;
 public class RoadsRecordService {
 
 	@Autowired
-	@Qualifier(DefaultQualifier.DEFAULT_AGV_INFO_DAO)
+	@Qualifier(UdfQualifier.DEFAULT_AGV_INFO_DAO)
 	private AgvInfoDao agvDao;
 
 	@Autowired

@@ -9,7 +9,7 @@ import com.kaifantech.bean.singletask.SingletaskBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.component.service.alloc.check.IAllocCheckService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
-import com.kaifantech.init.sys.qualifier.DefaultQualifier;
+import com.kaifantech.init.sys.qualifier.UdfQualifier;
 import com.kaifantech.init.sys.qualifier.WmsQualifier;
 
 @Service(WmsQualifier.TASKEXE_CHECK_SERVICE)
@@ -18,7 +18,7 @@ public class HongfuTaskexeCheckService extends AcsTaskexeCheckService {
 	private SingleTaskInfoService singleTaskInfoService;
 
 	@Autowired
-	@Qualifier(DefaultQualifier.DEFAULT_ALLOC_CHECK_SERVICE)
+	@Qualifier(UdfQualifier.DEFAULT_ALLOC_CHECK_SERVICE)
 	private IAllocCheckService allocCheckService;
 
 	public AppMsg checkBeforeAdd(TaskexeBean taskexeBean, Integer agvId) {

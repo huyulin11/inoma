@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import com.kaifantech.component.business.msg.resolute.agv.IMsgResoluteModule;
-import com.kaifantech.init.sys.qualifier.DefaultQualifier;
+import com.kaifantech.init.sys.qualifier.UdfQualifier;
 import com.kaifantech.util.seq.ThreadID;
 
 @Component
@@ -16,7 +16,7 @@ public class AgvMsgResoluteTimer {
 	private static String timerType = "AGV消息解析器";
 
 	@Autowired
-	@Qualifier(DefaultQualifier.DEFAULT_MSGRESOLUTE_MODULE)
+	@Qualifier(UdfQualifier.DEFAULT_MSGRESOLUTE_MODULE)
 	private IMsgResoluteModule msgResoluteMgr;
 
 	// @Scheduled(cron = "0/2 * * * * ?")

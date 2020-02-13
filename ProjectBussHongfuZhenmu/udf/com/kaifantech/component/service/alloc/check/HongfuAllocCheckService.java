@@ -14,7 +14,7 @@ import com.kaifantech.component.service.singletask.group.SingletaskGroupService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.taskexe.check.ITaskexeCheckService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
-import com.kaifantech.init.sys.qualifier.DefaultQualifier;
+import com.kaifantech.init.sys.qualifier.UdfQualifier;
 import com.kaifantech.init.sys.qualifier.HongfuQualifier;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
 
@@ -30,7 +30,7 @@ public class HongfuAllocCheckService extends WmsAllocCheckService {
 	private TaskexeInfoService taskInfoService;
 
 	@Autowired
-	@Qualifier(DefaultQualifier.DEFAULT_TASKEXE_CHECK_SERVICE)
+	@Qualifier(UdfQualifier.DEFAULT_TASKEXE_CHECK_SERVICE)
 	private ITaskexeCheckService taskexeCheckService;
 
 	public AppMsg checkLatestTaskexe(Integer agvId) {

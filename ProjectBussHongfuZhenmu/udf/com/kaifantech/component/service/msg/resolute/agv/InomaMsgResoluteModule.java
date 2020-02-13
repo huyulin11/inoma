@@ -30,7 +30,7 @@ import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.taskexe.add.ITaskexeAddService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
 import com.kaifantech.component.service.taskexe.status.ITaskexeStatusService;
-import com.kaifantech.init.sys.qualifier.DefaultQualifier;
+import com.kaifantech.init.sys.qualifier.UdfQualifier;
 import com.kaifantech.init.sys.qualifier.HongfuQualifier;
 import com.kaifantech.util.constant.taskexe.TaskexeOpFlag;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvMoveStatus;
@@ -47,14 +47,14 @@ public class InomaMsgResoluteModule implements IMsgResoluteModule {
 	private TaskexeInfoService taskInfoService;
 
 	@Autowired
-	@Qualifier(DefaultQualifier.DEFAULT_ALLOC_INFO_SERVICE)
+	@Qualifier(UdfQualifier.DEFAULT_ALLOC_INFO_SERVICE)
 	private IAllocInfoService allocInfoService;
 
 	@Autowired
 	private IAllocStatusService allocService;
 
 	@Autowired
-	@Qualifier(DefaultQualifier.DEFAULT_TASKEXE_ADD_SERVICE)
+	@Qualifier(UdfQualifier.DEFAULT_TASKEXE_ADD_SERVICE)
 	private ITaskexeAddService taskexeService;
 
 	@Autowired
@@ -79,11 +79,11 @@ public class InomaMsgResoluteModule implements IMsgResoluteModule {
 	private LapAgvInfoService lapInfoService;
 
 	@Autowired
-	@Qualifier(DefaultQualifier.DEFAULT_AGV_INFO_DAO)
+	@Qualifier(UdfQualifier.DEFAULT_AGV_INFO_DAO)
 	private AgvInfoDao agvInfoDao;
 
 	@Autowired
-	@Qualifier(DefaultQualifier.DEFAULT_IOT_CLIENT_SERVICE)
+	@Qualifier(UdfQualifier.DEFAULT_IOT_CLIENT_SERVICE)
 	private IIotClientService iotClientService;
 
 	@Transactional(propagation = Propagation.REQUIRED)

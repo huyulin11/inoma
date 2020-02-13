@@ -1,6 +1,6 @@
 package com.kaifantech.init.sys.qualifier;
 
-public class DefaultQualifier extends BaseQualifier {
+public class UdfQualifier extends BaseQualifier {
 	public static final String DEFAULT_SERVICE_PREFIX = HongfuQualifier.DEFAULT_SERVICE_PREFIX;
 
 	public static final String DEFAULT_TASKEXE_MODULE = HongfuQualifier.TASKEXE_MODULE;

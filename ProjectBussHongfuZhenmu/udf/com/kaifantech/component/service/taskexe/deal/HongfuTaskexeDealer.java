@@ -29,7 +29,7 @@ import com.kaifantech.component.service.taskexe.dealer.IHongfuTaskexeDealer;
 import com.kaifantech.component.service.taskexe.detail.info.ITaskexeDetailInfoService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
 import com.kaifantech.component.service.taskexe.watch.HongfuTaskexeWatchDealer;
-import com.kaifantech.init.sys.qualifier.DefaultQualifier;
+import com.kaifantech.init.sys.qualifier.UdfQualifier;
 import com.kaifantech.util.constant.taskexe.TaskexeOpFlag;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
 import com.kaifantech.util.log.AppFileLogger;
@@ -57,7 +57,7 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 	private IAllocStatusService allocService;
 
 	@Autowired
-	@Qualifier(DefaultQualifier.DEFAULT_ALLOC_INFO_SERVICE)
+	@Qualifier(UdfQualifier.DEFAULT_ALLOC_INFO_SERVICE)
 	private IAllocInfoService allocInfoService;
 
 	@Autowired
@@ -67,7 +67,7 @@ public class HongfuTaskexeDealer implements IHongfuTaskexeDealer {
 	private AgvOpWmsDao agvOpWmsDao;
 
 	@Autowired
-	@Qualifier(DefaultQualifier.DEFAULT_IOT_CLIENT_SERVICE)
+	@Qualifier(UdfQualifier.DEFAULT_IOT_CLIENT_SERVICE)
 	private IIotClientService iotClientService;
 
 	@Autowired

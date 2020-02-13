@@ -21,7 +21,7 @@ import com.kaifantech.component.service.lap.LapAgvInfoService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
 import com.kaifantech.init.sys.params.AppAutoParameters;
-import com.kaifantech.init.sys.qualifier.DefaultQualifier;
+import com.kaifantech.init.sys.qualifier.UdfQualifier;
 import com.kaifantech.init.sys.qualifier.HongfuQualifier;
 import com.kaifantech.util.agv.msg.MsgCompare;
 import com.kaifantech.util.socket.iot.client.RoboticArmMsgStr;
@@ -41,7 +41,7 @@ public class AcsAgvMsgInfoModule implements IAgvMsgInfoModule {
 	private LapAgvInfoService lapInfoService;
 
 	@Autowired
-	@Qualifier(DefaultQualifier.DEFAULT_IOT_CLIENT_SERVICE)
+	@Qualifier(UdfQualifier.DEFAULT_IOT_CLIENT_SERVICE)
 	private IIotClientService iotClientService;
 
 	@Autowired

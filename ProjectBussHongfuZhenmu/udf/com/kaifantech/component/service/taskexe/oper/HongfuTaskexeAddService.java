@@ -20,7 +20,7 @@ import com.kaifantech.component.service.taskexe.add.ITaskexeAddService;
 import com.kaifantech.component.service.taskexe.check.ITaskexeCheckService;
 import com.kaifantech.component.service.taskexe.module.HongfuTaskexeModule;
 import com.kaifantech.component.service.taskexe.status.ITaskexeStatusService;
-import com.kaifantech.init.sys.qualifier.DefaultQualifier;
+import com.kaifantech.init.sys.qualifier.UdfQualifier;
 import com.kaifantech.init.sys.qualifier.HongfuQualifier;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;
 import com.kaifantech.util.log.AppFileLogger;
@@ -41,11 +41,11 @@ public class HongfuTaskexeAddService implements ITaskexeAddService {
 	private ITaskexeStatusService taskexeStatusService;
 
 	@Autowired
-	@Qualifier(DefaultQualifier.DEFAULT_TASKEXE_CHECK_SERVICE)
+	@Qualifier(UdfQualifier.DEFAULT_TASKEXE_CHECK_SERVICE)
 	private ITaskexeCheckService taskexeCheckService;
 
 	@Autowired
-	@Qualifier(DefaultQualifier.DEFAULT_ALLOC_INFO_SERVICE)
+	@Qualifier(UdfQualifier.DEFAULT_ALLOC_INFO_SERVICE)
 	private IAllocInfoService allocInfoService;
 
 	@Autowired
