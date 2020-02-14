@@ -18,7 +18,7 @@ import com.kaifantech.bean.wms.sku.SkuInfoBean;
 import com.kaifantech.component.dao.agv.info.AgvInfoDao;
 import com.kaifantech.component.dao.alloc.AllocColumnDao;
 import com.kaifantech.component.dao.alloc.AllocItemDao;
-import com.kaifantech.component.dao.led.LedDevInfoDao;
+import com.kaifantech.component.dao.iot.led.LedDevInfoDao;
 import com.kaifantech.component.dao.singletask.SingletaskInfoDao;
 import com.kaifantech.component.service.alloc.area.IAllocAreaService;
 import com.kaifantech.component.service.lap.LapAgvInfoService;

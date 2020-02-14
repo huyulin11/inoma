@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.kaifantech.component.service.led.LedDevInfoService;
+import com.kaifantech.component.service.iot.led.LedDevInfoService;
 import com.kaifantech.init.sys.SystemInitiator;
 import com.kaifantech.util.seq.ThreadID;
 

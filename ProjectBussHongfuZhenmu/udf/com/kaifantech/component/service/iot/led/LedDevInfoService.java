@@ -1,4 +1,4 @@
-package com.kaifantech.component.service.led;
+package com.kaifantech.component.service.iot.led;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +8,7 @@ import com.kaifantech.bean.wms.alloc.AllocColumnInfoBean;
 import com.kaifantech.bean.wms.alloc.AllocItemInfoBean;
 import com.kaifantech.component.dao.alloc.AllocColumnDao;
 import com.kaifantech.component.dao.alloc.AllocItemDao;
-import com.kaifantech.component.dao.led.LedDevInfoDao;
+import com.kaifantech.component.dao.iot.led.LedDevInfoDao;
 import com.listenvision.led;
 
 @Service

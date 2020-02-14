@@ -1,4 +1,4 @@
-package com.kaifantech.component.service.msg.resolute.agv;
+package com.kaifantech.component.module.msg.agv;
 
 import java.util.List;
 
@@ -14,7 +14,6 @@ import com.kaifantech.bean.iot.client.IotClientBean;
 import com.kaifantech.bean.singletask.SingletaskBean;
 import com.kaifantech.bean.singletask.SingletaskGroupBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
-import com.kaifantech.component.business.msg.resolute.agv.IMsgResoluteModule;
 import com.kaifantech.component.dao.agv.info.AgvInfoDao;
 import com.kaifantech.component.dao.singletask.SingletaskInfoDao;
 import com.kaifantech.component.dao.taskexe.op.TaskexeOpDao;

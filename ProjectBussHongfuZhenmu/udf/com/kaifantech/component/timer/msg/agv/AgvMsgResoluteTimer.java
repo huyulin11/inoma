@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
-import com.kaifantech.component.business.msg.resolute.agv.IMsgResoluteModule;
+import com.kaifantech.component.module.msg.agv.IMsgResoluteModule;
 import com.kaifantech.init.sys.qualifier.UdfQualifier;
 import com.kaifantech.util.seq.ThreadID;
 

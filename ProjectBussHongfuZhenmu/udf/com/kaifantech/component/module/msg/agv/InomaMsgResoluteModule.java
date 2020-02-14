@@ -1,4 +1,4 @@
-package com.kaifantech.component.service.msg.resolute.agv;
+package com.kaifantech.component.module.msg.agv;
 
 import java.util.List;
 
@@ -15,7 +15,6 @@ import com.kaifantech.bean.singletask.SingletaskBean;
 import com.kaifantech.bean.singletask.SingletaskGroupBean;
 import com.kaifantech.bean.taskexe.TaskexeBean;
 import com.kaifantech.bean.wms.alloc.AllocItemInfoBean;
-import com.kaifantech.component.business.msg.resolute.agv.IMsgResoluteModule;
 import com.kaifantech.component.dao.agv.info.AgvInfoDao;
 import com.kaifantech.component.dao.singletask.SingletaskInfoDao;
 import com.kaifantech.component.dao.taskexe.op.TaskexeOpDao;
@@ -30,8 +29,8 @@ import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
 import com.kaifantech.component.service.taskexe.add.ITaskexeAddService;
 import com.kaifantech.component.service.taskexe.info.TaskexeInfoService;
 import com.kaifantech.component.service.taskexe.status.ITaskexeStatusService;
-import com.kaifantech.init.sys.qualifier.UdfQualifier;
 import com.kaifantech.init.sys.qualifier.HongfuQualifier;
+import com.kaifantech.init.sys.qualifier.UdfQualifier;
 import com.kaifantech.util.constant.taskexe.TaskexeOpFlag;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvMoveStatus;
 import com.kaifantech.util.constant.taskexe.ctrl.AgvTaskType;

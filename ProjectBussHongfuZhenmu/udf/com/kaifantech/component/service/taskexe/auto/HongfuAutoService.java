@@ -19,7 +19,7 @@ import com.kaifantech.bean.wms.alloc.AllocItemInfoBean;
 import com.kaifantech.bean.wms.sku.SkuInfoBean;
 import com.kaifantech.component.dao.agv.info.AgvInfoDao;
 import com.kaifantech.component.dao.alloc.AllocItemDao;
-import com.kaifantech.component.dao.iot.client.IotClientMsgDao;
+import com.kaifantech.component.dao.iot.client.IotMsgDao;
 import com.kaifantech.component.service.alloc.column.IAllocColumnService;
 import com.kaifantech.component.service.lap.LapAgvInfoService;
 import com.kaifantech.component.service.singletask.info.SingleTaskInfoService;
@@ -55,7 +55,7 @@ public class HongfuAutoService implements IAutoService {
 	private SkuInfoService skuInfoService;
 
 	@Autowired
-	private IotClientMsgDao connectMsgRoboticArmDao;
+	private IotMsgDao msgDao;
 
 	@Autowired
 	@Qualifier(UdfQualifier.DEFAULT_AGV_INFO_DAO)
@@ -152,7 +152,7 @@ public class HongfuAutoService implements IAutoService {
 					AppMsg msg = taskexeService.addTask(
 							new TaskexeBean(singletask.getId(), bean.getId(), agvId, lapId, currentSkuId, autoflag));
 					if (msg != null && msg.getCode() >= 0) {
-						connectMsgRoboticArmDao.addAReceiveMsg("执行自动任务", lapId);
+						msgDao.addAReceiveMsg("执行自动任务", lapId);
 						return msg;
 					}
 				}

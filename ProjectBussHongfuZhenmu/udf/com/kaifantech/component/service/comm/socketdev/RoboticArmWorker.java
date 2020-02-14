@@ -12,14 +12,13 @@ import org.springframework.stereotype.Service;
 
 import com.calculatedfun.util.AppTool;
 import com.kaifantech.bean.iot.client.IotClientBean;
-import com.kaifantech.component.dao.acs.IotClientConnectMsgDao;
 import com.kaifantech.component.log.AgvStatusDBLogger;
 import com.kaifantech.component.service.iot.client.IIotClientService;
 import com.kaifantech.component.service.iot.client.msg.IotClientMsgService;
 import com.kaifantech.component.service.lap.LapAgvInfoService;
 import com.kaifantech.component.service.taskexe.auto.IAutoService;
-import com.kaifantech.init.sys.UdfBusinessInfo;
 import com.kaifantech.init.sys.BaseBusinessInfo;
+import com.kaifantech.init.sys.UdfBusinessInfo;
 import com.kaifantech.init.sys.params.AppAutoParameters;
 import com.kaifantech.util.constant.taskexe.ctrl.IotDevType;
 import com.kaifantech.util.socket.IConnect;
@@ -35,9 +34,6 @@ public class RoboticArmWorker {
 
 	@Autowired
 	private IotClientMsgService msgService;
-
-	@Autowired
-	private IotClientConnectMsgDao connectMsgDao;
 
 	@Autowired
 	private LapAgvInfoService lapInfoService;
@@ -105,7 +101,6 @@ public class RoboticArmWorker {
 		if (!AppTool.isNullStr(msg)) {
 			ThreadTool.getThreadPool().execute(new Runnable() {
 				public void run() {
-					connectMsgDao.addAReceiveMsg(msg, keyId);
 					msgService.setLatestMsg();
 				}
 			});
