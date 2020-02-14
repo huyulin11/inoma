@@ -21,7 +21,7 @@ import com.kaifantech.init.sys.BaseBusinessInfo;
 import com.kaifantech.init.sys.UdfBusinessInfo;
 import com.kaifantech.init.sys.params.AppAutoParameters;
 import com.kaifantech.util.constant.taskexe.ctrl.IotDevType;
-import com.kaifantech.util.socket.IConnect;
+import com.kaifantech.util.socket.base.IConnect;
 import com.kaifantech.util.socket.netty.client.hongfu.HongfuClientFactory;
 import com.kaifantech.util.thread.ThreadTool;
 
